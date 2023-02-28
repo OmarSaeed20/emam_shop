@@ -31,7 +31,7 @@ class BtnWidget extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 4),
+            borderRadius: BorderRadius.circular(radius ?? 10),
           ),
           elevation: 0.0,
           shadowColor: AppColors.trans,
@@ -61,10 +61,17 @@ class BtnWidget extends StatelessWidget {
             : TextWidget(
                 text,
                 color: color ?? AppColors.white,
-                fontWeight: FontWeight.w600,
+                // fontWeight: FontWeight.w600,
                 fontSize: fontSize ?? getProportionateScreenWidth(16),
               ),
       ),
     );
   }
 }
+
+Widget textBtn(String? text, {void Function()? onTap}) => TextButton(
+    onPressed: onTap,
+    child: TextWidget(
+      text!,
+      fontWeight: FontWeight.w700,
+    ));
