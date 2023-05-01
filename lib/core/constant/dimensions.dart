@@ -9,11 +9,10 @@ class Dimensions {
   /// 1. Find screenHeight And screenWidth by MediaQuery
   /// 2. لما نحسب الطول و العرض الخاص بالشاشة نبدا نحسب الابعاد ال انا محتاجها مثال
   /// 3. لو عاوز طول معين نبدا نحسب من خلال طول الشاشة كلها علي الطول اللي انا محتاجه وكذلك العرض
-
 }
 
 // Get the proportionate height as per screen size
-double getProportScrHeight(double inputHeight) {
+double getProportionateScreenHeight(double inputHeight) {
   double screenHeight = Dimensions.screenHeight;
   // 810 is the layout height that designer use
   return (inputHeight / 810.0) * screenHeight;

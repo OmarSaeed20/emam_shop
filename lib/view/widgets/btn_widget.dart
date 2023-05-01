@@ -12,58 +12,66 @@ class BtnWidget extends StatelessWidget {
     this.width,
     this.radius,
     this.isAnimation = false,
+    this.border,
+    this.isLoading = false,
   }) : super(key: key);
   final String text;
-
   final VoidCallback onPressed;
   final Color? backgroundColor;
+  final BorderSide? border;
   final Color? color;
   final double? fontSize;
   final double? height;
   final double? width;
   final double? radius;
+  final bool isLoading;
   final bool? isAnimation;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? getProportScrHeight(45),
+      height: getProportionateScreenHeight(height ?? 44),
       width: width ?? Dimensions.screenWidth,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 4),
+            borderRadius: BorderRadius.circular(radius ?? 10.weight),
           ),
           elevation: 0.0,
           shadowColor: AppColors.trans,
-          backgroundColor: backgroundColor ?? AppColors.primaryColor,
+          backgroundColor: backgroundColor ?? AppColors.primary,
+          side: border,
         ),
         onPressed: onPressed,
         child: isAnimation == true
-            ? TextWidget(
-                text,
-                color: color ?? AppColors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: fontSize ?? getProportionateScreenWidth(16),
-              )
-            //   .animate()
-            //   .fadeIn(curve: Curves.easeInCirc)
-            //   .scaleY()
-            //   .shimmer(delay: 300.ms, colors: <Color>[
-            //   AppColors.white,
-            //   const Color(0xff5b0060),
-            //   const Color(0xff870160),
-            //   const Color(0xffac255e),
-            //   const Color(0xffca485c),
-            //   const Color(0xffe16b5c),
-            //   const Color(0xfff39060),
-            //   const Color(0xffffb56b),
-            // ])
-            : TextWidget(
-                text,
-                color: color ?? AppColors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: fontSize ?? getProportionateScreenWidth(16),
-              ),
+            ? isLoading
+                ? const Center(child: LoadingWidget())
+                : TextWidget(
+                    text,
+                    color: color ?? AppColors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: getProportionateScreenWidth(fontSize ?? 16),
+                  )
+            /*   .animate()
+              .fadeIn(curve: Curves.easeInCirc)
+              .scaleY()
+              .shimmer(delay: 300.ms, colors: <Color>[
+              AppColors.white,
+              const Color(0xff5b0060),
+              const Color(0xff870160),
+              const Color(0xffac255e),
+              const Color(0xffca485c),
+              const Color(0xffe16b5c),
+              const Color(0xfff39060),
+              const Color(0xffffb56b),
+            ]) */
+            : isLoading
+                ? const Center(child: LoadingWidget())
+                : TextWidget(
+                    text,
+                    color: color ?? AppColors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: fontSize ?? getProportionateScreenWidth(16),
+                  ),
       ),
     );
   }

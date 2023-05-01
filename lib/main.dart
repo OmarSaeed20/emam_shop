@@ -21,14 +21,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      translations: MyLocale(),
       theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.offWhite,
-
-          // fontFamily: 'OpenSans',
-          colorScheme: const ColorScheme.highContrastLight(
-              primary: AppColors.primaryColor,
-              secondary: AppColors.secondaryColor)),
-      home: const OnBoardingScreen(),
+        scaffoldBackgroundColor: AppColors.offWhite,
+        fontFamily: 'OpenSans',
+        primaryColor: AppColors.primary,
+        // colorScheme: const ColorScheme.highContrastLight(
+        //   primary: Colors.blue,
+        //   // secondary: AppColors.secondaryColor,
+        // )
+      ),
+      initialRoute: RouteHelper.getInitial(),
+      getPages: RouteHelper.routes,
     );
   }
 }
+// Nuget.exe not found, trying to download or use cached version.

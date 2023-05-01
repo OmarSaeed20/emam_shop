@@ -1,16 +1,46 @@
-import 'package:ecommerce/index.dart';
+class OnBoardingModel {
+  final String? title;
+  final String? supTitle;
+  final String? image;
+  const OnBoardingModel({this.title, this.supTitle, this.image});
+  OnBoardingModel copyWith({String? title, String? supTitle, String? image}) {
+    return OnBoardingModel(
+        title: title ?? this.title,
+        supTitle: supTitle ?? this.supTitle,
+        image: image ?? this.image);
+  }
 
-class OnBoardingModel extends Equatable {
-  final String title;
-  final String image;
-  final String supTitle;
+  Map<String, Object?> toJson() {
+    return {'title': title, 'supTitle': supTitle, 'image': image};
+  }
 
-  const OnBoardingModel({
-    required this.title,
-    required this.image,
-    required this.supTitle,
-  });
+  static OnBoardingModel fromJson(Map<String, Object?> json) {
+    return OnBoardingModel(
+        title: json['title'] == null ? null : json['title'] as String,
+        supTitle: json['supTitle'] == null ? null : json['supTitle'] as String,
+        image: json['image'] == null ? null : json['image'] as String);
+  }
 
   @override
-  List<Object?> get props => [title, image, supTitle];
+  String toString() {
+    return '''OnBoardingModel(
+                title:$title,
+supTitle:$supTitle,
+image:$image
+    ) ''';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OnBoardingModel &&
+        other.runtimeType == runtimeType &&
+        other.title == title &&
+        other.supTitle == supTitle &&
+        other.image == image;
+  }
+
+  @override
+  int get hashCode {
+    return Object.hash(runtimeType, title, supTitle, image);
+  }
 }
