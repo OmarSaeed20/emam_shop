@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:flutter_animate/flutter_animate.dart';
+
 import '/index.dart';
 
 class OnBoardingContoller extends GetxController {
@@ -15,8 +17,10 @@ class OnBoardingContoller extends GetxController {
 
   diallog() {
     Get.defaultDialog(
-        title: "Language",
-        middleText: AppStrings.choseLang,
+        title: AppStrings.lang.tr,
+        titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.weight),
+        middleText: AppStrings.choseLang.tr,
+        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 18.weight),
         barrierDismissible: false,
         actions: [const ChooseLang()]);
   }
@@ -31,11 +35,8 @@ class OnBoardingContoller extends GetxController {
       log(AutofillHints.birthday);
       skip();
     } else {
-      pageController!.animateToPage(
-        currentPage,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.linear,
-      );
+      pageController!
+          .animateToPage(currentPage, duration: 600.ms, curve: Curves.linear);
     }
 
     update();
@@ -47,6 +48,7 @@ class OnBoardingContoller extends GetxController {
   }
 
   skip() {
+    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
     Get.offAllNamed(RouteHelper.getWellcom());
   }
 }

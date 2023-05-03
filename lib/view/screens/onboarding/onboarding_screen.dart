@@ -7,7 +7,7 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var listOnBoa = Static.onBoardingList;
     return Scaffold(
-      backgroundColor: AppColors.offWhite,
+      // backgroundColor: AppColors.offWhite,
       body: SafeArea(
         child: GetBuilder<OnBoardingContoller>(
             builder: (controller) => Stack(
@@ -25,22 +25,25 @@ class OnBoardingScreen extends StatelessWidget {
                     ),
                     Positioned(
                         bottom: 0,
-                        right: getProportionateScreenWidth(16),
-                        left: getProportionateScreenWidth(16),
+                        right: 16.weight,
+                        left: 16.weight,
                         child: Column(
                           children: [
                             _animatContainer(controller),
                             35.sH,
                             BtnWidget(
+                              fontSize: 18.weight,
+                              height: 50.height,
                               controller.currentPage != listOnBoa.length - 1
                                   ? AppStrings.coontinue.tr
-                                  : 'Get Strat',
+                                  : AppStrings.getSta.tr,
                               onPressed: () => controller.next(),
                             ),
                             TextButton(
-                              child: const TextWidget('Skip'),
+                              child: TextWidget(AppStrings.skip.tr),
                               onPressed: () => controller.skip(),
                             ),
+                            15.sH
                           ],
                         )),
                   ],

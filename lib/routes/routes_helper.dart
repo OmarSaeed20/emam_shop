@@ -1,3 +1,5 @@
+import 'package:ecommerce/core/middleware/route_welcome_middleware.dart';
+
 import '/index.dart';
 
 class RouteHelper {
@@ -8,7 +10,7 @@ class RouteHelper {
   static const String _phoneNumber = '/_phone_number';
   static const String _forgetPass = '/_forget_pass';
   static const String _setOtp = '/set_otp';
-  static const String _setNewPassword = '/set_new_password';
+  static const String _resetPassword = '/set_new_password';
   static const String _register = '/register';
   static const String _verification = '/verification';
   static const String _main = '/main';
@@ -38,9 +40,9 @@ class RouteHelper {
   static String getPhoneNumber() => _phoneNumber;
   static String getForgetPass() => _forgetPass;
   static String getSetOTPScre() => _setOtp;
-  static String getSetPassword() => _setNewPassword;
+  static String getResetPassword() => _resetPassword;
   static String getRegister() => _register;
-  static String getVerification() => _verification;
+  static String getVerification(controller) => _verification;
   static String getMain() => _main;
   static String getNotificationsScreen() => _notification;
   static String getEditProfile() => _editProfile;
@@ -71,6 +73,7 @@ class RouteHelper {
       name: initial,
       page: () => const SplashScreen(),
       transition: Transition.fadeIn,
+      // middlewares: [RouteWelcomeMiddleware()],
     ),
     GetPage(
       name: _onboarding,
@@ -101,19 +104,20 @@ class RouteHelper {
       page: () => const ForgetPasswordScreen(),
       transition: Transition.native,
     ),
-    GetPage(
-        name: _verification,
-        page: () => const VerificationCodeScreen(),
+        GetPage(
+        name: _resetPassword,
+        page: () => const ResetPasswordScreen(),
         transition: Transition.native),
+
+    /* GetPage(
+        name: _verification,
+        page: () => const VerificationCodeScreen(controller: ,),
+        transition: Transition.native), */
 
     /* 
     GetPage(
         name: _setOtp,
         page: () => const SetOTPScre(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _setNewPassword,
-        page: () => const SetPasswordScreen(),
         transition: Transition.fadeIn),
     GetPage(
         name: _main,

@@ -3,7 +3,8 @@ import '/index.dart';
 abstract class PhoneController extends GetxController {
   void isCheckFeilds(bool val);
   void onChangedSignWithPhone();
-  void onTappedSignWithphone();
+  void onTappedSignWithphone(controller);
+  void onTappedVerifyCode(val);
 }
 
 class PhoneControllerImp extends PhoneController {
@@ -35,10 +36,20 @@ class PhoneControllerImp extends PhoneController {
   }
 
   @override
-  void onTappedSignWithphone() {
+  void onTappedSignWithphone(controller) {
     String phone = _phone.text;
+    Get.to(
+      () => VerificationCodeScreen(controller: controller),
+      arguments: phone,
+    );
+    // Get.toNamed(RouteHelper.getVerification(), arguments: phone);
+  }
 
-    Get.toNamed(RouteHelper.getVerification(), arguments: phone);
+  @override
+  void onTappedVerifyCode(val) {
+    // _isLoading = true;
+
+    update();
   }
 
   @override

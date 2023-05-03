@@ -4,6 +4,35 @@ class MyLocale implements Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          // onBoarding
+          "chooseProduct": "اختر المنتج",
+          "chooseProductSup": "لدينا أكثر من 100 ألف منتج. اختر منتجك من متجرنا للتجارة الإلكترونية",
+          "easy&SafePayment": "دفع سهل وآمن",
+          "easy&SafePaymentSup": "طريقة دفع سهلة وآمنة. موثوق به من قبل عملائنا من جميع أنحاء العالم.",
+          "trackYourOrder": "تتبع طلباتك",
+          "trackYourOrderSup": "تم استخدام أفضل أداة تعقب لتتبع طلبك. ستعرف مكان وجودك في الوقت الحالي",
+          "fastDelivery": "توصيل سريع",
+          "fastDeliverySup": "موثوقة وسرعة التسليم. نقوم بتسليم منتجك بأسرع طريقة ممكنة.",
+          "skip": "تخطى",
+          "continu": "استمر",
+          "getSta": "البدأ",
+          // Language
+          "lang": "اللغة",
+          "choseLang": "اختر لغتك",
+          "arabic": "العربية",
+          "english": "الاجنبية",
+          // welcome
+          "google": "جوجل",
+          "facebock": "فيسبوك",
+          "apple": "ابل",
+          "or": "أو",
+          "conWiPHo": "التسجيل برقم الهاتف",
+          "conToSigin": "تسجيل الدخول",
+          "signWith": "التسجيل ب",
+          "phone": "رقم الهاتف",
+          "signUpHe": "انشاء حساب",
+          "back": "رجوع",
+
           "welcomBack": "مرحباً بك",
           "login": "تسجيل الدخول",
           "email": "user669@gmail.com",
@@ -12,12 +41,11 @@ class MyLocale implements Translations {
           "forgetPasswordInf": " خطوتان لاستعادة كلمة المرور الخاصة بك",
           "dontHaveAcc": "لا املك حساب ؟",
           "createAcc": "تسجيل حساب",
-          "arabic": "العربية",
+
           
           "hello": "مرحبا",
           "signUp": "تسجيل حساب",
           "userName": "اسم المستخدم",
-          "phone": "رقم الهاتف",
           "confirmPassword": "تأكيد كلمة المرور",
           "alreadyHave": "املك حساب ؟",
           
@@ -89,7 +117,6 @@ class MyLocale implements Translations {
           "getNearestLoca": "احصل على أقرب موقع لك",
 
           "getDirection": "احصل على اتجاه",
-          "continu": "استمر",
           "qrInfo": "إعادة التدوير أصبحت سهلة! امسح رمز الاستجابة السريعة الموجود على شاشة اللمس الخاصة بالجهاز لإعادة تدوير النفايات الصلبة",
           
           "channels": "القنوات",
@@ -109,7 +136,6 @@ class MyLocale implements Translations {
           "onBoardTit3": "استبدل مكافآتك.",
           "onBoardSup3": "استبدل نقاطك بخصومات ومكافآت حصرية من شركائنا.",
           
-          "skip": "تخطى",
 
           "sendfedBa": "ارسل رأيك",
           "editProf": "تعديل الملف الشخصي",
@@ -154,6 +180,35 @@ class MyLocale implements Translations {
 
         },
         "en": {
+            // onBoarding
+          "chooseProduct": "Choose Product",
+          "chooseProductSup": "We Have a 100k+ Products. Choose Your Product From Our E-commerce shop",
+          "easy&SafePayment": "Easy&Safe Payment",
+          "easy&SafePaymentSup": "Easy Checkout & Safe Paynent method. Trusted by our Custoners from all over the worid.",
+          "trackYourOrder": "track Your Order",
+          "trackYourOrderSup": "Best Tracker has been used For Tracking orders.\n Youll know where your product is at the moment",
+          "fastDelivery": "Fast Delivery",
+          "fastDeliverySup": "Reliable And Fast Delivery. We Deliver your product the fastest way possible.",
+          "skip": "Skip",
+          "continu": "Continue",
+          "getSta": "Get Strat",
+          // Language
+          "lang": "Language",
+          "choseLang": "Choose  Your Language",
+          "arabic": "ARABIC",
+          "english": "English",
+          // welcome
+          "google": "Google",
+          "facebock": "Facebock",
+          "apple": "Apple",
+          "or": "OR",
+          "conWiPHo": "Continue With Phone Number",
+          "conToSigin": "Continue to Sign in",
+          "signWith": "Sign With",
+          "phone": "Phone Number",
+          "signUpHe": "Sign up here",
+          "back": "Back",
+
           "welcomBack": "Welcome Back",
           "login": "Login",
           "email": "user669@gmail.com",
@@ -162,16 +217,15 @@ class MyLocale implements Translations {
           "forgetPasswordInf": "2 steps To reccover your password",
           "dontHaveAcc": "Don't have an accont?",
           "createAcc": "Create Account",
-          "arabic": "ARABIC",
+
 
           "hello": "Hello",
           "signUp": "Sign up",
           "userName": "User Name",
-          "phone": "Phone Number",
           "confirmPassword": "Confirm Password",
           "alreadyHave": "Already have an accont ?",          
 
-          "verificationCode": "Verify code",          
+          "verificationCode": "verification OTP Code",          
           "otpsent": "The OTP has been sent to you ",          
           "confirm": "Confirm",          
           "resendCode": "Resend code",
@@ -240,7 +294,7 @@ We request your location to connect you with the nearest vending or recycling ma
          "getNearestLoca": "Get your nearest Location",
 
          "getDirection": "Get Direction",
-         "continu": "Continue",
+
          "qrInfo": "Recycling is made easy! Scan the QR code on the Machine's touchscreen to recycle your Solid Waste",
           
           "channels": "Channels",
@@ -261,7 +315,6 @@ We request your location to connect you with the nearest vending or recycling ma
           "onBoardTit3": "Redeem your rewards.",
           "onBoardSup3": "Exchange your points for exclusive discounts and rewards from our partners .",
           
-          "skip": "Skip",
 
           "sendfedBa": "Send Feedback",
           "editProf": "Edit Profile",
