@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ecommerce/core/theme/app_theme.dart';
+
 import '/index.dart';
 
 abstract class LocaleController extends GetxController {
@@ -13,16 +15,17 @@ class MyLocaleControllerImp extends LocaleController {
   Locale? _locale;
   Locale? get locale => _locale;
 
-  // ThemeData _themeData = themeEn;
-  // ThemeData get themeData => _themeData;
+  ThemeData _themeData = themeEN;
+  ThemeData get themeData => _themeData;
 
   @override
   void onChangeLang(String languageCode) {
     _locale = Locale(languageCode);
     DatabaseHelper.to.setString(EndPoint.lang, languageCode);
-    // _themeData = languageCode == 'ar' ? themeAr : themeEn;
+    _themeData = languageCode == EndPoint.arCode ? themeAR : themeEN;
     DatabaseHelper.to.setBool(EndPoint.onboarding, true);
     Get.back();
+    Get.changeTheme(_themeData);
     Get.updateLocale(_locale!);
     update();
   }
@@ -30,8 +33,7 @@ class MyLocaleControllerImp extends LocaleController {
   @override
   void updateLocale(Locale locale) {
     Get.updateLocale(locale);
-    // Get.changeTheme(_themeData);
-    // Get.offNamedUntil(RouteHelper.getOnboarding(), (route) => false);
+    Get.changeTheme(_themeData);
     DatabaseHelper.to.setBool(EndPoint.onboarding, true);
     Get.back();
     update();
@@ -42,12 +44,14 @@ class MyLocaleControllerImp extends LocaleController {
     String? langCode = DatabaseHelper.to.getString(EndPoint.lang);
     if (langCode == EndPoint.arCode) {
       _locale = const Locale(EndPoint.arCode);
-      // _themeData = themeAr;
+      _themeData = themeAR;
     } else if (langCode == EndPoint.enCode) {
       _locale = const Locale(EndPoint.enCode);
-      // _themeData = themeEn;
+      _themeData = themeEN;
     } else {
       _locale = Locale(Get.deviceLocale!.languageCode);
+      _themeData = themeEN;
+
     }
   }
 

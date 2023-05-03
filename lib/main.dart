@@ -22,16 +22,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: MyLocale(),
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.white,
-        useMaterial3: true,
-        fontFamily: 'OpenSans',
-        primaryColor: AppColors.primary,
-        // colorScheme: const ColorScheme.highContrastLight(
-        //   primary: Colors.blue,
-        //   // secondary: AppColors.secondaryColor,
-        // )
-      ),
+      theme: MyLocaleControllerImp.to.themeData,
       locale: MyLocaleControllerImp.to.locale,
       initialRoute: RouteHelper.getInitial(),
       getPages: RouteHelper.routes,

@@ -8,6 +8,9 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: GetBuilder<ForgetPasswordControllerImp>(
+        builder: (controller) => _bottomNavigationBar(controller),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -15,13 +18,14 @@ class ResetPasswordScreen extends StatelessWidget {
               Positioned(
                 top: 10.height,
                 left: 15.weight,
-                child: IconAndTextBack(onTap: () => Get.back()),
+                child: IconAndTextBack(
+                  onTap: () => Get.toNamed(RouteHelper.getForgetPass()),
+                ),
               ),
               GetBuilder<ForgetPasswordControllerImp>(
                 builder: (controller) {
                   return Container(
                       padding: paddingSymme(horizontal: 25),
-                      height: Dimensions.screenHeight - 40,
                       width: double.infinity,
                       child: Column(
                         children: [
@@ -35,28 +39,6 @@ class ResetPasswordScreen extends StatelessWidget {
                           20.sH,
                           TextFormResetBody(controller: controller),
                           20.sH,
-                          const Spacer(),
-                          AbsorbPointer(
-                            absorbing: controller.isEmptyFeild,
-                            child: BtnWidget(
-                              "Save".tr,
-                              fontSize: 18.weight,
-                              height: 50.height,
-                              backgroundColor: controller.isEmptyFeild
-                                  ? AppColors.grey.withOpacity(0.6)
-                                  : AppColors.primary,
-                              isLoading: controller.isLoading,
-                              onPressed: () => controller.onTappedResetPass(),
-                            ),
-                          ),
-                          30.sH,
-                          /* SignHere(
-                            AppStrings.dontHaACC.tr,
-                            text2: AppStrings.signUpHe.tr,
-                            onTap: () =>
-                                Get.offNamed(RouteHelper.getRegister()),
-                          ), */
-                          20.sH,
                         ],
                       ));
                 },
@@ -69,54 +51,26 @@ class ResetPasswordScreen extends StatelessWidget {
   }
 }
 
-/* import 'package:flutter/cupertino.dart';
-
-import '/index.dart';
- */
-class TextFormResetBody extends StatelessWidget {
-  const TextFormResetBody({super.key, required this.controller});
-  final ForgetPasswordControllerImp controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      onChanged: () => controller.onChangedResetPass(),
+_bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 30),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          TextInputWidget(
-            AppStrings.password.tr,
-            prefixIcon: Icons.lock_person_outlined,
-            type: TextInputType.visiblePassword,
-            suffixIcon: controller.suffixIcon,
-            controller: controller.password,
-            suffixIconColor: !controller.isPassword
-                ? AppColors.awsmMedium
-                : AppColors.primary.withOpacity(.5),
-            isPassword: controller.isPassword,
-            onPressed: controller.hiddenPassword,
-            validator: (val) => GetUtils.isLengthGreaterThan(val, 7)
-                ? null
-                : 'The password field is required.',
+          AbsorbPointer(
+            absorbing: controller.isEmptyFeild,
+            child: BtnWidget(
+              "Save".tr,
+              fontSize: 18.weight,
+              width: double.infinity,
+              height: 50.height,
+              backgroundColor: controller.isEmptyFeild
+                  ? AppColors.grey.withOpacity(0.6)
+                  : AppColors.primary,
+              isLoading: controller.isLoading,
+              onPressed: () => controller.onTappedResetPass(),
+            ),
           ),
-          10.sH,
-          TextInputWidget(
-            "Confairm Password".tr,
-            prefixIcon: Icons.lock_person_outlined,
-            type: TextInputType.visiblePassword,
-            controller: controller.passwordRe,
-            suffixIconColor: !controller.isPasswordRe
-                ? AppColors.awsmMedium
-                : AppColors.primary.withOpacity(0.5),
-            suffixIcon: controller.suffixIconRe,
-            isPassword: controller.isPasswordRe,
-            onPressed: () => controller.hiddenPasswordRe(),
-            validator: (val) =>
-                controller.password.text == controller.passwordRe.text
-                    ? null
-                    : 'confiairm password must equal password',
-          ),
+          50.sH,
         ],
       ),
     );
-  }
-}

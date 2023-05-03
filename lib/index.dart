@@ -64,9 +64,10 @@ export 'view/screens/auth/widget/icon_and_text_back.dart';
 export 'view/screens/auth/phone/widget/sign_phone_body.dart';
 export 'view/screens/auth/widget/auth_logo_and_name.dart';
 export 'view/screens/auth/widget/auth_title.dart';
-export 'view/screens/auth/forget_password/widget/text_form_body.dart';
+export 'view/screens/auth/forget_password/widget/text_form_forg_pass_body.dart';
 export 'view/screens/auth/verification/widget/pain_code_widget.dart';
 export 'view/screens/auth/widget/screen_pick.dart';
+export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart';
 
 // core
 export 'core/constant/static.dart';

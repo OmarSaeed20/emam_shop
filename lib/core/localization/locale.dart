@@ -186,7 +186,7 @@ class MyLocale implements Translations {
           "easy&SafePayment": "Easy&Safe Payment",
           "easy&SafePaymentSup": "Easy Checkout & Safe Paynent method. Trusted by our Custoners from all over the worid.",
           "trackYourOrder": "track Your Order",
-          "trackYourOrderSup": "Best Tracker has beon Wsed For Track your order. Youll know where your prOduct is at the moment",
+          "trackYourOrderSup": "Best Tracker has been used For Tracking orders.\n Youll know where your product is at the moment",
           "fastDelivery": "Fast Delivery",
           "fastDeliverySup": "Reliable And Fast Delivery. We Deliver your product the fastest way possible.",
           "skip": "Skip",

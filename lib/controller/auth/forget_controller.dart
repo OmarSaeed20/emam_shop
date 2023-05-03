@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../view/widgets/snack_bar.dart';
 import '/index.dart';
 
 abstract class ForgetPasswordController extends GetxController {
@@ -17,11 +18,17 @@ abstract class ForgetPasswordController extends GetxController {
 class ForgetPasswordControllerImp extends ForgetPasswordController {
   ForgetPasswordControllerImp get to => Get.find();
 
+  @override
+  void onInit() {
+    _email = TextEditingController();
+    super.onInit();
+  }
+
   // loading
   final bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  final TextEditingController _email = TextEditingController();
+  TextEditingController _email = TextEditingController();
   TextEditingController get email => _email;
   final TextEditingController _password = TextEditingController();
   TextEditingController get password => _password;
@@ -88,18 +95,22 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
 
   @override
   void dispose() {
-    _email.clear();
-    _password.clear();
+    email.dispose();
+    password.dispose();
+    passwordRe.dispose();
     super.dispose();
   }
 
   @override
   void onTappedVerifyCode(val) {
     // _isLoading = true;
-    Get.toNamed(RouteHelper.getResetPassword());
+    Get.offAndToNamed(RouteHelper.getResetPassword());
     update();
   }
 
   @override
-  void onTappedResetPass() {}
+  void onTappedResetPass() {
+    // snackBarMessage("Chick your Internet");
+    snackBarSuccess();
+  }
 }

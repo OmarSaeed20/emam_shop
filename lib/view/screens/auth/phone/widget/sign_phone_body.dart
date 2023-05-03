@@ -13,8 +13,8 @@ class TextFormSignPhoneBody extends StatelessWidget {
       child: Column(
         children: [
           TextInputWidget(
-            AppStrings.phone.tr,
-            prefixIcon: Icons.phone,
+            "phone",
+            prefixIcon: Icons.local_phone_sharp,
             type: TextInputType.phone,
             suffixIconColor: controller.isEmptyFeild != true
                 ? Colors.green.shade600
