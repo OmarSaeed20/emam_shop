@@ -23,8 +23,8 @@ class LoginScreen extends StatelessWidget {
                       width: double.infinity,
                       child: Column(
                         children: [
-                          30.sH,
-                          const AuthLogoWidegt(),
+                          40.sH,
+                          const AuthLogoWidegt(title: "Sign in"),
                           40.sH,
                           authTitle(AppStrings.welcomeBack.tr),
                           20.sH,
@@ -38,7 +38,8 @@ class LoginScreen extends StatelessWidget {
                               child: TextWidget(
                                 AppStrings.forgetPass.tr,
                                 fontSize: 14,
-                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.awsmMedium,
                                 decoration: TextDecoration.underline,
                               ),
                             ),

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '/index.dart';
 
 class PhoneScreen extends StatelessWidget {
@@ -23,11 +25,14 @@ class PhoneScreen extends StatelessWidget {
                       width: double.infinity,
                       child: Column(
                         children: [
-                          30.sH,
-                          const AuthLogoWidegt(),
+                          40.sH,
+                          screenPick(
+                            icon: CupertinoIcons.phone,
+                            text: AppStrings.phoneNum.tr,
+                          ),
                           40.sH,
                           authTitle(
-                            "${AppStrings.signWith.tr} ${AppStrings.phone.tr}",
+                            "set your ${AppStrings.phone.tr} !",
                           ),
                           20.sH,
                           TextFormSignPhoneBody(controller: controller),
@@ -44,7 +49,7 @@ class PhoneScreen extends StatelessWidget {
                                   : AppColors.primary,
                               isLoading: controller.isLoading,
                               onPressed: () =>
-                                  controller.onTappedSignWithphone(),
+                                  controller.onTappedSignWithphone(controller),
                             ),
                           ),
                           30.sH,

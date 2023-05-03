@@ -21,7 +21,7 @@ class OnBoardingBody extends StatelessWidget {
             TextWidget(
               list.supTitle!,
               textAlign: TextAlign.center,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
             ),
             160.sH,
           ],

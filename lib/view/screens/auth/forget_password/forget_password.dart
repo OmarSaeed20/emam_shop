@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '/index.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -24,9 +26,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           30.sH,
-                          const AuthLogoWidegt(),
+                          screenPick(
+                            icon: CupertinoIcons.exclamationmark_triangle,
+                            text: "${AppStrings.forgetPass.tr} !",
+                          ),
                           40.sH,
-                          authTitle("Reset Password !"),
+                          authTitle("set your email"),
                           20.sH,
                           TextFormForgetPassBody(controller: controller),
                           20.sH,
@@ -41,7 +46,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                                   ? AppColors.grey.withOpacity(0.6)
                                   : AppColors.primary,
                               isLoading: controller.isLoading,
-                              onPressed: () => controller.onTappedForgetPass(),
+                              onPressed: () =>
+                                  controller.onTappedForgetPass(controller),
                             ),
                           ),
                           30.sH,

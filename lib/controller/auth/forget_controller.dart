@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
+
 import '/index.dart';
 
 abstract class ForgetPasswordController extends GetxController {
   void isCheckFeilds(bool val);
   void onChangedForgetPass();
-  void onTappedForgetPass();
+  void onChangedResetPass();
+
+  void onTappedForgetPass(controller);
+  void onTappedResetPass();
+  void onTappedVerifyCode(val);
+  void hiddenPassword();
+  void hiddenPasswordRe();
 }
 
 class ForgetPasswordControllerImp extends ForgetPasswordController {
@@ -15,6 +23,35 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
 
   final TextEditingController _email = TextEditingController();
   TextEditingController get email => _email;
+  final TextEditingController _password = TextEditingController();
+  TextEditingController get password => _password;
+  final TextEditingController _rePassword = TextEditingController();
+  TextEditingController get passwordRe => _rePassword;
+
+  // hide password
+  bool _isPassword = true;
+  bool get isPassword => _isPassword;
+  IconData suffixIcon = CupertinoIcons.eye;
+
+  @override
+  void hiddenPassword() {
+    _isPassword = !_isPassword;
+    suffixIcon = _isPassword ? CupertinoIcons.eye : CupertinoIcons.eye_slash;
+    update();
+  }
+
+  // hide password
+  bool _isPasswordRe = true;
+  bool get isPasswordRe => _isPasswordRe;
+  IconData suffixIconRe = CupertinoIcons.eye;
+
+  @override
+  void hiddenPasswordRe() {
+    _isPasswordRe = !_isPasswordRe;
+    suffixIconRe =
+        _isPasswordRe ? CupertinoIcons.eye : CupertinoIcons.eye_slash;
+    update();
+  }
 
   // check all feilds valid or not valid
   bool _isEmptyFeild = true;
@@ -34,11 +71,35 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   }
 
   @override
-  void onTappedForgetPass() {}
+  void onChangedResetPass() {
+    password.text == passwordRe.text
+        ? isCheckFeilds(false)
+        : isCheckFeilds(true);
+  }
+
+  @override
+  void onTappedForgetPass(controller) {
+    final String email = _email.text;
+    Get.to(
+      () => VerificationCodeScreen(controller: controller),
+      arguments: email,
+    );
+  }
 
   @override
   void dispose() {
     _email.clear();
+    _password.clear();
     super.dispose();
   }
+
+  @override
+  void onTappedVerifyCode(val) {
+    // _isLoading = true;
+    Get.toNamed(RouteHelper.getResetPassword());
+    update();
+  }
+
+  @override
+  void onTappedResetPass() {}
 }

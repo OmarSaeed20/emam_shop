@@ -36,6 +36,7 @@ class TextInputWidget extends StatelessWidget {
           '$title',
           fontSize: 14.weight,
           fontWeight: FontWeight.w500,
+          fontFamily: AppStrings.montserrat,
         ),
         10.sH,
         Container(
@@ -53,10 +54,7 @@ class TextInputWidget extends StatelessWidget {
             onChanged: onChanged,
             validator: validator,
             cursorColor: AppColors.black,
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: getProportionateScreenWidth(16),
-            ),
+            style: TextStyle(color: AppColors.black, fontSize: 16.weight),
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.fromSTEB(
                   10.weight, 15.height, 0.0, 15.weight),
@@ -74,7 +72,7 @@ class TextInputWidget extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
                 borderSide:
-                    BorderSide(width: 1.5.weight, color: AppColors.primary),
+                    BorderSide(width: 1.5.weight, color: AppColors.awsmMedium),
               ),
               filled: true,
               fillColor: AppColors.white,
@@ -84,7 +82,7 @@ class TextInputWidget extends StatelessWidget {
                       icon: Icon(
                         prefixIcon,
                         size: 20.height,
-                        color: AppColors.awsmMedium,
+                        color: AppColors.primary,
                       ),
                     )
                   : null,

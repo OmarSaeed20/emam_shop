@@ -21,15 +21,13 @@ class ChooseLang extends StatelessWidget {
           children: [
             2.sW,
             _choseLangBtn(
-              "ألعربية",
-              onTap: () => localeContro
-                  .updateLocale(const Locale(LocaleEndPoint.arCode)),
+              AppStrings.arabic.tr,
+              onTap: () => localeContro.onChangeLang(EndPoint.arCode),
             ),
             15.sW,
             _choseLangBtn(
-              'English',
-              onTap: () => localeContro
-                  .updateLocale(const Locale(LocaleEndPoint.enCode)),
+              AppStrings.english.tr,
+              onTap: () => localeContro.onChangeLang(EndPoint.enCode),
             ),
             2.sW,
           ],

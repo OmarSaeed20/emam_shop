@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       translations: MyLocale(),
       theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.offWhite,
+        scaffoldBackgroundColor: AppColors.white,
+        useMaterial3: true,
         fontFamily: 'OpenSans',
         primaryColor: AppColors.primary,
         // colorScheme: const ColorScheme.highContrastLight(
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         //   // secondary: AppColors.secondaryColor,
         // )
       ),
+      locale: MyLocaleControllerImp.to.locale,
       initialRoute: RouteHelper.getInitial(),
       getPages: RouteHelper.routes,
     );
