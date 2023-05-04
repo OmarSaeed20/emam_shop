@@ -1,8 +1,9 @@
+
 import 'dart:io';
 
 import '/index.dart';
 
-Future<bool> alertExitApp() {
+Future<bool> alertExitAppDialog() {
   Get.defaultDialog(
     backgroundColor: AppColors.white,
     title: "Alert",

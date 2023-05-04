@@ -14,7 +14,7 @@ class OnBoardingBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TextWidget(list.title!, fontSize: 20, fontWeight: FontWeight.bold),
+            TextWidget(list.title!, fontSize: 20, fontWeight: FontWeight.w700),
             65.sH,
             Image.asset(list.image!, height: 300.height),
             80.sH,

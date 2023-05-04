@@ -76,8 +76,8 @@ export 'core/constant/app_images.dart';
 export 'core/shared/locale/local_end_point.dart';
 export 'core/theme/app_theme.dart';
 export 'core/function/valied_input.dart';
-export 'core/constant/dialog/app_dialog.dart';
-export 'core/function/alert_exit_app.dart';
+export 'core/constant/app_dialog.dart';
+export 'package:ecommerce/core/function/pop_dialogs/alert_exit_app_dialog.dart';
 
 // app Widget
 export '/view/widgets/text_widget.dart';

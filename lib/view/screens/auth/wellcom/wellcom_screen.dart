@@ -1,3 +1,4 @@
+
 import '/index.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: WillPopScope(
-      onWillPop: alertExitApp,
+      onWillPop: alertExitAppDialog,
       child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

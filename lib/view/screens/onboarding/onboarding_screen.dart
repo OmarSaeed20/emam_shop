@@ -31,7 +31,7 @@ class OnBoardingScreen extends StatelessWidget {
                             _animatContainer(controller),
                             35.sH,
                             BtnWidget(
-                              fontSize: 18.weight,
+                              fontSize: 15.weight,
                               height: 50.height,
                               controller.currentPage != listOnBoa.length - 1
                                   ? AppStrings.coontinue.tr

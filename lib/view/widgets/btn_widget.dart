@@ -49,7 +49,7 @@ class BtnWidget extends StatelessWidget {
                     text,
                     color: color ?? AppColors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: getProportionateScreenWidth(fontSize ?? 16),
+                    fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   )
             /*   .animate()
               .fadeIn(curve: Curves.easeInCirc)
@@ -70,7 +70,7 @@ class BtnWidget extends StatelessWidget {
                     text,
                     color: color ?? AppColors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: fontSize ?? getProportionateScreenWidth(16),
+                    fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   ),
       ),
     );

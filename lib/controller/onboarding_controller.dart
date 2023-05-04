@@ -10,12 +10,12 @@ class OnBoardingContoller extends GetxController {
   void onInit() {
     pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      diallog();
+      _diallogChoseLang();
     });
     super.onInit();
   }
 
-  diallog() {
+  _diallogChoseLang() {
     Get.defaultDialog(
         backgroundColor: AppColors.white,
         title: AppStrings.lang.tr,
