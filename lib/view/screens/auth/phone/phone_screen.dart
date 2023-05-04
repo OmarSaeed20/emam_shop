@@ -13,44 +13,41 @@ class PhoneScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10.height,
-                left: 15.weight,
-                child: const IconAndTextBack(),
-              ),
-              GetBuilder<PhoneControllerImp>(
-                builder: (controller) {
-                  return Container(
-                      padding: paddingSymme(horizontal: 25),
-                      // height: Dimensions.screenHeight - 40,
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          40.sH,
-                          screenPick(
-                            icon: CupertinoIcons.phone,
-                            text: AppStrings.phoneNum.tr,
-                          ),
-                          40.sH,
-                          authTitle(
-                            "set your ${AppStrings.phone.tr} !",
-                          ),
-                          20.sH,
-                          TextFormSignPhoneBody(controller: controller),
-                          20.sH,
-                        ],
-                      ));
-                },
-              )
-            ],
+          child: GetBuilder<PhoneControllerImp>(
+            builder: (controller) {
+              return SizedBox(
+                  // padding: paddingSymme(horizontal: 25),
+                  width: double.infinity,
+                  child: Column(
+                    children: [const IconAndTextBack(), _body(controller)],
+                  ));
+            },
           ),
         ),
       ),
     );
   }
 }
+
+_body(PhoneControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: screenPick(
+              icon: CupertinoIcons.phone,
+              text: AppStrings.phoneNum.tr,
+            ),
+          ),
+          30.sH,
+          authTitle("set your ${AppStrings.phone.tr} !"),
+          10.sH,
+          TextFormSignPhoneBody(controller: controller),
+          20.sH
+        ],
+      ),
+    );
 
 _bottomNavigationBar(PhoneControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),

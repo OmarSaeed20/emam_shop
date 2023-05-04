@@ -28,7 +28,7 @@ class CustomPinCodeField extends StatelessWidget {
           fieldHeight: getProportionateScreenHeight(85.0),
           fieldWidth: getProportionateScreenWidth(60.0),
           borderWidth: 1,
-          activeColor: AppColors.secondaryColor,
+          activeColor: AppColors.secondary,
           inactiveColor: AppColors.primarylight,
           inactiveFillColor: AppColors.white,
           activeFillColor: AppColors.white,

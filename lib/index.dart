@@ -58,8 +58,8 @@ export 'view/screens/onboarding/widget/lang/choose_lang_screen.dart';
 export 'view/screens/onboarding/widget/onboarding_body.dart';
 
 export 'view/screens/auth/wellcom/widget/sign_with_body.dart';
-export 'view/screens/auth/widget/sign_here_widget.dart';
-export 'view/screens/auth/login/widget/text_form_body.dart';
+export 'view/screens/auth/widget/sign_here_text.dart';
+export 'view/screens/auth/login/widget/text_form_login_body.dart';
 export 'view/screens/auth/widget/icon_and_text_back.dart';
 export 'view/screens/auth/phone/widget/sign_phone_body.dart';
 export 'view/screens/auth/widget/auth_logo_and_name.dart';
@@ -68,11 +68,16 @@ export 'view/screens/auth/forget_password/widget/text_form_forg_pass_body.dart';
 export 'view/screens/auth/verification/widget/pain_code_widget.dart';
 export 'view/screens/auth/widget/screen_pick.dart';
 export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart';
+export 'view/screens/auth/widget/auth_app_bar.dart';
 
 // core
 export 'core/constant/static.dart';
 export 'core/constant/app_images.dart';
 export 'core/shared/locale/local_end_point.dart';
+export 'core/theme/app_theme.dart';
+export 'core/function/valied_input.dart';
+export 'core/constant/dialog/app_dialog.dart';
+export 'core/function/alert_exit_app.dart';
 
 // app Widget
 export '/view/widgets/text_widget.dart';
@@ -80,3 +85,9 @@ export '/view/widgets/size_box_widget.dart';
 export 'view/widgets/btn_widget.dart';
 export 'view/widgets/text_input_widget.dart';
 export 'view/widgets/loading_widget.dart';
+export 'view/widgets/snack_bar.dart';
+export 'view/widgets/pop_loading.dart';
+
+
+
+export 'core/middleware/route_welcome_middleware.dart';

@@ -26,6 +26,7 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: widget.controller.signupForm,
       onChanged: () => widget.controller.onChangedSignUp(),
       child: Column(
         children: [
@@ -34,21 +35,20 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
             prefixIcon: Icons.person_outline,
             type: TextInputType.name,
             controller: widget.controller.name,
-            suffixIconColor: GetUtils.isUsername(widget.controller.name.text)
+            suffixIconColor: GetUtils.isUsername(widget.controller.name.text) &&
+                    widget.controller.name.text.length > 4 &&
+                    widget.controller.name.text.length < 14
                 ? Colors.green.shade600
                 : AppColors.grey,
             suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
             validator: (val) =>
-                GetUtils.isUsername(widget.controller.name.text) &&
-                        GetUtils.isBlank(val!) != true
-                    ? null
-                    : 'The name field is required.',
+                valiedInput(val: val!, max: 14, min: 5, InputType.userName),
           ),
           10.sH,
           TextInputWidget(
             AppStrings.phone.tr,
             prefixIcon: Icons.phone_android_sharp,
-            type: TextInputType.phone,
+            type: const TextInputType.numberWithOptions(decimal: true),
             controller: widget.controller.phone,
             suffixIconColor:
                 GetUtils.isLengthEqualTo(widget.controller.phone.text, 11) ==
@@ -56,9 +56,7 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
                     ? Colors.green.shade600
                     : AppColors.grey,
             suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
-            validator: (val) => GetUtils.isLengthEqualTo(val, 11)
-                ? null
-                : 'The phone field is required.',
+            validator: (val) => valiedInput(val: val!, InputType.phone),
           ),
           10.sH,
           TextInputWidget(
@@ -71,8 +69,7 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
                     ? Colors.green.shade600
                     : AppColors.grey,
             suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
-            validator: (val) =>
-                GetUtils.isEmail('$val') ? null : 'The email is not valid.',
+            validator: (val) => valiedInput(val: val!, InputType.email),
           ),
           10.sH,
           TextInputWidget(
@@ -82,13 +79,12 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
             suffixIcon: widget.controller.suffixIcon,
             controller: widget.controller.password,
             suffixIconColor: !widget.controller.isPassword
-                ? AppColors.primary2
+                ? AppColors.darkblu
                 : AppColors.primary.withOpacity(.5),
             isPassword: widget.controller.isPassword,
             onPressed: widget.controller.hiddenPassword,
-            validator: (val) => GetUtils.isLengthGreaterThan(val, 7)
-                ? null
-                : 'The password field is required.',
+            validator: (val) =>
+                valiedInput(val: val!, max: 20, min: 7, InputType.password1),
           ),
         ],
       ),

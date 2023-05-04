@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../view/widgets/snack_bar.dart';
 import '/index.dart';
 
 abstract class ForgetPasswordController extends GetxController {
@@ -27,6 +26,9 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   // loading
   final bool _isLoading = false;
   bool get isLoading => _isLoading;
+  GlobalKey<FormState> forgetForm = GlobalKey<FormState>();
+  GlobalKey<FormState> resetForm = GlobalKey<FormState>();
+  GlobalKey<FormState> form = GlobalKey<FormState>();
 
   TextEditingController _email = TextEditingController();
   TextEditingController get email => _email;

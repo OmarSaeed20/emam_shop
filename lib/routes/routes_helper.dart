@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/middleware/route_welcome_middleware.dart';
 
 import '/index.dart';
 
@@ -208,10 +207,10 @@ class RouteHelper {
     // getPageWidget("name", page: () => const WalletPage())
  */
   ];
-  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
+ /*  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
       GetPage(
         name: name,
         page: page,
         transition: Transition.fadeIn,
-      );
+      ); */
 }

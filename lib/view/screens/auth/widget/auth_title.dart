@@ -5,13 +5,16 @@ Align authTitle(
   double? fonSiz,
   FontWeight? fontWeight,
   Color? color,
+  AlignmentGeometry? alignment,
 }) =>
     Align(
-      alignment: Alignment.centerLeft,
+      alignment: MyLocaleControllerImp.to.themeData == themeAR
+          ? alignment ?? Alignment.centerRight
+          : alignment ?? Alignment.centerLeft,
       child: TextWidget(
         title,
         fontSize: fonSiz ?? 16,
         fontWeight: fontWeight ?? FontWeight.w600,
-        color: color?? AppColors.grey,
+        color: color ?? AppColors.grey,
       ),
     );

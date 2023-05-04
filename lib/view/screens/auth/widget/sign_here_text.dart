@@ -23,7 +23,7 @@ class SignHere extends StatelessWidget {
             text2,
             fontWeight: FontWeight.bold,
             fontSize: 14,
-            color: AppColors.awsmMedium,
+            color: AppColors.awsm,
             decoration: TextDecoration.underline,
           ),
         ),

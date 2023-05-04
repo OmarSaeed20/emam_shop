@@ -9,6 +9,7 @@ class TextFormForgetPassBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: controller.forgetForm,
       onChanged: () => controller.onChangedForgetPass(),
       child: Column(
         children: [
@@ -21,8 +22,7 @@ class TextFormForgetPassBody extends StatelessWidget {
                 : AppColors.grey,
             suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
             controller: controller.email,
-            validator: (val) =>
-                GetUtils.isEmail(val!) ? null : 'The email field is required.',
+            validator: (val) =>valiedInput(val: val!, InputType.email),
           ),
         ],
       ),

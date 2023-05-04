@@ -10,6 +10,7 @@ class TextFormSignInBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: controller.signinForm,
       onChanged: () => controller.onChangedSignIn(),
       child: Column(
         children: [
@@ -22,8 +23,7 @@ class TextFormSignInBody extends StatelessWidget {
                 ? Colors.green.shade600
                 : AppColors.grey,
             suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
-            validator: (val) =>
-                GetUtils.isEmail('$val') ? null : 'The email is not valid.',
+            validator: (val) => valiedInput(val:val!, InputType.email),
           ),
           10.sH,
           TextInputWidget(
@@ -33,13 +33,12 @@ class TextFormSignInBody extends StatelessWidget {
             suffixIcon: controller.suffixIcon,
             controller: controller.password,
             suffixIconColor: !controller.isPassword
-                ? AppColors.primary2
+                ? AppColors.darkblu
                 : AppColors.primary.withOpacity(.5),
             isPassword: controller.isPassword,
             onPressed: controller.hiddenPassword,
-            validator: (val) => GetUtils.isLengthGreaterThan(val, 8)
-                ? null
-                : 'The password field is required.',
+            validator: (val) =>
+                valiedInput(val:val!, max: 20, min: 8, InputType.password1),
           ),
         ],
       ),

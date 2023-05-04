@@ -13,43 +13,46 @@ class ResetPasswordScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10.height,
-                left: 15.weight,
-                child: IconAndTextBack(
-                  onTap: () => Get.toNamed(RouteHelper.getForgetPass()),
-                ),
-              ),
-              GetBuilder<ForgetPasswordControllerImp>(
-                builder: (controller) {
-                  return Container(
-                      padding: paddingSymme(horizontal: 25),
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          40.sH,
-                          screenPick(
-                            icon: CupertinoIcons.lock_shield,
-                            text: "Reset Password",
-                          ),
-                          40.sH,
-                          authTitle("set a new password!"),
-                          20.sH,
-                          TextFormResetBody(controller: controller),
-                          20.sH,
-                        ],
-                      ));
-                },
-              )
-            ],
+          child: GetBuilder<ForgetPasswordControllerImp>(
+            builder: (controller) {
+              return SizedBox(
+                  // padding: paddingSymme(horizontal: 25),
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      IconAndTextBack(
+                        onTap: () => Get.toNamed(RouteHelper.getForgetPass()),
+                      ),
+                      _body(controller)
+                    ],
+                  ));
+            },
           ),
         ),
       ),
     );
   }
 }
+
+_body(ForgetPasswordControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: screenPick(
+              icon: CupertinoIcons.lock_shield,
+              text: "Reset Password",
+            ),
+          ),
+          30.sH,
+          authTitle("set a new password!"),
+          10.sH,
+          TextFormResetBody(controller: controller),
+          20.sH
+        ],
+      ),
+    );
 
 _bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),

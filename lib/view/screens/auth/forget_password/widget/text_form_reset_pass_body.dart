@@ -19,6 +19,7 @@ class _TextFormResetBodyState extends State<TextFormResetBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: widget.controller.resetForm,
       onChanged: () => widget.controller.onChangedResetPass(),
       child: Column(
         children: [
@@ -29,13 +30,11 @@ class _TextFormResetBodyState extends State<TextFormResetBody> {
             suffixIcon: widget.controller.suffixIcon,
             controller: widget.controller.password,
             suffixIconColor: !widget.controller.isPassword
-                ? AppColors.awsmMedium
+                ? AppColors.awsm
                 : AppColors.primary.withOpacity(.5),
             isPassword: widget.controller.isPassword,
             onPressed: widget.controller.hiddenPassword,
-            validator: (val) => GetUtils.isLengthGreaterThan(val, 7)
-                ? null
-                : 'The password field is required.',
+            validator: (val) => valiedInput(val: val!, InputType.password1),
           ),
           10.sH,
           TextInputWidget(
@@ -44,15 +43,16 @@ class _TextFormResetBodyState extends State<TextFormResetBody> {
             type: TextInputType.visiblePassword,
             controller: widget.controller.passwordRe,
             suffixIconColor: !widget.controller.isPasswordRe
-                ? AppColors.awsmMedium
+                ? AppColors.awsm
                 : AppColors.primary.withOpacity(0.5),
             suffixIcon: widget.controller.suffixIconRe,
             isPassword: widget.controller.isPasswordRe,
             onPressed: () => widget.controller.hiddenPasswordRe(),
-            validator: (val) => widget.controller.password.text ==
-                    widget.controller.passwordRe.text
-                ? null
-                : 'confiairm password must equal password',
+            validator: (val) => valiedInput(
+              InputType.password2,
+              val: widget.controller.password.text,
+              val2: val!,
+            ),
           ),
         ],
       ),

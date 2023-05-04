@@ -6,6 +6,7 @@ abstract class SignInController extends GetxController {
   void isCheckFeilds(bool val);
   void hiddenPassword();
   void onChangedSignIn();
+
   void onTappedSignIn();
   void onTappedVerifyCode(val);
 
@@ -13,6 +14,15 @@ abstract class SignInController extends GetxController {
 
 class SignInControllerImp extends SignInController {
   SignInControllerImp get to => Get.find();
+  @override
+  void onInit() {
+    /*  WidgetsBinding.instance.addPostFrameCallback((_) async {
+      
+    }); */
+    super.onInit();
+  }
+
+  
 
   // loading
   bool _isLoading = false;
@@ -42,9 +52,11 @@ class SignInControllerImp extends SignInController {
     update();
   }
 
+  GlobalKey<FormState> signinForm = GlobalKey<FormState>();
+  GlobalKey<FormState> form = GlobalKey<FormState>();
+
   final TextEditingController _email = TextEditingController();
   TextEditingController get email => _email;
-
   final TextEditingController _password = TextEditingController();
   TextEditingController get password => _password;
 
@@ -59,13 +71,20 @@ class SignInControllerImp extends SignInController {
   @override
   void onTappedSignIn() {
     _isLoading = true;
+    Future.delayed(
+      2.seconds,
+      () {
+        _isLoading = false;
+        Get.back();
+        update();
+      },
+    ).then((value) => snackBarSuccess());
     update();
   }
 
-  
   @override
   void onTappedVerifyCode(val) {}
-  
+
   @override
   void dispose() {
     _email.clear();

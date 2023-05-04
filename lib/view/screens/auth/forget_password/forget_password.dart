@@ -13,37 +13,19 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10.height,
-                left: 15.weight,
-                child: IconAndTextBack(
-                  onTap: () => Get.offAndToNamed(RouteHelper.getLogin()),
-                ),
-              ),
-              GetBuilder<ForgetPasswordControllerImp>(
-                builder: (controller) {
-                  return Padding(
-                      padding: paddingSymme(horizontal: 25),
-                      // width: double.infinity,
-                      child: Column(
-                        children: [
-                          30.sH,
-                          screenPick(
-                            icon: CupertinoIcons.exclamationmark_triangle,
-                            text: "${AppStrings.forgetPass.tr} !",
-                          ),
-                          40.sH,
-                          authTitle("set your email"),
-                          20.sH,
-                          TextFormForgetPassBody(controller: controller),
-                          20.sH,
-                        ],
-                      ));
-                },
-              )
-            ],
+          child: GetBuilder<ForgetPasswordControllerImp>(
+            builder: (controller) {
+              return SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      IconAndTextBack(
+                        onTap: () => Get.offAndToNamed(RouteHelper.getLogin()),
+                      ),
+                      _body(controller)
+                    ],
+                  ));
+            },
           ),
         ),
       ),
@@ -51,6 +33,26 @@ class ForgetPasswordScreen extends StatelessWidget {
   }
 }
 
+_body(ForgetPasswordControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: screenPick(
+              icon: CupertinoIcons.exclamationmark_triangle,
+              text: "${AppStrings.forgetPass.tr} !",
+            ),
+          ),
+          30.sH,
+          authTitle("set your email"),
+          10.sH,
+          TextFormForgetPassBody(controller: controller),
+          20.sH
+        ],
+      ),
+    );
+    
 _bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),
       child: Column(

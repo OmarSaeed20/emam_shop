@@ -9,35 +9,24 @@ class SignUpScreen extends StatelessWidget {
       bottomNavigationBar: GetBuilder<SignUpControllerImp>(
         builder: (controller) => _bottomNavigationBar(controller),
       ),
+      /* extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: const IconAndTextBack(),
+        leadingWidth: 120.weight,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ), */
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10.height,
-                left: 15.weight,
-                child: const IconAndTextBack(),
-              ),
-              GetBuilder<SignUpControllerImp>(
-                builder: (controller) {
-                  return Container(
-                    padding: paddingSymme(horizontal: 25),
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        // 65.sH,
-                        AuthLogoWidegt(title: AppStrings.signup.tr),
-                        10.sH,
-                        authTitle(AppStrings.signupTit.tr),
-                        20.sH,
-                        TextFormSignUpBody(controller: controller),
-                        20.sH
-                      ],
-                    ),
-                  );
-                },
-              )
-            ],
+          child: GetBuilder<SignUpControllerImp>(
+            builder: (controller) {
+              return SizedBox(
+                  // padding: paddingSymme(horizontal: 25),
+                  width: double.infinity,
+                  child: Column(
+                    children: [const IconAndTextBack(), _body(controller)],
+                  ));
+            },
           ),
         ),
       ),
@@ -45,6 +34,21 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
+_body(SignUpControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(child: AuthLogoWidegt(title: AppStrings.signup.tr)),
+          15.sH,
+          authTitle(AppStrings.signupTit.tr),
+          15.sH,
+          TextFormSignUpBody(controller: controller),
+          20.sH
+        ],
+      ),
+    );
+    
 _bottomNavigationBar(SignUpControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),
       child: Column(
@@ -61,7 +65,7 @@ _bottomNavigationBar(SignUpControllerImp controller) => Padding(
                   ? AppColors.grey.withOpacity(0.6)
                   : AppColors.primary,
               isLoading: controller.isLoading,
-              onPressed: () => controller.onTappedSignUp(),
+              onPressed: () => controller.onTappedSignUp(controller),
             ),
           ),
           15.sH,

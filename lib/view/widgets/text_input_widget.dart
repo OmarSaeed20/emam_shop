@@ -72,14 +72,19 @@ class TextInputWidget extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
                 borderSide:
-                    BorderSide(width: 1.5.weight, color: AppColors.awsmMedium),
+                    BorderSide(width: 1.5.weight, color: AppColors.awsm),
               ),
               filled: true,
               fillColor: AppColors.white,
               prefixIcon: prefixIcon != null
-                  ? IconButton(
-                      onPressed: onPressed,
-                      icon: Icon(
+                  ? Container(
+                      height: 30.height,
+                      // width: 35.weight,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.weight),
+                        // color: AppColors.primary.withOpacity(.2),
+                      ),
+                      child: Icon(
                         prefixIcon,
                         size: 20.height,
                         color: AppColors.primary,

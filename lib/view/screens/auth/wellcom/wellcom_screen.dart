@@ -6,11 +6,11 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: WillPopScope(
+      onWillPop: alertExitApp,
+      child: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            height: Dimensions.screenHeight - 40,
-            width: double.infinity,
+          child: Padding(
             padding: paddingSymme(horizontal: 16),
             child: Column(
               children: [
@@ -30,12 +30,13 @@ class WelcomeScreen extends StatelessWidget {
                   AppStrings.dontHaACC.tr,
                   text2: AppStrings.signUpHe.tr,
                   onTap: () => Get.toNamed(RouteHelper.getRegister()),
-                )
+                ),
+                20.sH,
               ],
             ),
           ),
         ),
       ),
-    );
+    ));
   }
 }

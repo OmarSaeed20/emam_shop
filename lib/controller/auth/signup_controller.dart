@@ -11,7 +11,7 @@ abstract class SignUpController extends GetxController {
   void signWithFacebook();
   void signWithApple();
 
-  void onTappedSignUp();
+  void onTappedSignUp(controller);
   void onTappedVerifyCode(val);
 }
 
@@ -26,6 +26,9 @@ class SignUpControllerImp extends SignUpController {
   bool get isUserLoading => _isUserLoading;
 
   // registration
+
+  GlobalKey<FormState> signupForm = GlobalKey<FormState>();
+  GlobalKey<FormState> form = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
   TextEditingController get name => _name;
   final TextEditingController _email = TextEditingController();
@@ -62,7 +65,10 @@ class SignUpControllerImp extends SignUpController {
   @override
   void onChangedSignUp() {
     GetUtils.isUsername(name.text) &&
+            name.text.length > 4 &&
+            name.text.length < 14 &&
             GetUtils.isLengthGreaterThan(password.text, 7) &&
+            password.text.length < 20 &&
             GetUtils.isEmail(email.text) &&
             GetUtils.isLengthEqualTo(phone.text, 11)
         ? isCheckFeilds(false)
@@ -70,8 +76,15 @@ class SignUpControllerImp extends SignUpController {
   }
 
   @override
-  void onTappedSignUp() {
+  void onTappedSignUp(controller) {
     _isLoading = true;
+    String email = _email.text;
+    Get.to(
+      () => VerificationCodeScreen(controller: controller),
+      arguments: email,
+    );
+
+    _isLoading = false;
     update();
   }
 
@@ -85,15 +98,20 @@ class SignUpControllerImp extends SignUpController {
   void signWithApple() {}
 
   @override
-  void onTappedVerifyCode(val) {}
+  void onTappedVerifyCode(val) {
+    snackBarSuccess();
+    Get.delete<SignUpControllerImp>();
+    Get.offNamed(RouteHelper.getLogin());
+  }
 
   @override
   void dispose() {
     // clear controllers when close auth controller
-    _name.clear();
-    _email.clear();
-    _password.clear();
-    _phone.clear();
+    /* _name.dispose();
+    _email.dispose();
+    _password.dispose();
+    _phone.dispose();
+     */
     super.dispose();
   }
 }

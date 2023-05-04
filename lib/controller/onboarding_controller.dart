@@ -17,11 +17,13 @@ class OnBoardingContoller extends GetxController {
 
   diallog() {
     Get.defaultDialog(
+        backgroundColor: AppColors.white,
         title: AppStrings.lang.tr,
         titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.weight),
         middleText: AppStrings.choseLang.tr,
-        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 18.weight),
+        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 14.weight),
         barrierDismissible: false,
+        radius: 6.weight,
         actions: [const ChooseLang()]);
   }
 
