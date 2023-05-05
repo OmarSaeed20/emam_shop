@@ -1,6 +1,6 @@
 import '/index.dart';
 
-void popLoading() {
+ popLoading() {
     Get.defaultDialog(
         backgroundColor: AppColors.white,
         title: "Loadding ...",

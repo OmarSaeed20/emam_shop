@@ -18,17 +18,19 @@ export 'controller/auth/forget_controller.dart';
 export 'controller/auth/phone_controller.dart';
 export 'controller/auth/signin_controller.dart';
 
+export "controller/test_controller.dart";
+
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
-
 // repo
+export 'package:ecommerce/data/api/api_client.dart';
 
-export "data/repository/auth_repo.dart";
+export 'data/repository/app_repo.dart';
+export 'data/api/api_end_point.dart';
 
 // helper
-export 'package:ecommerce/routes/routes_helper.dart';
-export 'core/shared/dependencies.dart';
-export 'core/shared/locale/database_helper.dart';
+export 'routes/routes_helper.dart';
+export 'data/datasource/locale/database_helper.dart';
 
 //  screens
 
@@ -43,13 +45,6 @@ export 'view/screens/auth/forget_password/forget_password.dart';
 export 'view/screens/auth/forget_password/reset_password.dart';
 export 'view/screens/auth/verification/verification_screen.dart';
 
-
-///// constant
-
-export 'data/model/onboarding/onboarding_model.dart';
-export 'core/constant/app_strings.dart';
-export 'core/constant/dimensions.dart';
-export 'core/constant/app_color.dart';
 
 // widget
 
@@ -71,13 +66,28 @@ export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart'
 export 'view/screens/auth/widget/auth_app_bar.dart';
 
 // core
+
+///// constant
+
+export 'data/model/onboarding/onboarding_model.dart';
+export 'core/constant/app_strings.dart';
+export 'core/constant/dimensions.dart';
 export 'core/constant/static.dart';
 export 'core/constant/app_images.dart';
-export 'core/shared/locale/local_end_point.dart';
-export 'core/theme/app_theme.dart';
-export 'core/function/valied_input.dart';
+export 'core/constant/app_color.dart';
 export 'core/constant/app_dialog.dart';
-export 'package:ecommerce/core/function/pop_dialogs/alert_exit_app_dialog.dart';
+export 'core/function/handling_response.dart';
+
+export 'data/datasource/locale/local_end_point.dart';
+export 'core/theme/app_theme.dart';
+export 'core/shared/dependencies.dart';
+
+export 'core/function/valied_input.dart';
+export 'core/function/pop_dialogs/alert_exit_app_dialog.dart';
+export "core/function/chick_internet_coniction.dart";
+export 'core/function/statuse_request.dart';
+export 'core/middleware/route_welcome_middleware.dart';
+
 
 // app Widget
 export '/view/widgets/text_widget.dart';
@@ -86,8 +96,7 @@ export 'view/widgets/btn_widget.dart';
 export 'view/widgets/text_input_widget.dart';
 export 'view/widgets/loading_widget.dart';
 export 'view/widgets/snack_bar.dart';
-export 'view/widgets/pop_loading.dart';
+export 'core/function/pop_dialogs/pop_loading.dart';
 
 
 
-export 'core/middleware/route_welcome_middleware.dart';

@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
 
-snackBarMessage(String msg) => Get.showSnackbar(GetSnackBar(
+snackBarMessage(String title, String msg) => Get.showSnackbar(GetSnackBar(
       snackPosition: SnackPosition.TOP,
       duration: const Duration(milliseconds: 4000),
       backgroundColor: AppColors.offWhite3,
@@ -15,30 +17,49 @@ snackBarMessage(String msg) => Get.showSnackbar(GetSnackBar(
           size: 35.height,
         ),
       ),
+      titleText: Padding(
+        padding: paddingSymme(horizontal: 10),
+        child: TextWidget(title),
+      ),
       messageText: Padding(
         padding: paddingSymme(horizontal: 10),
-        child: TextWidget(msg),
+        child: TextWidget(msg, fontSize: 14),
       ),
     ));
 
-snackBarInternetError({void Function()? onTap}) => Get.showSnackbar(GetSnackBar(
+snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
+    Get.showSnackbar(GetSnackBar(
+      duration: const Duration(milliseconds: 4000),
       icon: Padding(
         padding: paddingSymme(horizontal: 12),
         child: Icon(
           // CupertinoIcons.wifi_exclamationmark,
           Icons.network_check_outlined,
-          color: AppColors.red,
+          color: isSuccess == true ? AppColors.success : AppColors.red,
           size: 35.height,
         ),
       ),
-      leftBarIndicatorColor: AppColors.red,
+      leftBarIndicatorColor:
+          isSuccess == true ? AppColors.success : AppColors.red,
+      titleText: Padding(
+        padding: paddingSymme(horizontal: 10),
+        child: const TextWidget(
+          "internet connection",
+          fontWeight: FontWeight.w600,
+        ),
+      ),
       messageText: Padding(
         padding: paddingSymme(horizontal: 10),
-        child: const TextWidget("Chick Your Internet Data"),
+        child: TextWidget(
+          isSuccess == true
+              ? "connected internet successflly"
+              : "Please check your internet connection",
+          fontSize: 14,
+        ),
       ),
       backgroundColor: AppColors.offWhite3,
       snackPosition: SnackPosition.BOTTOM,
-      mainButton: Container(
+     /*  mainButton:isSuccess==false? Container(
         height: 30.height,
         width: 50.weight,
         decoration: BoxDecoration(
@@ -47,7 +68,11 @@ snackBarInternetError({void Function()? onTap}) => Get.showSnackbar(GetSnackBar(
         ),
         child: Center(
           child: InkWell(
-            onTap: onTap ?? () {},
+            onTap: onTap ??
+                () async {
+                  bool isConnected = await retryCheckInternetConnection();
+                  log("Is connected to internet: $isConnected");
+                },
             child: TextWidget(
               "Retry",
               color: AppColors.primary,
@@ -55,7 +80,7 @@ snackBarInternetError({void Function()? onTap}) => Get.showSnackbar(GetSnackBar(
             ),
           ),
         ),
-      ),
+      ):Container(), */
     ));
 
 snackBarSuccess({String? msg}) => Get.showSnackbar(

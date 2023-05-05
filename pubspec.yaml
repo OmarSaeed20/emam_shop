@@ -48,6 +48,7 @@ dependencies:
   flutter_animate: ^4.1.1+1
   flutter_svg: ^0.23.0+1
   pin_code_fields: ^7.4.0
+  connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_lints: ^2.0.0
