@@ -1,10 +1,9 @@
-import 'dart:developer';
-
+ 
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
 
-snackBarMessage(String title, String msg) => Get.showSnackbar(GetSnackBar(
+snackBarMessage( {String? title,required String msg}) => Get.showSnackbar(GetSnackBar(
       snackPosition: SnackPosition.TOP,
       duration: const Duration(milliseconds: 4000),
       backgroundColor: AppColors.offWhite3,
@@ -19,7 +18,7 @@ snackBarMessage(String title, String msg) => Get.showSnackbar(GetSnackBar(
       ),
       titleText: Padding(
         padding: paddingSymme(horizontal: 10),
-        child: TextWidget(title),
+        child: TextWidget(title ?? "", fontWeight: FontWeight.w700),
       ),
       messageText: Padding(
         padding: paddingSymme(horizontal: 10),
@@ -59,7 +58,7 @@ snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
       ),
       backgroundColor: AppColors.offWhite3,
       snackPosition: SnackPosition.BOTTOM,
-     /*  mainButton:isSuccess==false? Container(
+      /*  mainButton:isSuccess==false? Container(
         height: 30.height,
         width: 50.weight,
         decoration: BoxDecoration(

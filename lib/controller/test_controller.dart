@@ -2,11 +2,11 @@
 
 import 'dart:developer';
 
-import '../data/model/user_model.dart';
+import '../data/model/auth/user_model.dart';
 import '/index.dart';
 
 class TestController extends GetxController {
-  AppRepo repo = Get.find();
+  AuthRepo repo = Get.find();
 
   RequestStatus? requestStatus;
 

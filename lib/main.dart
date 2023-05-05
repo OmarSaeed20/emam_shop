@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
       translations: MyLocale(),
       theme: MyLocaleControllerImp.to.themeData,
       locale: MyLocaleControllerImp.to.locale,
-      // initialRoute: RouteHelper.getInitial(),
-      // getPages: RouteHelper.routes,
-      home: const TestPage(),
+      initialRoute: RouteHelper.getInitial(),
+      getPages: RouteHelper.routes,
+      // home: const TestPage(),
     );
   }
 }

@@ -25,8 +25,12 @@ export 'core/localization/locale.dart';
 // repo
 export 'package:ecommerce/data/api/api_client.dart';
 
-export 'data/repository/app_repo.dart';
+export 'data/repository/auth_repo.dart';
 export 'data/api/api_end_point.dart';
+
+// model
+export 'data/model/auth/user_model.dart';
+export 'data/model/auth/signup_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -39,7 +43,7 @@ export 'view/screens/auth/login/login_screen.dart';
 export 'view/screens/splash/splash_screen.dart';
 export 'view/screens/auth/wellcom/wellcom_screen.dart';
 export 'view/screens/auth/register/sign_up_screen.dart';
-export 'view/screens/auth/register/text_form_body.dart/text_form_signup_body.dart';
+export 'view/screens/auth/register/widget/text_form_signup_body.dart';
 export 'view/screens/auth/phone/phone_screen.dart';
 export 'view/screens/auth/forget_password/forget_password.dart';
 export 'view/screens/auth/forget_password/reset_password.dart';

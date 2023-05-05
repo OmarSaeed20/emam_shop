@@ -30,7 +30,7 @@ class BtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: getProportionateScreenHeight(height ?? 44),
-      width: width ?? Dimensions.screenWidth,
+      width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

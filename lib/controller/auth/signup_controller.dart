@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -11,12 +13,17 @@ abstract class SignUpController extends GetxController {
   void signWithFacebook();
   void signWithApple();
 
-  void onTappedSignUp(controller);
-  void onTappedVerifyCode(val);
+  Future<void> onTappedSignUp(controller);
+  Future<void> onTappedVerifyCode(otp);
 }
 
 class SignUpControllerImp extends SignUpController {
   SignUpControllerImp get to => Get.find();
+
+  final AuthRepo _authRepo = Get.find();
+
+  RequestStatus? _requestStatus;
+  RequestStatus? get requestStatus => _requestStatus;
 
   // loading
   bool _isLoading = false;
@@ -75,6 +82,43 @@ class SignUpControllerImp extends SignUpController {
         : isCheckFeilds(true);
   }
 
+  String? val;
+  void onChangedVerfiy() {
+    val == null ? isCheckFeilds(false) : isCheckFeilds(true);
+  }
+
+  @override
+  Future<void> onTappedSignUp(controller) async {
+    _requestStatus = RequestStatus.loading;
+    popLoading(msg: "Sending OTP");
+    update();
+    SignUpModel model = SignUpModel();
+    model
+      ..userName = _name.text.trim()
+      ..userEmail = _email.text.trim()
+      ..userPassword = _password.text.trim()
+      ..userPhone = _phone.text.trim();
+    var response = await _authRepo.signUp(body: model);
+    _requestStatus = handlingRespose(response);
+
+    if (requestStatus == RequestStatus.success) {
+      if (response["status"] == "success") {
+        Get.back();
+        String email = _email.text;
+        Get.toNamed(RouteHelper.getVerifySignup(), arguments: email);
+      } else {
+        Get.back();
+        snackBarMessage(
+          title: "${response["status"]}",
+          msg: "${response["message"]}",
+        );
+        _requestStatus = RequestStatus.noData;
+      }
+    }
+    update();
+  }
+
+/* 
   @override
   void onTappedSignUp(controller) {
     _isLoading = true;
@@ -88,6 +132,7 @@ class SignUpControllerImp extends SignUpController {
     update();
   }
 
+ */
   @override
   void signWithFacebook() {}
 
@@ -98,10 +143,32 @@ class SignUpControllerImp extends SignUpController {
   void signWithApple() {}
 
   @override
-  void onTappedVerifyCode(val) {
-    snackBarSuccess();
-    Get.delete<SignUpControllerImp>();
-    Get.offNamed(RouteHelper.getLogin());
+  Future<void> onTappedVerifyCode(otp) async {
+    if (form.currentState!.validate()) {
+      _requestStatus = RequestStatus.loading;
+      popLoading();
+      update();
+      var response = await _authRepo.verifyOtp(email: email.text, otp: otp.toString());
+      _requestStatus = handlingRespose(response);
+
+      if (requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          Get.back();
+
+          Get.delete<SignUpControllerImp>();
+          snackBarSuccess();
+          Get.offNamed(RouteHelper.getLogin());
+        } else {
+          Get.back();
+          snackBarMessage(
+            title: "${response["status"]}",
+            msg: "${response["message"]}",
+          );
+          _requestStatus = RequestStatus.noData;
+        }
+      }
+      update();
+    }
   }
 
   @override
@@ -114,4 +181,11 @@ class SignUpControllerImp extends SignUpController {
      */
     super.dispose();
   }
+}
+
+class ResponseModel {
+  final bool isSuccess;
+  final String message;
+
+  ResponseModel(this.isSuccess, this.message);
 }

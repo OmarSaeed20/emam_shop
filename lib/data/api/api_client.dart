@@ -22,9 +22,10 @@ class ApiClient {
       } else {
         return const Left(RequestStatus.offLineFailure);
       }
-    } catch (e) {
+    } 
+    catch (e) {
       debugPrint("catch<POST Data-->serverFailure> $e");
-      return left(RequestStatus.serverFailure);
+      return left(RequestStatus.serverException);
     }
   }
 }

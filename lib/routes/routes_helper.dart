@@ -1,4 +1,6 @@
 
+import 'package:ecommerce/view/screens/auth/register/verfiy_signup.dart';
+
 import '/index.dart';
 
 class RouteHelper {
@@ -11,6 +13,7 @@ class RouteHelper {
   static const String _setOtp = '/set_otp';
   static const String _resetPassword = '/set_new_password';
   static const String _register = '/register';
+  static const String _verifySignup = '/verify_signup';
   static const String _verification = '/verification';
   static const String _main = '/main';
   static const String _notification = '/notification';
@@ -42,6 +45,7 @@ class RouteHelper {
   static String getResetPassword() => _resetPassword;
   static String getRegister() => _register;
   static String getVerification(controller) => _verification;
+  static String getVerifySignup() => _verifySignup;
   static String getMain() => _main;
   static String getNotificationsScreen() => _notification;
   static String getEditProfile() => _editProfile;
@@ -72,7 +76,7 @@ class RouteHelper {
       name: initial,
       page: () => const SplashScreen(),
       transition: Transition.fadeIn,
-      // middlewares: [RouteWelcomeMiddleware()],
+      middlewares: [RouteWelcomeMiddleware()],
     ),
     GetPage(
       name: _onboarding,
@@ -96,6 +100,11 @@ class RouteHelper {
     GetPage(
       name: _register,
       page: () => const SignUpScreen(),
+      transition: Transition.native,
+    ),
+    GetPage(
+      name: _verifySignup,
+      page: () => const VerifyCodeSignupScreen(),
       transition: Transition.native,
     ),
     GetPage(

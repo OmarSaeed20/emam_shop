@@ -78,12 +78,12 @@ class TextInputWidget extends StatelessWidget {
               fillColor: AppColors.white,
               prefixIcon: prefixIcon != null
                   ? Container(
-                      height: 30.height,
-                      // width: 35.weight,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.weight),
-                        // color: AppColors.primary.withOpacity(.2),
-                      ),
+                      // height: 5.height,
+                      // width: 15.weight,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(10.weight),
+                      //   color: AppColors.primary.withOpacity(.2),
+                      // ),
                       child: Icon(
                         prefixIcon,
                         size: 20.height,

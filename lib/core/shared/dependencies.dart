@@ -1,4 +1,3 @@
-
 import "/index.dart";
 
 /* class AppBinding implements Bindings {
@@ -22,6 +21,7 @@ import "/index.dart";
 Future<void> init() async {
   // Get.put<DatabaseHelper>(DatabaseHelper());
   await Get.putAsync<DatabaseHelper>(() => DatabaseHelper().init());
+
   /// Api Client
 
   Get.lazyPut(() => ApiClient(), fenix: true);
@@ -36,5 +36,5 @@ Future<void> init() async {
 
   Get.lazyPut(() => TestController(), fenix: true);
   // repo
-  Get.lazyPut(() => AppRepo(), fenix: true);
+  Get.lazyPut(() => AuthRepo(), fenix: true);
 }

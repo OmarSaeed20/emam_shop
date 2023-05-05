@@ -1,45 +1,27 @@
 import '/index.dart';
 
-class VerificationCodeScreen extends StatelessWidget {
-  const VerificationCodeScreen(
-      {Key? key, this.yourEmail, required this.controller})
-      : super(key: key);
-  final dynamic controller;
-  final String? yourEmail;
+class VerifyCodeSignupScreen extends StatelessWidget {
+  const VerifyCodeSignupScreen({
+    Key? key,
+    // this.yourEmail,
+  }) : super(key: key);
+  // final String? yourEmail;
   @override
   Widget build(BuildContext context) {
     final String phone = Get.arguments;
-
-    String? val;
     return Scaffold(
-        bottomNavigationBar: Padding(
+        /*  bottomNavigationBar: Padding(
           padding: paddingSymme(horizontal: 30),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AbsorbPointer(
-                absorbing: controller.isEmptyFeild,
-                child: BtnWidget(
-                  AppStrings.confirm.tr,
-                  fontSize: 18.weight,
-                  width: double.infinity,
-                  height: 50.height,
-                  backgroundColor: controller.isEmptyFeild
-                      ? AppColors.grey.withOpacity(0.6)
-                      : AppColors.primary,
-                  isLoading: controller.isLoading,
-                  onPressed: () => controller.onTappedVerifyCode(val!),
-                ),
-              ),
-              50.sH,
-            ],
+          child: GetBuilder<SignUpControllerImp>(
+            builder: (controller) => _bottomNavi(controller, val),
           ),
-        ),
+        ), */
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: paddingSymme(horizontal: 20),
-              child: Form(
+      child: SingleChildScrollView(
+        child: Padding(
+            padding: paddingSymme(horizontal: 20),
+            child: GetBuilder<SignUpControllerImp>(
+              builder: (controller) => Form(
                 key: controller.form,
                 child: Column(
                   children: [
@@ -63,13 +45,11 @@ class VerificationCodeScreen extends StatelessWidget {
                     60.sH,
                     CustomPinCodeField(
                       onCompleted: (code) {
-                        // authController.smsCode = code;
+                        debugPrint("-------Codddde------> $code");
+                        controller.onTappedVerifyCode(code);
                       },
-                      onChanged: (value) {
-                        val = value;
-                        debugPrint("----------------> $value");
-                      },
-                      // authController: authController
+                      onChanged: (value) =>
+                          debugPrint("----------------> $value"),
                     ),
                     10.sH,
                     TextWidget(
@@ -78,9 +58,9 @@ class VerificationCodeScreen extends StatelessWidget {
                       fontSize: 16.weight,
                       fontWeight: FontWeight.bold,
                     ),
-                    // 20.sH,
                     TextButton(
                       onPressed: () {
+                        // Get.back();
                         // => AuthController.to.onTappedReSendOTPCode()
                       },
                       child: TextWidget(
@@ -93,8 +73,23 @@ class VerificationCodeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ),
-        ));
+            )),
+      ),
+    ));
+  }
+
+  Column _bottomNavi(SignUpControllerImp controller, String? val) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BtnWidget(
+          AppStrings.confirm.tr,
+          fontSize: 16.weight,
+          height: 50.height,
+          onPressed: () => controller.onTappedVerifyCode(val!),
+        ),
+        50.sH,
+      ],
+    );
   }
 }

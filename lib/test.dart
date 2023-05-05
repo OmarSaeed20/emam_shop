@@ -47,10 +47,10 @@ class _TestPageState extends State<TestPage> {
     return Center(
         child: Column(
       children: [
-        Text(controller.userData!.userName!),
-        Text(controller.userData!.userEmail!),
-        Text(controller.userData!.userPhone!),
-        Text(controller.userData!.userCreate!),
+        TextWidget(controller.userData!.userName!),
+        TextWidget(controller.userData!.userEmail!),
+        TextWidget(controller.userData!.userPhone!),
+        TextWidget(controller.userData!.userCreate!),
       ],
     ));
   }
