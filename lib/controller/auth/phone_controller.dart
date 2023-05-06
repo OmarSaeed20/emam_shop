@@ -9,9 +9,7 @@ abstract class PhoneController extends GetxController {
 
 class PhoneControllerImp extends PhoneController {
   PhoneControllerImp get to => Get.find();
-  // loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+   
 
   GlobalKey<FormState> phoneForm = GlobalKey<FormState>();
   GlobalKey<FormState> form = GlobalKey<FormState>();

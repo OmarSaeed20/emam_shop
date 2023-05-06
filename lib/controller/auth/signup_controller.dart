@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -7,6 +5,7 @@ import '/index.dart';
 abstract class SignUpController extends GetxController {
   void isCheckFeilds(bool val);
   void onChangedSignUp();
+  void onChangedVerfiy();
   void hiddenPassword();
 
   void signWithGoogle();
@@ -24,13 +23,6 @@ class SignUpControllerImp extends SignUpController {
 
   RequestStatus? _requestStatus;
   RequestStatus? get requestStatus => _requestStatus;
-
-  // loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-
-  bool _isUserLoading = false;
-  bool get isUserLoading => _isUserLoading;
 
   // registration
 
@@ -83,6 +75,7 @@ class SignUpControllerImp extends SignUpController {
   }
 
   String? val;
+  @override
   void onChangedVerfiy() {
     val == null ? isCheckFeilds(false) : isCheckFeilds(true);
   }
@@ -107,7 +100,7 @@ class SignUpControllerImp extends SignUpController {
         Get.back();
         String email = _email.text;
         Get.toNamed(RouteHelper.getVerifySignup(), arguments: email);
-      } else { 
+      } else {
         Get.back();
         snackBarMessage(
           title: "${response["status"]}",

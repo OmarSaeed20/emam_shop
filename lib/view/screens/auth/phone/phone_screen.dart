@@ -63,8 +63,7 @@ _bottomNavigationBar(PhoneControllerImp controller) => Padding(
               height: 50.height,
               backgroundColor: controller.isEmptyFeild
                   ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary,
-              isLoading: controller.isLoading,
+                  : AppColors.primary, 
               onPressed: () => controller.onTappedSignWithphone(controller),
             ),
           ),

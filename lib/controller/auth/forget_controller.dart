@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -5,13 +7,18 @@ import '/index.dart';
 abstract class ForgetPasswordController extends GetxController {
   void isCheckFeilds(bool val);
   void onChangedForgetPass();
+  void onChangedVerfiy();
   void onChangedResetPass();
 
-  void onTappedForgetPass(controller);
-  void onTappedResetPass();
+  Future<void> onTappedForgetPass();
+
   void onTappedVerifyCode(val);
+  Future<void> startCountdown();
+  Future<void> onCountdownFinish();
+
   void hiddenPassword();
   void hiddenPasswordRe();
+  void onTappedResetPass();
 }
 
 class ForgetPasswordControllerImp extends ForgetPasswordController {
@@ -23,6 +30,10 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     super.onInit();
   }
 
+  final AuthRepo _authRepo = Get.find();
+
+  RequestStatus? _requestStatus;
+  RequestStatus? get requestStatus => _requestStatus;
   // loading
   final bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -79,6 +90,12 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     GetUtils.isEmail(email.text) ? isCheckFeilds(false) : isCheckFeilds(true);
   }
 
+  String? val;
+  @override
+  void onChangedVerfiy() {
+    val == null ? isCheckFeilds(false) : isCheckFeilds(true);
+  }
+
   @override
   void onChangedResetPass() {
     password.text == passwordRe.text
@@ -87,12 +104,129 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   }
 
   @override
-  void onTappedForgetPass(controller) {
-    final String email = _email.text;
-    Get.to(
-      () => VerificationCodeScreen(controller: controller),
-      arguments: email,
-    );
+  Future<void> onTappedForgetPass() async {
+    if (forgetForm.currentState!.validate()) {
+      _requestStatus = RequestStatus.loading;
+      popLoading(msg: "Sending OTP");
+      update();
+      var response = await _authRepo.foSetEmail(email: _email.text);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          startCountdown();
+          _requestStatus = RequestStatus.success;
+          Get.back();
+          snackBarSuccess(
+              icon: CupertinoIcons.info_circle, msg: response["message"]);
+          final String email = _email.text;
+          Get.toNamed(RouteHelper.getForgetVerfiyCode(), arguments: email);
+        } else {
+          _requestStatus = RequestStatus.noData;
+          Get.back();
+          snackBarMessage(title: "Warning", msg: response["message"]);
+        }
+      }
+      update();
+    }
+  }
+
+  @override
+  void onTappedVerifyCode(val) async {
+    if (form.currentState!.validate()) {
+      _requestStatus = RequestStatus.loading;
+      popLoading(msg: "Sending OTP");
+      update();
+      var response = await _authRepo.foSetOtp(email: _email.text, otp: val);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          startCountdown();
+          _requestStatus = RequestStatus.success;
+          Get.back();
+          snackBarSuccess(
+              icon: CupertinoIcons.info_circle, msg: response["message"]);
+          final String email = _email.text;
+          Get.offAndToNamed(RouteHelper.getResetPassword(), arguments: email);
+        } else {
+          _requestStatus = RequestStatus.noData;
+          Get.back();
+          snackBarMessage(title: "Warning", msg: response["message"]);
+        }
+      }
+      update();
+    }
+  }
+
+  int _countdown = 59;
+  int get countdown => _countdown;
+  bool _isCountdownFinish = false;
+  bool get isCountdownFinish => _isCountdownFinish;
+
+  @override
+  Future<void> startCountdown() async {
+    _isCountdownFinish = false;
+    update();
+    for (int i = 59; i >= 0; i--) {
+      await Future.delayed(1.seconds);
+      _countdown = i;
+      log(i);
+      update();
+    }
+    _isCountdownFinish = true;
+    update();
+  }
+
+  @override
+  Future<void> onCountdownFinish() async {
+    if (_isCountdownFinish == true) {
+      _requestStatus = RequestStatus.loading;
+      popLoading(msg: "Sending OTP");
+      update();
+      var response = await _authRepo.foSetEmail(email: _email.text);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          startCountdown();
+          _requestStatus = RequestStatus.success;
+          Get.back();
+          snackBarSuccess(msg: response["message"]);
+        } else {
+          _requestStatus = RequestStatus.noData;
+          Get.back();
+          snackBarMessage(title: "Warning", msg: response["message"]);
+        }
+      }
+      update();
+    }
+  }
+
+  @override
+  Future<void> onTappedResetPass() async {
+    if (resetForm.currentState!.validate()) {
+      _requestStatus = RequestStatus.loading;
+      popLoading(msg: "Please Wait");
+      update();
+      var response = await _authRepo.foSetNewPass(
+          email: _email.text, password: _rePassword.text);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          startCountdown();
+          _requestStatus = RequestStatus.success;
+          Get.back();
+          snackBarSuccess(
+              icon: CupertinoIcons.info_circle, msg: response["message"]);
+
+          Get.delete<ForgetPasswordControllerImp>();
+          Get.offNamed(RouteHelper.getLogin());
+        } else {
+          _requestStatus = RequestStatus.noData;
+          Get.back();
+          snackBarMessage(title: "Warning", msg: response["message"]);
+        }
+      }
+      update();
+    }
   }
 
   @override
@@ -101,18 +235,5 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     password.dispose();
     passwordRe.dispose();
     super.dispose();
-  }
-
-  @override
-  void onTappedVerifyCode(val) {
-    // _isLoading = true;
-    Get.offAndToNamed(RouteHelper.getResetPassword());
-    update();
-  }
-
-  @override
-  void onTappedResetPass() {
-    // snackBarMessage("Chick your Internet");
-    snackBarSuccess();
   }
 }

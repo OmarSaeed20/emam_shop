@@ -63,8 +63,7 @@ _bottomNavigationBar(SignUpControllerImp controller) => Padding(
               width: double.infinity,
               backgroundColor: controller.isEmptyFeild
                   ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary,
-              isLoading: controller.isLoading,
+                  : AppColors.primary, 
               onPressed: () => controller.onTappedSignUp(controller),
             ),
           ),

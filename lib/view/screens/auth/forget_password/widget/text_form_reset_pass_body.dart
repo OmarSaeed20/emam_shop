@@ -34,7 +34,8 @@ class _TextFormResetBodyState extends State<TextFormResetBody> {
                 : AppColors.primary.withOpacity(.5),
             isPassword: widget.controller.isPassword,
             onPressed: widget.controller.hiddenPassword,
-            validator: (val) => valiedInput(val: val!, InputType.password1),
+            validator: (val) =>
+                valiedInput(val: val!, max: 20, min: 7, InputType.password1),
           ),
           10.sH,
           TextInputWidget(

@@ -9,7 +9,9 @@ class ApiLinks {
   static const String verfiySignUp = "$baseUri/auth/verfiy_code.php";
 
   static const String signin = "$baseUri/auth/sign_in.php";
+  
   static const String foSetEmail = "$baseUri/auth/forget_password/set_email.php";
   static const String foSetOtp = "$baseUri/auth/forget_password/verfiy_code.php";
   static const String foSetNewPass = "$baseUri/auth/forget_password/set_new_password.php";
+
 }

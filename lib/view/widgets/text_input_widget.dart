@@ -77,6 +77,7 @@ class TextInputWidget extends StatelessWidget {
               filled: true,
               fillColor: AppColors.white,
               prefixIcon: prefixIcon != null
+                  // ignore: avoid_unnecessary_containers
                   ? Container(
                       // height: 5.height,
                       // width: 15.weight,

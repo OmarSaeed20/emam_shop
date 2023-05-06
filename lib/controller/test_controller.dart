@@ -1,8 +1,7 @@
 // import 'dart:developer';
 
 import 'dart:developer';
-
-import '../data/model/auth/user_model.dart';
+ 
 import '/index.dart';
 
 class TestController extends GetxController {

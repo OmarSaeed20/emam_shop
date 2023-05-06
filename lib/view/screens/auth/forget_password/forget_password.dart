@@ -52,25 +52,16 @@ _body(ForgetPasswordControllerImp controller) => Padding(
         ],
       ),
     );
-    
+
 _bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AbsorbPointer(
-            absorbing: controller.isEmptyFeild,
-            child: BtnWidget(
-              AppStrings.coontinue.tr,
-              fontSize: 18.weight,
-              height: 50.height,
-              width: double.infinity,
-              backgroundColor: controller.isEmptyFeild
-                  ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary,
-              isLoading: controller.isLoading,
-              onPressed: () => controller.onTappedForgetPass(controller),
-            ),
+          BtnWidget(
+            AppStrings.coontinue.tr,
+            height: 50.height, 
+            onPressed: () => controller.onTappedForgetPass(),
           ),
           15.sH,
           SignHere(

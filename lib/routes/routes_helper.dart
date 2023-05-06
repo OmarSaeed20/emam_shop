@@ -1,3 +1,4 @@
+import 'package:ecommerce/view/screens/auth/forget_password/forget_verfiy_code.dart';
 
 import '/index.dart';
 
@@ -12,7 +13,7 @@ class RouteHelper {
   static const String _resetPassword = '/set_new_password';
   static const String _register = '/register';
   static const String _verifySignup = '/verify_signup';
-  static const String _verification = '/verification';
+  static const String _forgetVerfiyCode = '/forget_verfiy_code';
   static const String _main = '/main';
   static const String _notification = '/notification';
   static const String _editProfile = '/edit_profile';
@@ -42,7 +43,7 @@ class RouteHelper {
   static String getSetOTPScre() => _setOtp;
   static String getResetPassword() => _resetPassword;
   static String getRegister() => _register;
-  static String getVerification(controller) => _verification;
+  static String getForgetVerfiyCode() => _forgetVerfiyCode;
   static String getVerifySignup() => _verifySignup;
   static String getMain() => _main;
   static String getNotificationsScreen() => _notification;
@@ -110,19 +111,18 @@ class RouteHelper {
       page: () => const ForgetPasswordScreen(),
       transition: Transition.native,
     ),
-        GetPage(
+    GetPage(
+        name: _forgetVerfiyCode,
+        page: () => const ForgetVerifyCodeScreen(),
+        transition: Transition.native),
+    GetPage(
         name: _resetPassword,
         page: () => const ResetPasswordScreen(),
         transition: Transition.native),
-
     GetPage(
         name: _main,
         page: () => const MainScreen(),
         transition: Transition.native),
-    /* GetPage(
-        name: _verification,
-        page: () => const VerificationCodeScreen(controller: ,),
-        transition: Transition.native), */
 
     /* 
     GetPage(
@@ -214,7 +214,7 @@ class RouteHelper {
     // getPageWidget("name", page: () => const WalletPage())
  */
   ];
- /*  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
+  /*  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
       GetPage(
         name: name,
         page: page,

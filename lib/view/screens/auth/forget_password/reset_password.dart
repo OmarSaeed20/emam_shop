@@ -59,20 +59,11 @@ _bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AbsorbPointer(
-            absorbing: controller.isEmptyFeild,
-            child: BtnWidget(
-              "Save".tr,
-              fontSize: 18.weight,
-              width: double.infinity,
-              height: 50.height,
-              backgroundColor: controller.isEmptyFeild
-                  ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary,
-              isLoading: controller.isLoading,
+          BtnWidget(
+              "Save".tr,  
+              height: 50.height, 
               onPressed: () => controller.onTappedResetPass(),
             ),
-          ),
           50.sH,
         ],
       ),

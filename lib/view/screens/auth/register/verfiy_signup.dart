@@ -49,8 +49,10 @@ class VerifyCodeSignupScreen extends StatelessWidget {
                         debugPrint("-------Codddde------> $code");
                         controller.onTappedVerifyCode(code);
                       },
-                      onChanged: (value) =>
-                          debugPrint("----------------> $value"),
+                      onChanged: (value) {
+                        controller.val = value;
+                        debugPrint("----------------> $value");
+                      },
                     ),
                     10.sH,
                     TextWidget(
@@ -78,7 +80,7 @@ class VerifyCodeSignupScreen extends StatelessWidget {
       ),
     ));
   }
-
+/* 
   Column _bottomNavi(SignUpControllerImp controller, String? val) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -92,5 +94,5 @@ class VerifyCodeSignupScreen extends StatelessWidget {
         50.sH,
       ],
     );
-  }
+  } */
 }
