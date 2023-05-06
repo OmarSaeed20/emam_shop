@@ -65,12 +65,7 @@ _bottomNavigationBar(SignInControllerImp controller) => Padding(
             fontSize: 18.weight,
             width: double.infinity,
             height: 50.height,
-            onPressed: () {
-              if (controller.signinForm.currentState!.validate()) {
-                popLoading();
-                controller.onTappedSignIn();
-              }
-            },
+            onPressed: () => controller.onTappedSignIn(),
           ),
           /* AbsorbPointer(
             absorbing: controller.isEmptyFeild,

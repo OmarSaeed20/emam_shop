@@ -48,7 +48,8 @@ export 'view/screens/auth/phone/phone_screen.dart';
 export 'view/screens/auth/forget_password/forget_password.dart';
 export 'view/screens/auth/forget_password/reset_password.dart';
 export 'view/screens/auth/verification/verification_screen.dart';
-
+export 'view/screens/auth/register/verfiy_signup.dart';
+export 'view/screens/main/main_screen.dart';
 
 // widget
 

@@ -1,6 +1,4 @@
 
-import 'package:ecommerce/view/screens/auth/register/verfiy_signup.dart';
-
 import '/index.dart';
 
 class RouteHelper {
@@ -117,6 +115,10 @@ class RouteHelper {
         page: () => const ResetPasswordScreen(),
         transition: Transition.native),
 
+    GetPage(
+        name: _main,
+        page: () => const MainScreen(),
+        transition: Transition.native),
     /* GetPage(
         name: _verification,
         page: () => const VerificationCodeScreen(controller: ,),
@@ -126,10 +128,6 @@ class RouteHelper {
     GetPage(
         name: _setOtp,
         page: () => const SetOTPScre(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _main,
-        page: () => const MainScreen(),
         transition: Transition.fadeIn),
     GetPage(
         name: _notification,

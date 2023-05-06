@@ -23,6 +23,7 @@ class VerifyCodeSignupScreen extends StatelessWidget {
             child: GetBuilder<SignUpControllerImp>(
               builder: (controller) => Form(
                 key: controller.form,
+                onChanged: () => controller.onChangedVerfiy(),
                 child: Column(
                   children: [
                     40.sH,

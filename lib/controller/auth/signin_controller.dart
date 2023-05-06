@@ -7,26 +7,16 @@ abstract class SignInController extends GetxController {
   void hiddenPassword();
   void onChangedSignIn();
 
-  void onTappedSignIn();
-  void onTappedVerifyCode(val);
-
+  Future<void> onTappedSignIn();
 }
 
 class SignInControllerImp extends SignInController {
   SignInControllerImp get to => Get.find();
-  @override
-  void onInit() {
-    /*  WidgetsBinding.instance.addPostFrameCallback((_) async {
-      
-    }); */
-    super.onInit();
-  }
 
-  
-
+  AuthRepo api = Get.find();
   // loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  RequestStatus? _requestStatus;
+  RequestStatus? get requestStatus => _requestStatus;
 
   // check all feilds valid or not valid
   bool _isEmptyFeild = true;
@@ -69,21 +59,30 @@ class SignInControllerImp extends SignInController {
   }
 
   @override
-  void onTappedSignIn() {
-    _isLoading = true;
-    Future.delayed(
-      2.seconds,
-      () {
-        _isLoading = false;
-        Get.back();
+  Future<void> onTappedSignIn() async {
+    if (signinForm.currentState!.validate()) {
+      _requestStatus = RequestStatus.loading;
+      popLoading();
+      update();
+      var response =
+          await api.signin(email: email.text, password: password.text);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          Get.back();
+          _requestStatus = RequestStatus.success;
+          snackBarSuccess(msg: response["message"]);
+          Get.delete<SignInControllerImp>();
+          Get.offAllNamed(RouteHelper.getMain());
+          update();
+        } else {
+          Get.back();
+          snackBarMessage(title: "warning", msg: response["message"]);
+        }
         update();
-      },
-    ).then((value) => snackBarSuccess());
-    update();
+      }
+    }
   }
-
-  @override
-  void onTappedVerifyCode(val) {}
 
   @override
   void dispose() {

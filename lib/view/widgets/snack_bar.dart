@@ -1,9 +1,9 @@
- 
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
 
-snackBarMessage( {String? title,required String msg}) => Get.showSnackbar(GetSnackBar(
+snackBarMessage({String? title, required String msg}) =>
+    Get.showSnackbar(GetSnackBar(
       snackPosition: SnackPosition.TOP,
       duration: const Duration(milliseconds: 4000),
       backgroundColor: AppColors.offWhite3,
@@ -82,24 +82,28 @@ snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
       ):Container(), */
     ));
 
-snackBarSuccess({String? msg}) => Get.showSnackbar(
+snackBarSuccess({IconData? icon, String? msg,bool isSuc=true}) => Get.showSnackbar(
       GetSnackBar(
         duration: const Duration(milliseconds: 4000),
-        leftBarIndicatorColor: Colors.green[600],
+        leftBarIndicatorColor:isSuc? Colors.green[600]: AppColors.red,
         backgroundColor: AppColors.offWhite3,
         snackPosition: SnackPosition.TOP,
         icon: Padding(
           padding: paddingSymme(horizontal: 12),
           child: Icon(
-            Icons.check_circle_rounded,
-            color: Colors.green[600],
+            isSuc?
+            icon ?? Icons.check_circle_rounded:
+            icon ?? Icons.error,
+            color:isSuc? Colors.green[600]: AppColors.red,
             size: 35.height,
           ),
         ),
         messageText: Padding(
           padding: paddingSymme(horizontal: 10),
           child: TextWidget(
-            msg ?? "Success",
+            isSuc?
+            msg ?? "Success":
+            msg ?? "failure",
             textAlign: TextAlign.justify,
           ),
         ),

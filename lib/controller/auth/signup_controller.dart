@@ -103,10 +103,11 @@ class SignUpControllerImp extends SignUpController {
 
     if (requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
+        _requestStatus == RequestStatus.success;
         Get.back();
         String email = _email.text;
         Get.toNamed(RouteHelper.getVerifySignup(), arguments: email);
-      } else {
+      } else { 
         Get.back();
         snackBarMessage(
           title: "${response["status"]}",
@@ -118,21 +119,6 @@ class SignUpControllerImp extends SignUpController {
     update();
   }
 
-/* 
-  @override
-  void onTappedSignUp(controller) {
-    _isLoading = true;
-    String email = _email.text;
-    Get.to(
-      () => VerificationCodeScreen(controller: controller),
-      arguments: email,
-    );
-
-    _isLoading = false;
-    update();
-  }
-
- */
   @override
   void signWithFacebook() {}
 
@@ -148,7 +134,8 @@ class SignUpControllerImp extends SignUpController {
       _requestStatus = RequestStatus.loading;
       popLoading();
       update();
-      var response = await _authRepo.verifyOtp(email: email.text, otp: otp.toString());
+      var response =
+          await _authRepo.verifyOtp(email: email.text, otp: otp.toString());
       _requestStatus = handlingRespose(response);
 
       if (requestStatus == RequestStatus.success) {
@@ -156,12 +143,12 @@ class SignUpControllerImp extends SignUpController {
           Get.back();
 
           Get.delete<SignUpControllerImp>();
-          snackBarSuccess();
+          snackBarSuccess(msg: "Accunt Cereated Successfly");
           Get.offNamed(RouteHelper.getLogin());
         } else {
           Get.back();
           snackBarMessage(
-            title: "${response["status"]}",
+            title: "Warning",
             msg: "${response["message"]}",
           );
           _requestStatus = RequestStatus.noData;
