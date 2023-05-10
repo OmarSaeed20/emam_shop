@@ -34,6 +34,8 @@ export 'data/api/api_end_point.dart';
 // model
 export 'data/model/auth/user_model.dart';
 export 'data/model/auth/signup_model.dart';
+export 'data/model/categories_model.dart';
+export 'data/model/items_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -53,6 +55,7 @@ export 'view/screens/auth/forget_password/reset_password.dart';
 export 'view/screens/auth/verification/verification_screen.dart';
 export 'view/screens/auth/register/verfiy_signup.dart';
 export 'view/screens/main/main_screen.dart';
+export 'view/screens/home/categorie_Item_page.dart';
 
 // widget
 
@@ -74,6 +77,7 @@ export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart'
 export 'view/screens/auth/widget/auth_app_bar.dart';
 
 export 'view/screens/main/widget/main_material_button.dart';
+export 'view/screens/main/widget/bottom_navigation_bar.dart';
 export 'view/screens/home/widget/home_bonner.dart';
 export 'view/screens/home/widget/categories_card.dart';
 export 'view/screens/home/widget/home_app_bar.dart';

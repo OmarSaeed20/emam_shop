@@ -1,59 +1,49 @@
+import 'package:flutter/cupertino.dart';
+
 import '../view/screens/home/home_screen.dart';
 import '/index.dart';
 
-abstract class MainController extends GetxController {}
+abstract class MainController extends GetxController {
+  void getCurrentScreen(int index);
+}
 
 class MainControllerImp extends MainController {
   static MainControllerImp get to => Get.find();
 
-  // loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-
-  get getkey => _key;
-  get getBucket => _bucket;
-  get getAppBar => _appBar;
-
-  get getCurrentIndex => _currentIndex;
-  get getcurrentScreen => _currentScreen;
-
-  // static MainController get to => Get.find();
-
-  // bool _value = false;
-  int _currentIndex = 0;
-  Widget _currentScreen = const HomePage();
-  final PageStorageBucket _bucket = PageStorageBucket();
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> get getkey => _key;
 
-  final List<PreferredSizeWidget> _appBar = [
-    // homeAppBar(),
-    AppBar(elevation: 0, toolbarHeight: 0),
-    AppBar(elevation: 0, title: const TextWidget("map")),
-    AppBar(elevation: 0, title: const TextWidget("sc")),
-    AppBar(elevation: 0, title: const TextWidget("commm")),
-    AppBar(elevation: 0, title: const TextWidget("waa")),
-    // qrAppBar(),
-    // communityAppBar(),
-    // walletyAppBar(),
+  int _currentIndex = 0;
+  get getCurrentIndex => _currentIndex;
+
+  List<Widget> get getcurrentScreen => _currentScreen;
+  final List<Widget> _currentScreen = [
+    const HomePage(),
+    Container(),
+    const HomePage(),
+    const HomePage(),
+    Container(),
+  ];
+  List<IconData> get icon => _currentIcon;
+  List<IconData> get activeIcon => _currentActiveIcon;
+  final List<IconData> _currentIcon = [
+    CupertinoIcons.square_grid_2x2,
+    CupertinoIcons.creditcard,
+    CupertinoIcons.cart,
+    CupertinoIcons.heart,
+    Icons.settings_outlined,
+  ];
+  final List<IconData> _currentActiveIcon = [
+    CupertinoIcons.square_grid_2x2_fill,
+    CupertinoIcons.creditcard_fill,
+    CupertinoIcons.cart_fill,
+    CupertinoIcons.heart_fill,
+    CupertinoIcons.gear_solid
   ];
 
-  void getCurrentScreen({required int index}) {
-    if (index == 0) {
-      _currentScreen = const HomePage();
-      _currentIndex = 0;
-    } else if (index == 1) {
-      _currentScreen = Container();
-      _currentIndex = 1;
-    } else if (index == 2) {
-      _currentScreen = Container();
-      _currentIndex = 2;
-    } else if (index == 3) {
-      _currentScreen = Container();
-      _currentIndex = 3;
-    } else {
-      _currentScreen = Container();
-      _currentIndex = 4;
-    }
+  @override
+  void getCurrentScreen(int index) {
+    _currentIndex = index;
     update();
   }
 
@@ -67,7 +57,6 @@ class MainControllerImp extends MainController {
   get switchlang => _value;
   void switchLang() {
     _value = !_value;
-
     update();
   }
 

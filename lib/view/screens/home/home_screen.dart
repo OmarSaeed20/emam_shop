@@ -6,70 +6,64 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeControllerImp>(
-      builder: (controller) {
-        return HandlingRequstView(controller.requestStatus, widget: body());
+      builder: (contr) {
+        return HandlingRequstView(contr.requestStatus, widget: body(contr));
       },
     );
   }
 
-  SingleChildScrollView body() {
+  SingleChildScrollView body(HomeControllerImp controller) {
+    var cate = controller.categories;
     return SingleChildScrollView(
       child: SizedBox(
         width: double.infinity,
         child: Column(
           children: [
-            homeAppBar(),
+            homeAppBar(
+              searchTap: () {},
+              notfTap: () {},
+            ),
             Padding(
               padding: paddingSymme(horizontal: 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /* TextWidget(
-                  // "Explore What Your Needs",
-                  "What Would You Like \nTo Oredr",
-                  fontSize: 30.weight,
-                  fontWeight: FontWeight.w600,
-                ) */
                   welcomeUser(),
                   10.sH,
                   banner(),
                   15.sH,
                   titleRow("Categories", onTap: () {}),
-                  15.sH,
                   SizedBox(
                     height: 45.height,
-                    child: ListView(
+                    child: ListView.builder(
+                      itemCount: cate!.length,
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        categoriesCard("Computers", AppImages.computer),
-                        categoriesCard("Electronics", AppImages.electronics),
-                        categoriesCard("Mobiles", AppImages.phone),
-                        categoriesCard("SuperMarket", AppImages.supermarket),
-                        categoriesCard("Home", AppImages.home),
-                        categoriesCard("Sports", AppImages.sport),
-                        categoriesCard("Fashion", AppImages.supermarket2),
-                        categoriesCard("Books", AppImages.computer),
-                      ],
+                      itemBuilder: (context, i) => categoriesCard(
+                        model: cate[i],
+                        onTap: () => controller.goToCategorieItem(i),
+                      ),
                     ),
                   ),
                   15.sH,
                   titleRow("Product For you", onTap: () {}),
-                  15.sH,
                   SizedBox(
-                    height: 200.height,
+                    height: 220.height,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (context, index) => forYouCard(),
+                      itemCount: controller.items!.length,
+                      itemBuilder: (context, i) => forYouCard(
+                        model: controller.items![i],
+                      ),
                     ),
                   ),
                   15.sH,
                   SizedBox(
                     width: double.infinity,
-                    // color: AppColors.awsmLight,
-                    child: Column(children: [
-                      titleRow("Popular", seeAll: false),
-                    ]),
+                    child: Column(
+                      children: [
+                        titleRow("Popular", seeAll: false),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -80,7 +74,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Stack forYouCard() {
+  Stack forYouCard({required ItemsModel model}) {
+    MyLocaleControllerImp controller = Get.find();
     return Stack(
       children: [
         Container(
@@ -89,7 +84,6 @@ class HomePage extends StatelessWidget {
           margin: paddingOnly(right: 10.weight),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.height),
-            color: AppColors.grey,
           ),
           child: Card(
             margin: paddingSymme(horizontal: 0, vertical: 0),
@@ -106,9 +100,9 @@ class HomePage extends StatelessWidget {
                       width: 170.weight,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12.height),
-                        child: Image.asset(
-                          AppImages.emamLogoPng,
-                          fit: BoxFit.fill,
+                        child: Image.network(
+                          model.itemsImage!,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                     ),
@@ -119,13 +113,17 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              "CappuccinosupTitleCappuccinosupTitleCappuccinosupTitles",
+                              controller.themeData == themeEN
+                                  ? model.itemsName!
+                                  : model.itemsNameAr!,
                               fontSize: 17.weight,
                               maxLines: 1,
                               overFlow: TextOverflow.ellipsis,
                             ),
                             TextWidget(
-                              "sup TitlesupTitlesupTitlesupTitlesup Titlesup Titlesup Titlesup Title",
+                              controller.themeData == themeEN
+                                  ? model.itemsDesc!
+                                  : model.itemsDessAr!,
                               fontSize: 12.weight,
                               color: AppColors.grey,
                               fontWeight: FontWeight.w400,
@@ -134,10 +132,19 @@ class HomePage extends StatelessWidget {
                             ),
                             3.sH,
                             TextWidget(
-                              "50 EG",
+                              "${model.itemsPrice} EG",
                               fontSize: 17.weight,
-                              fontWeight: FontWeight.w600,
+                              fontFamily: AppStrings.montserrat,
+                              fontWeight: FontWeight.w700,
                               color: AppColors.primary,
+                            ),
+                            TextWidget(
+                              "${int.parse('${model.itemsPrice}') + 80} EG",
+                              fontSize: 13.weight,
+                              fontFamily: AppStrings.montserrat,
+                              color: AppColors.grey,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.lineThrough,
                             ),
                           ]),
                     )
@@ -148,8 +155,29 @@ class HomePage extends StatelessWidget {
           ),
         ),
         Positioned(
-            bottom: 8,
-            right: 16,
+            top: 0,
+            right: 10,
+            child: Container(
+              height: 15.height,
+              width: 45.weight,
+              padding: paddingSymme(horizontal: 8),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(12.height),
+                  bottomLeft: Radius.circular(20.height),
+                ),
+              ),
+              child: TextWidget(
+                "${model.itemsDiscount}%",
+                textAlign: TextAlign.center,
+                fontSize: 12.weight,
+                color: AppColors.white,
+              ),
+            )),
+        Positioned(
+            bottom: 12,
+            right: 18,
             child: GestureDetector(
                 onTap: () {},
                 child: const Icon(

@@ -20,7 +20,8 @@ class RouteHelper {
   static const String _faqs = '/faqs';
   static const String _privacyPolicy = '/privacy_policy';
   static const String _home = '/home';
-  static const String _competationDetails = '/competation_details';
+  static const String _categorieItemPage = '/_categorie_item_Page';
+
   static const String _map = '/map';
   static const String _machinLoc = '/machin_loc';
   static const String _qrScaner = '/qr_scaner';
@@ -51,6 +52,7 @@ class RouteHelper {
   static String getFAQs() => _faqs;
   static String getPrivacyPolicy() => _privacyPolicy;
   static String getHome() => _home;
+  static String getCategorieItemPage() => _categorieItemPage;
   // I do this to easy variables sending process
   // static String getCompetationDetails(CompetitionsModel model) =>
   //     "$_competationDetails?competitionsModel=${jsonEncode(model)}";
@@ -117,6 +119,10 @@ class RouteHelper {
     GetPage(
         name: _main,
         page: () => const MainScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _categorieItemPage,
+        page: () => const CategorieItemPage(),
         transition: Transition.native),
 
     /* 

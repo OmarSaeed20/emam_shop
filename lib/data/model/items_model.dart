@@ -1,121 +1,166 @@
 class ItemsModel {
   final String? itemsId;
-  final String? name;
-  final String? nameAr;
-  final String? describtion;
-  final String? describtionAr;
+  final String? itemsName;
+  final String? itemsNameAr;
+  final String? itemsDesc;
+  final String? itemsDessAr;
   final String? itemsImage;
   final String? itemsCount;
   final String? itemsActive;
-  final String? price;
-  final String? discount;
-  final String? dateCreate;
+  final String? itemsPrice;
+  final String? itemsDiscount;
+  final String? itemsData;
   final String? itemsCate;
+  final String? categoriesId;
+  final String? categoriesName;
+  final String? categoriesNameAr;
+  final String? categoriesDatatime;
+  final String? categoriesImage;
   const ItemsModel({
     this.itemsId,
-    this.name,
-    this.nameAr,
-    this.describtion,
-    this.describtionAr,
+    this.itemsName,
+    this.itemsNameAr,
+    this.itemsDesc,
+    this.itemsDessAr,
     this.itemsImage,
     this.itemsCount,
     this.itemsActive,
-    this.price,
-    this.discount,
-    this.dateCreate,
+    this.itemsPrice,
+    this.itemsDiscount,
+    this.itemsData,
     this.itemsCate,
+    this.categoriesId,
+    this.categoriesName,
+    this.categoriesNameAr,
+    this.categoriesDatatime,
+    this.categoriesImage,
   });
-  ItemsModel copyWith({
-    String? itemsId,
-    String? name,
-    String? nameAr,
-    String? describtion,
-    String? describtionAr,
-    String? itemsImage,
-    String? itemsCount,
-    String? itemsActive,
-    String? price,
-    String? discount,
-    String? dateCreate,
-    String? itemsCate,
-  }) {
+  ItemsModel copyWith(
+      {String? itemsId,
+      String? itemsName,
+      String? itemsNameAr,
+      String? itemsDesc,
+      String? itemsDessAr,
+      String? itemsImage,
+      String? itemsCount,
+      String? itemsActive,
+      String? itemsPrice,
+      String? itemsDiscount,
+      String? itemsData,
+      String? itemsCate,
+      String? categoriesId,
+      String? categoriesName,
+      String? categoriesNameAr,
+      String? categoriesDatatime,
+      String? categoriesImage}) {
     return ItemsModel(
-      itemsId: itemsId ?? this.itemsId,
-      name: name ?? this.name,
-      nameAr: nameAr ?? this.nameAr,
-      describtion: describtion ?? this.describtion,
-      describtionAr: describtionAr ?? this.describtionAr,
-      itemsImage: itemsImage ?? this.itemsImage,
-      itemsCount: itemsCount ?? this.itemsCount,
-      itemsActive: itemsActive ?? this.itemsActive,
-      price: price ?? this.price,
-      discount: discount ?? this.discount,
-      dateCreate: dateCreate ?? this.dateCreate,
-      itemsCate: itemsCate ?? this.itemsCate,
-    );
+        itemsId: itemsId ?? this.itemsId,
+        itemsName: itemsName ?? this.itemsName,
+        itemsNameAr: itemsNameAr ?? this.itemsNameAr,
+        itemsDesc: itemsDesc ?? this.itemsDesc,
+        itemsDessAr: itemsDessAr ?? this.itemsDessAr,
+        itemsImage: itemsImage ?? this.itemsImage,
+        itemsCount: itemsCount ?? this.itemsCount,
+        itemsActive: itemsActive ?? this.itemsActive,
+        itemsPrice: itemsPrice ?? this.itemsPrice,
+        itemsDiscount: itemsDiscount ?? this.itemsDiscount,
+        itemsData: itemsData ?? this.itemsData,
+        itemsCate: itemsCate ?? this.itemsCate,
+        categoriesId: categoriesId ?? this.categoriesId,
+        categoriesName: categoriesName ?? this.categoriesName,
+        categoriesNameAr: categoriesNameAr ?? this.categoriesNameAr,
+        categoriesDatatime: categoriesDatatime ?? this.categoriesDatatime,
+        categoriesImage: categoriesImage ?? this.categoriesImage);
   }
 
   Map<String, Object?> toJson() {
     return {
       'items_id': itemsId,
-      'items_name': name,
-      'items_name_ar': nameAr,
-      'items_desc': describtion,
-      'items_dess_ar': describtionAr,
+      'items_name': itemsName,
+      'items_name_ar': itemsNameAr,
+      'items_desc': itemsDesc,
+      'items_dess_ar': itemsDessAr,
       'items_image': itemsImage,
       'items_count': itemsCount,
       'items_active': itemsActive,
-      'items_price': price,
-      'items_discount': discount,
-      'items_data': dateCreate,
+      'items_price': itemsPrice,
+      'items_discount': itemsDiscount,
+      'items_data': itemsData,
       'items_cate': itemsCate,
+      'categories_id': categoriesId,
+      'categories_name': categoriesName,
+      'categories_name_ar': categoriesNameAr,
+      'categories_datatime': categoriesDatatime,
+      'categories_image': categoriesImage
     };
   }
 
   static ItemsModel fromJson(Map<String, Object?> json) {
     return ItemsModel(
-      itemsId: json['items_id'] == null ? null : json['items_id'] as String,
-      name: json['items_name'] == null ? null : json['items_name'] as String,
-      nameAr: json['items_name_ar'] == null
-          ? null
-          : json['items_name_ar'] as String,
-      describtion:
-          json['items_desc'] == null ? null : json['items_desc'] as String,
-      describtionAr: json['items_dess_ar'] == null
-          ? null
-          : json['items_dess_ar'] as String,
-      itemsImage:
-          json['items_image'] == null ? null : json['items_image'] as String,
-      itemsCount:
-          json['items_count'] == null ? null : json['items_count'] as String,
-      itemsActive:
-          json['items_active'] == null ? null : json['items_active'] as String,
-      price: json['items_price'] == null ? null : json['items_price'] as String,
-      discount: json['items_discount'] == null
-          ? null
-          : json['items_discount'] as String,
-      dateCreate:
-          json['items_data'] == null ? null : json['items_data'] as String,
-      itemsCate:
-          json['items_cate'] == null ? null : json['items_cate'] as String,
-    );
+        itemsId: json['items_id'] == null ? null : json['items_id'] as String,
+        itemsName:
+            json['items_name'] == null ? null : json['items_name'] as String,
+        itemsNameAr: json['items_name_ar'] == null
+            ? null
+            : json['items_name_ar'] as String,
+        itemsDesc:
+            json['items_desc'] == null ? null : json['items_desc'] as String,
+        itemsDessAr: json['items_dess_ar'] == null
+            ? null
+            : json['items_dess_ar'] as String,
+        itemsImage:
+            json['items_image'] == null ? null : json['items_image'] as String,
+        itemsCount:
+            json['items_count'] == null ? null : json['items_count'] as String,
+        itemsActive: json['items_active'] == null
+            ? null
+            : json['items_active'] as String,
+        itemsPrice:
+            json['items_price'] == null ? null : json['items_price'] as String,
+        itemsDiscount: json['items_discount'] == null
+            ? null
+            : json['items_discount'] as String,
+        itemsData:
+            json['items_data'] == null ? null : json['items_data'] as String,
+        itemsCate:
+            json['items_cate'] == null ? null : json['items_cate'] as String,
+        categoriesId: json['categories_id'] == null
+            ? null
+            : json['categories_id'] as String,
+        categoriesName: json['categories_name'] == null
+            ? null
+            : json['categories_name'] as String,
+        categoriesNameAr: json['categories_name_ar'] == null
+            ? null
+            : json['categories_name_ar'] as String,
+        categoriesDatatime: json['categories_datatime'] == null
+            ? null
+            : json['categories_datatime'] as String,
+        categoriesImage: json['categories_image'] == null
+            ? null
+            : json['categories_image'] as String);
   }
 
   @override
   String toString() {
     return '''ItemsModel(
                 itemsId:$itemsId,
-name:$name,
-nameAr:$nameAr,
-describtion:$describtion,
-describtionAr:$describtionAr,
+itemsName:$itemsName,
+itemsNameAr:$itemsNameAr,
+itemsDesc:$itemsDesc,
+itemsDessAr:$itemsDessAr,
 itemsImage:$itemsImage,
 itemsCount:$itemsCount,
 itemsActive:$itemsActive,
-price:$price,
-discount:$discount,
-dateCreate:$dateCreate,
-itemsCate:$itemsCate
+itemsPrice:$itemsPrice,
+itemsDiscount:$itemsDiscount,
+itemsData:$itemsData,
+itemsCate:$itemsCate,
+categoriesId:$categoriesId,
+categoriesName:$categoriesName,
+categoriesNameAr:$categoriesNameAr,
+categoriesDatatime:$categoriesDatatime,
+categoriesImage:$categoriesImage
     ) ''';
   }
 
@@ -124,35 +169,44 @@ itemsCate:$itemsCate
     return other is ItemsModel &&
         other.runtimeType == runtimeType &&
         other.itemsId == itemsId &&
-        other.name == name &&
-        other.nameAr == nameAr &&
-        other.describtion == describtion &&
-        other.describtionAr == describtionAr &&
+        other.itemsName == itemsName &&
+        other.itemsNameAr == itemsNameAr &&
+        other.itemsDesc == itemsDesc &&
+        other.itemsDessAr == itemsDessAr &&
         other.itemsImage == itemsImage &&
         other.itemsCount == itemsCount &&
         other.itemsActive == itemsActive &&
-        other.price == price &&
-        other.discount == discount &&
-        other.dateCreate == dateCreate &&
-        other.itemsCate == itemsCate;
+        other.itemsPrice == itemsPrice &&
+        other.itemsDiscount == itemsDiscount &&
+        other.itemsData == itemsData &&
+        other.itemsCate == itemsCate &&
+        other.categoriesId == categoriesId &&
+        other.categoriesName == categoriesName &&
+        other.categoriesNameAr == categoriesNameAr &&
+        other.categoriesDatatime == categoriesDatatime &&
+        other.categoriesImage == categoriesImage;
   }
 
   @override
   int get hashCode {
     return Object.hash(
-      runtimeType,
-      itemsId,
-      name,
-      nameAr,
-      describtion,
-      describtionAr,
-      itemsImage,
-      itemsCount,
-      itemsActive,
-      price,
-      discount,
-      dateCreate,
-      itemsCate,
-    );
+        runtimeType,
+        itemsId,
+        itemsName,
+        itemsNameAr,
+        itemsDesc,
+        itemsDessAr,
+        itemsImage,
+        itemsCount,
+        itemsActive,
+        itemsPrice,
+        itemsDiscount,
+        itemsData,
+        itemsCate,
+        categoriesId,
+        categoriesName,
+        categoriesNameAr,
+        categoriesDatatime,
+        categoriesImage);
   }
 }

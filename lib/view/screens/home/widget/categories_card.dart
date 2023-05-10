@@ -1,6 +1,14 @@
 import 'package:ecommerce/index.dart';
 
-categoriesCard(String tit, String img, {Color? color}) => Padding(
+categoriesCard({
+  required CategoriesModel model,
+  required void Function() onTap,
+  Color? color,
+}) {
+  MyLocaleControllerImp controller = Get.find();
+  return GestureDetector(
+    onTap: onTap,
+    child: Padding(
       padding: paddingOnly(right: 5),
       child: Card(
         child: Container(
@@ -11,8 +19,8 @@ categoriesCard(String tit, String img, {Color? color}) => Padding(
                 borderRadius: BorderRadius.circular(50.height),
                 child: Container(
                   padding: paddingOnly(top: 5, bottom: 5, left: 5, right: 8),
-                  child: Image.asset(
-                    img,
+                  child: Image.network(
+                    "${ApiLinks.baseUri}/uplode/${model.image}",
                     fit: BoxFit.fill,
                     height: 50.height,
                     color: AppColors.darkBackgroundColor,
@@ -21,7 +29,7 @@ categoriesCard(String tit, String img, {Color? color}) => Padding(
             Padding(
               padding: paddingOnly(right: 8),
               child: TextWidget(
-                tit,
+                controller.themeData == themeEN ? model.name! : model.nameAr!,
                 fontSize: 12.weight,
                 overFlow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -33,4 +41,6 @@ categoriesCard(String tit, String img, {Color? color}) => Padding(
           ]),
         ),
       ),
-    );
+    ),
+  );
+}

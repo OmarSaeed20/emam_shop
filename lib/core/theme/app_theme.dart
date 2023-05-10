@@ -3,6 +3,7 @@ import '/index.dart';
 ThemeData themeEN = ThemeData(
   scaffoldBackgroundColor: AppColors.white,
   useMaterial3: true,
+  // fontFamily: AppStrings.montserrat,
   fontFamily: 'Poppins',
   /*
   primaryColor: AppColors.primary,

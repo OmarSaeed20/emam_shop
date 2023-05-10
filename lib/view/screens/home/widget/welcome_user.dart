@@ -1,9 +1,10 @@
 import '/index.dart';
 
 Widget welcomeUser() => TextWidget(
+      /* "Explore What Your Needs","What Would You Like \nTo Oredr", */
       "Good morning, ${DatabaseHelper.to.getString(EndPoint.userName)}",
       fontWeight: FontWeight.w600,
-      fontSize: 20,
+      fontSize: 17.weight,
     )
         .animate()
         .fadeIn(curve: Curves.easeInCirc)

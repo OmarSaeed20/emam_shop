@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import '/index.dart';
 
 Row titleRow(String title,
@@ -15,18 +13,18 @@ Row titleRow(String title,
           ),
         ),
         if (seeAll)
-          GestureDetector(
-            onTap: onTap ?? () {},
+          TextButton(
+            onPressed: onTap ?? () {},
             child: Row(
               children: [
-                TextWidget("See all",
-                    color: AppColors.awsm, fontSize: 14.weight),
-                4.sW,
+                TextWidget("See all", fontSize: 14.weight),
+                3.sW,
                 Icon(
                   Icons.keyboard_double_arrow_right_rounded,
-                  size: 14.height,
-                  color: AppColors.awsm,
-                )
+                  // CupertinoIcons.chevron_right_2,
+                  size: 16.weight,
+                  color: AppColors.primary,
+                ),
               ],
             ),
           ),

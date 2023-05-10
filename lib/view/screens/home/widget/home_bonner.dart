@@ -4,31 +4,52 @@ Card banner() => Card(
         child: Stack(
       children: [
         Positioned(
-            top: -20,
-            right: -20,
-            child: CircleAvatar(
-              backgroundColor: AppColors.secondary.withOpacity(.5),
-              radius: 80.height,
-            )),
+          top: -15,
+          right: -20,
+          child: Container(
+            height: 180.height,
+            width: 155.weight,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(AppImages.saell40),
+                  fit: BoxFit.cover,
+                )),
+          ),
+        ),
+        Positioned(
+          top: -20,
+          left: -20,
+          child: CircleAvatar(
+            backgroundColor: AppColors.awsmLight.withOpacity(.2),
+            radius: 60.height,
+          ),
+        ),
+        Positioned(
+          bottom: -50,
+          left: 100,
+          child: CircleAvatar(
+            backgroundColor: AppColors.successLightBack.withOpacity(.2),
+            radius: 60.height,
+          ),
+        ),
         Container(
           height: 150.height,
           width: double.infinity,
-          // decoration: const BoxDecoration(
-          //     image: DecorationImage(image: AssetImage(AppImages.sport))),
           alignment: Alignment.center,
           child: ListTile(
-            title: const TextWidget(
+            title: TextWidget(
               "A summer surprise",
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              fontSize: 24.weight,
             ),
             subtitle: Padding(
               padding: paddingOnly(top: 20),
-              child: const TextWidget(
-                "Cashback 20%",
+              child: TextWidget(
+                "Cashback 40%",
                 fontFamily: AppStrings.montserrat,
                 color: AppColors.primary,
-                fontSize: 30,
+                fontSize: 30.weight,
               ),
             ),
           ),
