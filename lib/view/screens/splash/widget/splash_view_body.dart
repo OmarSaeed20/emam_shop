@@ -31,9 +31,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
           image: DecorationImage(
             image: AssetImage(AppImages.background),
             fit: BoxFit.fill,
-            opacity: 20,
-          ),
-          color: AppColors.primarylight
+            opacity: 40,
+          ), 
           /*  ThemeController.to.getDarkTheme
             ? AppColors.darkScaffoldColor
             : AppColors.lightScaffoldColor, */
@@ -45,8 +44,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
           // SvgPicture.asset(AppImages.emamLogo, height: 100.height),
           Image.asset(
             AppImages.emamLogoWithout,
-            fit: BoxFit.fill,
-            color: AppColors.red,
+            fit: BoxFit.fill, 
             height: 200.height,
           )
               .animate()
@@ -68,7 +66,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
             "EMAM",
             fontSize: 55,
             fontWeight: FontWeight.bold,
-            color: AppColors.awsm,
+            color: Color.fromARGB(255, 7, 105, 144),
             fontFamily: AppStrings.montserrat,
           ),
         ],

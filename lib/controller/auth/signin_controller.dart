@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -13,10 +16,20 @@ abstract class SignInController extends GetxController {
 class SignInControllerImp extends SignInController {
   SignInControllerImp get to => Get.find();
 
-  AuthRepo api = Get.find();
+  AuthRepo repo = Get.find();
+  DatabaseHelper database = Get.find();
   // loading
-  RequestStatus? _requestStatus;
-  RequestStatus? get requestStatus => _requestStatus;
+  RequestStatus _requestStatus = RequestStatus.none;
+  RequestStatus get requestStatus => _requestStatus;
+
+  @override
+  void onInit() {
+  /*   FirebaseMessaging.instance.getToken().then((value) {
+      log("Tokennnnn>>>> $value");
+      String? token = value;
+    }); */
+    super.onInit();
+  }
 
   // check all feilds valid or not valid
   bool _isEmptyFeild = true;
@@ -65,29 +78,49 @@ class SignInControllerImp extends SignInController {
       popLoading();
       update();
       var response =
-          await api.signin(email: email.text, password: password.text);
+          await repo.signin(email: email.text, password: password.text);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
-          Get.back();
           _requestStatus = RequestStatus.success;
-          snackBarSuccess(msg: response["message"]);
-          Get.delete<SignInControllerImp>();
-          Get.offAllNamed(RouteHelper.getMain());
+          _saveUserData(
+            response["data"]["user_id"],
+            response["data"]["user_name"],
+            response["data"]["user_email"],
+            response["data"]["user_phone"],
+          );
+          snackBarSuccess(msg: "welcome ${response["data"]["user_name"]}");
+          _onSuccessLogin();
           update();
         } else {
+          _requestStatus = RequestStatus.noData;
           Get.back();
-          snackBarMessage(title: "warning", msg: response["message"]);
+          snackBarMessage(title: "warning", msg: response["data"]);
         }
         update();
       }
     }
   }
 
+  _onSuccessLogin() {
+    Get.back();
+    Get.delete<SignInControllerImp>();
+    Get.delete<SignUpControllerImp>();
+    Get.offAllNamed(RouteHelper.getMain());
+  }
+
+  _saveUserData(id, username, email, phone) {
+    database.setString(EndPoint.userId, id);
+    database.setString(EndPoint.userName, username);
+    database.setString(EndPoint.userEmail, email);
+    database.setString(EndPoint.userPhone, phone);
+    database.setString(EndPoint.step, EndPoint.login);
+  }
+
   @override
   void dispose() {
-    _email.clear();
-    _password.clear();
+    _email.dispose();
+    _password.dispose();
     super.dispose();
   }
 }

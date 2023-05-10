@@ -1,5 +1,4 @@
 import 'dart:developer';
- 
 
 import '/index.dart';
 
@@ -16,13 +15,15 @@ class MyLocaleControllerImp extends LocaleController {
 
   ThemeData _themeData = themeEN;
   ThemeData get themeData => _themeData;
-
+  DatabaseHelper database = Get.find();
   @override
   void onChangeLang(String languageCode) {
     _locale = Locale(languageCode);
-    DatabaseHelper.to.setString(EndPoint.lang, languageCode);
+    database.setString(EndPoint.lang, languageCode);
     _themeData = languageCode == EndPoint.arCode ? themeAR : themeEN;
-    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    // DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    database.setString(EndPoint.step, EndPoint.onboard);
+
     Get.back();
     Get.changeTheme(_themeData);
     Get.updateLocale(_locale!);
@@ -33,14 +34,15 @@ class MyLocaleControllerImp extends LocaleController {
   void updateLocale(Locale locale) {
     Get.updateLocale(locale);
     Get.changeTheme(_themeData);
-    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    // database.setBool(EndPoint.onboarding, true);
+    database.setString(EndPoint.step, EndPoint.onboard);
     Get.back();
     update();
   }
 
   @override
   void initLang() {
-    String? langCode = DatabaseHelper.to.getString(EndPoint.lang);
+    String? langCode = database.getString(EndPoint.lang);
     if (langCode == EndPoint.arCode) {
       _locale = const Locale(EndPoint.arCode);
       _themeData = themeAR;
@@ -50,14 +52,13 @@ class MyLocaleControllerImp extends LocaleController {
     } else {
       _locale = Locale(Get.deviceLocale!.languageCode);
       _themeData = themeEN;
-
     }
   }
 
   @override
   void onInit() {
     // NotificationHelper.initialize();
-    log(DatabaseHelper.to.getString(EndPoint.lang));
+    log(database.getString(EndPoint.lang));
     initLang();
     super.onInit();
   }

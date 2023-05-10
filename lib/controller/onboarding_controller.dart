@@ -49,8 +49,10 @@ class OnBoardingContoller extends GetxController {
     update();
   }
 
+  DatabaseHelper database = Get.find();
   skip() {
-    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    // database.setBool(EndPoint.onboarding, true);
+    database.setString(EndPoint.step, EndPoint.onboard);
     Get.offAllNamed(RouteHelper.getWellcom());
   }
 }

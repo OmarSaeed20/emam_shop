@@ -7,7 +7,7 @@ import '/index.dart';
 class TestController extends GetxController {
   AuthRepo repo = Get.find();
 
-  RequestStatus? requestStatus;
+  RequestStatus requestStatus = RequestStatus.none;
 
   @override
   void onInit() {

@@ -2,7 +2,8 @@ import "/index.dart";
 
 class AppColors {
   static const primary = Color(0xFF9D0F40);
-  static const primarylight = Color(0xFFAE445A);
+  static const primaryMid = Color(0xFFAE445A);
+  static const primarylight = Color(0xFFFFD5D6);
 
   static const darkblu = Color(0xFF002C3E);
   static const awsm = Color(0xFF287094);

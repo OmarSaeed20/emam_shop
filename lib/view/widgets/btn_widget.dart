@@ -51,7 +51,7 @@ class BtnWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   )
-            /*   .animate()
+              .animate()
               .fadeIn(curve: Curves.easeInCirc)
               .scaleY()
               .shimmer(delay: 300.ms, colors: <Color>[
@@ -63,7 +63,7 @@ class BtnWidget extends StatelessWidget {
               const Color(0xffe16b5c),
               const Color(0xfff39060),
               const Color(0xffffb56b),
-            ]) */
+            ])
             : isLoading
                 ? const Center(child: LoadingWidget())
                 : TextWidget(

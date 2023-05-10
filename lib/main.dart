@@ -1,10 +1,12 @@
- 
+import 'package:firebase_core/firebase_core.dart';
+
 import '/index.dart';
 import 'core/shared/dependencies.dart' as dependencies;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dependencies.init();
+  // await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: AppColors.trans,

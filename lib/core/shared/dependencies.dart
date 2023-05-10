@@ -1,3 +1,5 @@
+import "package:firebase_core/firebase_core.dart";
+
 import "/index.dart";
 
 /* class AppBinding implements Bindings {
@@ -32,9 +34,17 @@ Future<void> init() async {
   Get.lazyPut(() => ForgetPasswordControllerImp(), fenix: true);
   Get.lazyPut(() => PhoneControllerImp(), fenix: true);
 
+  Get.lazyPut(() => MainControllerImp(), fenix: true);
+  Get.lazyPut(() => HomeControllerImp(), fenix: true);
+
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
   Get.lazyPut(() => TestController(), fenix: true);
   // repo
   Get.lazyPut(() => AuthRepo(), fenix: true);
+  Get.lazyPut(() => HomeRepo(), fenix: true);
+}
+
+Future<void> appInit() async {
+  await Firebase.initializeApp();
 }

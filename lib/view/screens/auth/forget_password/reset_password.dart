@@ -21,7 +21,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       IconAndTextBack(
-                        onTap: () => Get.toNamed(RouteHelper.getForgetPass()),
+                        onTap: () => Get.offNamed(RouteHelper.getForgetPass()),
                       ),
                       _body(controller)
                     ],

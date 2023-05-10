@@ -7,6 +7,7 @@ export 'package:flutter/services.dart';
 export 'package:get/get.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:pin_code_fields/pin_code_fields.dart';
+export 'package:flutter_animate/flutter_animate.dart';
 
 
 //  Controller
@@ -17,13 +18,15 @@ export 'controller/auth/signup_controller.dart';
 export 'controller/auth/forget_controller.dart';
 export 'controller/auth/phone_controller.dart';
 export 'controller/auth/signin_controller.dart';
-
+export 'controller/main_controller.dart';
 export "controller/test_controller.dart";
+export "controller/home_controller.dart";
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
 // repo
-export 'package:ecommerce/data/api/api_client.dart';
+export 'data/api/api_client.dart';
+export "data/repository/home_repo.dart";
 
 export 'data/repository/auth_repo.dart';
 export 'data/api/api_end_point.dart';
@@ -70,6 +73,11 @@ export 'view/screens/auth/widget/screen_pick.dart';
 export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart';
 export 'view/screens/auth/widget/auth_app_bar.dart';
 
+export 'view/screens/main/widget/main_material_button.dart';
+export 'view/screens/home/widget/home_bonner.dart';
+export 'view/screens/home/widget/categories_card.dart';
+export 'view/screens/home/widget/home_app_bar.dart';
+export 'view/screens/home/widget/welcome_user.dart';
 // core
 
 ///// constant
@@ -91,17 +99,19 @@ export 'core/function/valied_input.dart';
 export 'core/function/pop_dialogs/alert_exit_app_dialog.dart';
 export "core/function/chick_internet_coniction.dart";
 export 'core/function/statuse_request.dart';
-export 'core/middleware/route_welcome_middleware.dart';
+export 'routes/middleware/route_welcome_middleware.dart';
+export 'core/function/handling_requset_view.dart';
 
 
 // app Widget
-export '/view/widgets/text_widget.dart';
-export '/view/widgets/size_box_widget.dart';
+export 'view/widgets/text_widget.dart';
+export 'view/widgets/size_box_widget.dart';
 export 'view/widgets/btn_widget.dart';
 export 'view/widgets/text_input_widget.dart';
 export 'view/widgets/loading_widget.dart';
 export 'view/widgets/snack_bar.dart';
 export 'core/function/pop_dialogs/pop_loading.dart';
+export 'view/widgets/title_row.dart';
 
 
 

@@ -35,7 +35,7 @@ class _TestPageState extends State<TestPage> {
         child: GetBuilder<TestController>(builder: (controller) {
           // log(controller.requestStatus.toString());
           return HandlingRequstView(
-            requestStatus: controller.requestStatus!,
+            controller.requestStatus,
             widget: successState(controller),
           );
         }),

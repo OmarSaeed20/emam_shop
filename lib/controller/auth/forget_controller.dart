@@ -1,4 +1,5 @@
-import 'dart:math';
+import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 
@@ -140,8 +141,8 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
-          startCountdown();
           _requestStatus = RequestStatus.success;
+          _timer!.cancel();
           Get.back();
           snackBarSuccess(
               icon: CupertinoIcons.info_circle, msg: response["message"]);
@@ -157,24 +158,50 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     }
   }
 
-  int _countdown = 59;
+  int _countdown = 0;
   int get countdown => _countdown;
   bool _isCountdownFinish = false;
   bool get isCountdownFinish => _isCountdownFinish;
+  Timer? _timer;
 
   @override
+  Future<void> startCountdown() async {
+    _countdown = 59;
+    _isCountdownFinish = false;
+    update();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countdown > 0) {
+        _countdown--;
+        log("$_countdown");
+        update();
+      } else {
+        _countdown = 00;
+        _isCountdownFinish = true;
+        _timer!.cancel();
+        update();
+      }
+    });
+    /* for (int i = 59; i >= 0; i--) {
+      await Future.delayed(const Duration(seconds: 1));
+      _countdown = i;
+      log("$i");
+      update();
+    } */
+    update();
+  }
+  /* @override
   Future<void> startCountdown() async {
     _isCountdownFinish = false;
     update();
     for (int i = 59; i >= 0; i--) {
-      await Future.delayed(1.seconds);
+      await Future.delayed(const Duration(seconds: 1));
       _countdown = i;
-      log(i);
+      log("$i");
       update();
     }
     _isCountdownFinish = true;
     update();
-  }
+  } */
 
   @override
   Future<void> onCountdownFinish() async {
@@ -206,12 +233,12 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
       _requestStatus = RequestStatus.loading;
       popLoading(msg: "Please Wait");
       update();
+
       var response = await _authRepo.foSetNewPass(
           email: _email.text, password: _rePassword.text);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
-          startCountdown();
           _requestStatus = RequestStatus.success;
           Get.back();
           snackBarSuccess(
