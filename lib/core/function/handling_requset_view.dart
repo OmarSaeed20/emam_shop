@@ -1,3 +1,8 @@
+import '../../view/widgets/handling_view_widgets/loading_state_widget.dart';
+import '../../view/widgets/handling_view_widgets/no_data_state_widget.dart';
+import '../../view/widgets/handling_view_widgets/offline_internet_state_widget.dart';
+import '../../view/widgets/handling_view_widgets/server_exception_state_widegt.dart';
+import '../../view/widgets/handling_view_widgets/server_failure_state_widget.dart';
 import '/index.dart';
 
 class HandlingRequstView extends StatelessWidget {
@@ -9,15 +14,15 @@ class HandlingRequstView extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (requeStat) {
       case RequestStatus.loading:
-        return const Center(child: TextWidget('Loading ...'));
+        return const Center(child: LoadingStateWidget());
       case RequestStatus.offLineFailure:
-        return const Center(child: TextWidget('offline error'));
+        return const Center(child: OfflineInterNetWidget());
       case RequestStatus.serverFailure:
-        return const Center(child: TextWidget('srver error'));
+        return const Center(child: ServerFailurenWidget());
       case RequestStatus.noData:
-        return const Center(child: TextWidget('noData'));
+        return const Center(child: NoDataStateWidget());
       case RequestStatus.serverException:
-        return const Center(child: TextWidget('serverException'));
+        return const Center(child: ServerExceptionWidget());
       default:
         return widget;
     }
@@ -33,19 +38,24 @@ class HandlingRequstView extends StatelessWidget {
   }
 }
 
-class HandlingRequstServerError extends StatelessWidget {
-  const HandlingRequstServerError(this.requeStat,
-      {super.key, required this.widget});
+class HandlingRequstServerAuth extends StatelessWidget {
+  const HandlingRequstServerAuth(
+    this.requeStat, {
+    super.key,
+    required this.widget,
+  });
   final RequestStatus requeStat;
   final Widget widget;
 
   @override
   Widget build(BuildContext context) {
     switch (requeStat) {
+      case RequestStatus.loading:
+        return const Center(child: LoadingStateWidget());
       case RequestStatus.offLineFailure:
-        return const Center(child: TextWidget('Chick your internet'));
-      case RequestStatus.serverFailure:
-        return const Center(child: TextWidget('srver error'));
+        return widget;
+      /*case RequestStatus.serverFailure:
+        return const Center(child: TextWidget('srver error')); */
       default:
         return widget;
     }

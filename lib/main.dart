@@ -6,7 +6,7 @@ import 'core/shared/dependencies.dart' as dependencies;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dependencies.init();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: AppColors.trans,
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      translations: MyLocale(),
+      translations: MyLocale(), 
       theme: MyLocaleControllerImp.to.themeData,
       locale: MyLocaleControllerImp.to.locale,
       initialRoute: RouteHelper.getInitial(),

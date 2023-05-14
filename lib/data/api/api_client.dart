@@ -25,7 +25,6 @@ class ApiClient {
         return const Left(RequestStatus.offLineFailure);
       }
     } catch (e) {
-      Get.back();
       log("catch<POST Data-->serverException> $e");
       return left(RequestStatus.serverException);
     }

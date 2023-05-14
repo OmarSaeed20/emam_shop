@@ -18,7 +18,7 @@ Widget searchBar() => Row(
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: AppColors.grey200,
+                fillColor: AppColors.grey150,
                 prefixIcon: const Icon(CupertinoIcons.search)),
           ),
         ),

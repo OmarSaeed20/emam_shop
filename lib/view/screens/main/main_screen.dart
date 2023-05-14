@@ -7,7 +7,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<MainControllerImp>(
       builder: (controller) => Scaffold(
-        extendBody: true,
+        extendBody: true, 
         bottomNavigationBar: BottomNavigatiBar(controller: controller),
         key: controller.getkey,
         body: SafeArea(

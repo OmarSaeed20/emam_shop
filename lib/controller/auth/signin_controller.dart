@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -24,7 +21,7 @@ class SignInControllerImp extends SignInController {
 
   @override
   void onInit() {
-  /*   FirebaseMessaging.instance.getToken().then((value) {
+    /*   FirebaseMessaging.instance.getToken().then((value) {
       log("Tokennnnn>>>> $value");
       String? token = value;
     }); */
@@ -75,7 +72,7 @@ class SignInControllerImp extends SignInController {
   Future<void> onTappedSignIn() async {
     if (signinForm.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
-      popLoading();
+      // popLoading();
       update();
       var response =
           await repo.signin(email: email.text, password: password.text);
@@ -94,16 +91,22 @@ class SignInControllerImp extends SignInController {
           update();
         } else {
           _requestStatus = RequestStatus.noData;
-          Get.back();
+          // Get.back();
           snackBarMessage(title: "warning", msg: response["data"]);
         }
         update();
-      }
+      } else if (_requestStatus == RequestStatus.offLineFailure ||
+          _requestStatus == RequestStatus.serverFailure ||
+          _requestStatus == RequestStatus.serverException) {
+        // _requestStatus == RequestStatus.offLineFailure;
+        snackBarMessage(title: "warning", msg: "Please try again");
+        update();
+      } else {}
     }
   }
 
   _onSuccessLogin() {
-    Get.back();
+    // Get.back();
     Get.delete<SignInControllerImp>();
     Get.delete<SignUpControllerImp>();
     Get.offAllNamed(RouteHelper.getMain());

@@ -1,5 +1,4 @@
-import "package:flutter_animate/flutter_animate.dart";
-
+ 
 import "/index.dart";
 
 class SplashViewBody extends StatefulWidget {

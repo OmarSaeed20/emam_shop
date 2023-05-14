@@ -1,5 +1,4 @@
-import 'package:ecommerce/view/screens/auth/forget_password/forget_verfiy_code.dart';
-
+import '../view/screens/product_detailes/product_details_screen.dart';
 import '/index.dart';
 
 class RouteHelper {
@@ -20,9 +19,10 @@ class RouteHelper {
   static const String _faqs = '/faqs';
   static const String _privacyPolicy = '/privacy_policy';
   static const String _home = '/home';
-  static const String _categorieItemPage = '/_categorie_item_Page';
+  static const String _categorieItemPage = '/categorie_item_Page';
+  static const String _allCategorie = '/all_categorie';
+  static const String _productDetaile = '/product_detaile';
 
-  static const String _map = '/map';
   static const String _machinLoc = '/machin_loc';
   static const String _qrScaner = '/qr_scaner';
   static const String _chatScreen = '/chat_screen';
@@ -52,7 +52,9 @@ class RouteHelper {
   static String getFAQs() => _faqs;
   static String getPrivacyPolicy() => _privacyPolicy;
   static String getHome() => _home;
+  static String getAllCategories() => _allCategorie;
   static String getCategorieItemPage() => _categorieItemPage;
+  static String getProductDetailePage() => _productDetaile;
   // I do this to easy variables sending process
   // static String getCompetationDetails(CompetitionsModel model) =>
   //     "$_competationDetails?competitionsModel=${jsonEncode(model)}";
@@ -76,8 +78,7 @@ class RouteHelper {
     GetPage(
       name: initial,
       page: () => const SplashScreen(),
-      transition: Transition.fadeIn,
-      // middlewares: [RouteWelcomeMiddleware()],
+      transition: Transition.native,
     ),
     GetPage(
         name: _onboarding,
@@ -121,10 +122,17 @@ class RouteHelper {
         page: () => const MainScreen(),
         transition: Transition.native),
     GetPage(
-        name: _categorieItemPage,
-        page: () => const CategorieItemPage(),
+        name: _allCategorie,
+        page: () => const CategorigsScreen(),
         transition: Transition.native),
-
+    GetPage(
+        name: _categorieItemPage,
+        page: () => const ItemScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _productDetaile,
+        page: () => const ProductDetailsScreen(),
+        transition: Transition.leftToRightWithFade),
     /* 
     GetPage(
         name: _setOtp,
@@ -145,10 +153,6 @@ class RouteHelper {
     GetPage(
         name: _privacyPolicy,
         page: () => const PrivacyPolicyScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _home,
-        page: () => const HomePage(),
         transition: Transition.fadeIn),
     GetPage(
         name: _competationDetails,

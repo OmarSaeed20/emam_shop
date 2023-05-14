@@ -35,19 +35,11 @@ ListTile homeAppBar({
             TextWidget("menoufia, egypt", fontSize: 14.weight),
           ],
         ),
-        /*  TextWidget(
-      "EMAM",
-      textAlign: TextAlign.center,
-      fontSize: 26.weight,
-      fontFamily: AppStrings.montserrat,
-      fontWeight: FontWeight.w600,
-    ), */
         leading: appBarImg(
           onTap: () {},
-          AppImages.user1,
+          AppImages.user,
           size: 50,
           fit: BoxFit.cover,
-          // color: AppColors.primary,
           border: Border.all(width: .5.weight, color: AppColors.grey200),
         ),
         trailing: SizedBox(

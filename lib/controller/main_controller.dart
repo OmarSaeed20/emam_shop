@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import '../view/screens/home/home_screen.dart';
 import '/index.dart';
 
 abstract class MainController extends GetxController {
@@ -27,14 +26,16 @@ class MainControllerImp extends MainController {
   List<IconData> get icon => _currentIcon;
   List<IconData> get activeIcon => _currentActiveIcon;
   final List<IconData> _currentIcon = [
-    CupertinoIcons.square_grid_2x2,
+    // CupertinoIcons.square_grid_2x2,
+    Icons.dashboard_outlined,
     CupertinoIcons.creditcard,
     CupertinoIcons.cart,
     CupertinoIcons.heart,
     Icons.settings_outlined,
   ];
   final List<IconData> _currentActiveIcon = [
-    CupertinoIcons.square_grid_2x2_fill,
+    // CupertinoIcons.square_grid_2x2_fill,
+    Icons.dashboard_rounded,
     CupertinoIcons.creditcard_fill,
     CupertinoIcons.cart_fill,
     CupertinoIcons.heart_fill,

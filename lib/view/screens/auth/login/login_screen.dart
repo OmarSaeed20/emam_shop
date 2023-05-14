@@ -1,5 +1,3 @@
-import 'package:ecommerce/core/function/handling_requset_view.dart';
-
 import '/index.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,18 +7,30 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: GetBuilder<SignInControllerImp>(
-        builder: (controller) => _bottomNavigationBar(controller),
+        builder: (controller) =>
+            controller.requestStatus != RequestStatus.loading
+                ? _bottomNavigationBar(controller)
+                : const Text('data'),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(child: GetBuilder<SignInControllerImp>(
-          builder: (controller) {
-            return SizedBox(
+        child: SingleChildScrollView(
+          child: GetBuilder<SignInControllerImp>(
+            builder: (controller) {
+              return SizedBox(
                 width: double.infinity,
-                child: Column(
-                  children: [const IconAndTextBack(), _body(controller)],
-                ));
-          },
-        )),
+                child: HandlingRequstServerAuth(
+                  controller.requestStatus,
+                  widget: Column(
+                    children: [
+                      const IconAndTextBack(),
+                      _body(controller),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

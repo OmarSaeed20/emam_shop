@@ -1,20 +1,50 @@
 import '/index.dart';
+ 
 
-Card banner() => Card(
+class HomeBanner extends GetView<HomeControllerImp> {
+  const HomeBanner({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
         child: Stack(
       children: [
+        Container(
+          height: 150.height,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: AppColors.cardColor1),
+          child: ListTile(
+            title: TextWidget(
+              "A summer surprise",
+              fontWeight: FontWeight.w600,
+              fontSize: 24.weight,
+            ),
+            subtitle: Padding(
+              padding: paddingOnly(top: 20),
+              child: TextWidget(
+                "Cashback 40%",
+                fontFamily: AppStrings.montserrat,
+                color: AppColors.primary,
+                fontSize: 30.weight,
+              ),
+            ),
+          ),
+        ),
         Positioned(
           top: -15,
-          right: -20,
+          right: controller.lang == EndPoint.enCode ? -20 : null,
+          left: controller.lang == EndPoint.arCode ? -20 : null,
           child: Container(
             height: 180.height,
             width: 155.weight,
             decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(AppImages.saell40),
-                  fit: BoxFit.cover,
-                )),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(AppImages.saell40),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
         Positioned(
@@ -33,26 +63,7 @@ Card banner() => Card(
             radius: 60.height,
           ),
         ),
-        Container(
-          height: 150.height,
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: ListTile(
-            title: TextWidget(
-              "A summer surprise",
-              fontWeight: FontWeight.w600,
-              fontSize: 24.weight,
-            ),
-            subtitle: Padding(
-              padding: paddingOnly(top: 20),
-              child: TextWidget(
-                "Cashback 40%",
-                fontFamily: AppStrings.montserrat,
-                color: AppColors.primary,
-                fontSize: 30.weight,
-              ),
-            ),
-          ),
-        ),
       ],
     ));
+  }
+}

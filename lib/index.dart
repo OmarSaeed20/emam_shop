@@ -21,6 +21,7 @@ export 'controller/auth/signin_controller.dart';
 export 'controller/main_controller.dart';
 export "controller/test_controller.dart";
 export "controller/home_controller.dart";
+export 'controller/items_controller.dart';
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
@@ -29,6 +30,7 @@ export 'data/api/api_client.dart';
 export "data/repository/home_repo.dart";
 
 export 'data/repository/auth_repo.dart';
+export 'data/repository/items_repo.dart';
 export 'data/api/api_end_point.dart';
 
 // model
@@ -55,7 +57,10 @@ export 'view/screens/auth/forget_password/reset_password.dart';
 export 'view/screens/auth/verification/verification_screen.dart';
 export 'view/screens/auth/register/verfiy_signup.dart';
 export 'view/screens/main/main_screen.dart';
-export 'view/screens/home/categorie_Item_page.dart';
+export 'view/screens/auth/forget_password/forget_verfiy_code.dart';
+export 'view/screens/categorie/categories_screen.dart';
+export 'view/screens/item/item_screen.dart';
+export 'view/screens/home/home_screen.dart';
 
 // widget
 
@@ -82,6 +87,15 @@ export 'view/screens/home/widget/home_bonner.dart';
 export 'view/screens/home/widget/categories_card.dart';
 export 'view/screens/home/widget/home_app_bar.dart';
 export 'view/screens/home/widget/welcome_user.dart';
+export 'view/screens/home/widget/for_you_card.dart';
+export 'view/screens/categorie/widget/card_stak_icon.dart';
+export 'view/screens/categorie/widget/product_title.dart';
+export 'view/screens/home/widget/search_bar.dart';
+export 'view/screens/categorie/widget/product_card_body.dart';
+export 'view/screens/categorie/widget/product_image.dart';
+export 'view/screens/categorie/widget/product_grid_view.dart';
+export 'view/screens/categorie/widget/list_tile_items.dart';
+export 'view/screens/categorie/widget/discount_positioned.dart';
 // core
 
 ///// constant
@@ -94,6 +108,7 @@ export 'core/constant/app_images.dart';
 export 'core/constant/app_color.dart';
 export 'core/constant/app_dialog.dart';
 export 'core/function/handling_response.dart';
+export 'core/function/translate_database.dart';
 
 export 'data/datasource/locale/local_end_point.dart';
 export 'core/theme/app_theme.dart';
@@ -116,6 +131,7 @@ export 'view/widgets/loading_widget.dart';
 export 'view/widgets/snack_bar.dart';
 export 'core/function/pop_dialogs/pop_loading.dart';
 export 'view/widgets/title_row.dart';
+export 'view/widgets/handling_view_widgets/costum_bage_state_widget.dart';
 
 
 

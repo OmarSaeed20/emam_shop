@@ -4,13 +4,13 @@ categoriesCard({
   required CategoriesModel model,
   required void Function() onTap,
   Color? color,
-}) {
-  MyLocaleControllerImp controller = Get.find();
+}) { 
   return GestureDetector(
     onTap: onTap,
     child: Padding(
       padding: paddingOnly(right: 5),
       child: Card(
+        color: AppColors.secondaryLight,
         child: Container(
           constraints: BoxConstraints(minWidth: 105.weight),
           child:
@@ -23,18 +23,17 @@ categoriesCard({
                     "${ApiLinks.baseUri}/uplode/${model.image}",
                     fit: BoxFit.fill,
                     height: 50.height,
-                    color: AppColors.darkBackgroundColor,
+                    color: AppColors.primary,
                   ),
                 )),
             Padding(
               padding: paddingOnly(right: 8),
               child: TextWidget(
-                controller.themeData == themeEN ? model.name! : model.nameAr!,
+                translateDatabase(model.nameAr!, model.name!),
                 fontSize: 12.weight,
                 overFlow: TextOverflow.ellipsis,
                 maxLines: 2,
-                textAlign: TextAlign.center,
-                color: AppColors.black,
+                textAlign: TextAlign.center, 
               ),
             ),
             10.sH,

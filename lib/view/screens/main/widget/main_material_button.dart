@@ -40,7 +40,7 @@ customMateIcon({
                         const Color(0xfff39060),
                         const Color(0xffffb56b),
                       ]).scale(delay: const Duration(milliseconds: 100))
-                    : Icon(icon, size: 23.weight, color: AppColors.offWhite3),
+                    : Icon(icon, size: 23.weight, color: AppColors.secondary.withOpacity(.7),),
               ],
             ),
           ),

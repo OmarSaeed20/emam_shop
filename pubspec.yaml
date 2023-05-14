@@ -49,8 +49,8 @@ dependencies:
   flutter_svg: ^0.23.0+1
 
   pin_code_fields: ^7.4.0
-  connectivity: ^3.0.6
-  rive: ^0.9.1
+  connectivity: ^3.0.6 
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

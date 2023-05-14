@@ -1,15 +1,15 @@
 class ItemsModel {
-  final String? itemsId;
-  final String? itemsName;
-  final String? itemsNameAr;
-  final String? itemsDesc;
-  final String? itemsDessAr;
-  final String? itemsImage;
+  final String? id;
+  final String? name;
+  final String? nameAr;
+  final String? descreption;
+  final String? descreptionAr;
+  final String? image;
   final String? itemsCount;
-  final String? itemsActive;
-  final String? itemsPrice;
-  final String? itemsDiscount;
-  final String? itemsData;
+  final String? activeUnits;
+  final String? price;
+  final String? discount;
+  final String? dateCereate;
   final String? itemsCate;
   final String? categoriesId;
   final String? categoriesName;
@@ -17,17 +17,17 @@ class ItemsModel {
   final String? categoriesDatatime;
   final String? categoriesImage;
   const ItemsModel({
-    this.itemsId,
-    this.itemsName,
-    this.itemsNameAr,
-    this.itemsDesc,
-    this.itemsDessAr,
-    this.itemsImage,
+    this.id,
+    this.name,
+    this.nameAr,
+    this.descreption,
+    this.descreptionAr,
+    this.image,
     this.itemsCount,
-    this.itemsActive,
-    this.itemsPrice,
-    this.itemsDiscount,
-    this.itemsData,
+    this.activeUnits,
+    this.price,
+    this.discount,
+    this.dateCereate,
     this.itemsCate,
     this.categoriesId,
     this.categoriesName,
@@ -35,36 +35,37 @@ class ItemsModel {
     this.categoriesDatatime,
     this.categoriesImage,
   });
-  ItemsModel copyWith(
-      {String? itemsId,
-      String? itemsName,
-      String? itemsNameAr,
-      String? itemsDesc,
-      String? itemsDessAr,
-      String? itemsImage,
-      String? itemsCount,
-      String? itemsActive,
-      String? itemsPrice,
-      String? itemsDiscount,
-      String? itemsData,
-      String? itemsCate,
-      String? categoriesId,
-      String? categoriesName,
-      String? categoriesNameAr,
-      String? categoriesDatatime,
-      String? categoriesImage}) {
+  ItemsModel copyWith({
+    String? id,
+    String? name,
+    String? nameAr,
+    String? descreption,
+    String? descreptionAr,
+    String? image,
+    String? itemsCount,
+    String? activeUnits,
+    String? price,
+    String? discount,
+    String? dateCereate,
+    String? itemsCate,
+    String? categoriesId,
+    String? categoriesName,
+    String? categoriesNameAr,
+    String? categoriesDatatime,
+    String? categoriesImage,
+  }) {
     return ItemsModel(
-        itemsId: itemsId ?? this.itemsId,
-        itemsName: itemsName ?? this.itemsName,
-        itemsNameAr: itemsNameAr ?? this.itemsNameAr,
-        itemsDesc: itemsDesc ?? this.itemsDesc,
-        itemsDessAr: itemsDessAr ?? this.itemsDessAr,
-        itemsImage: itemsImage ?? this.itemsImage,
+        id: id ?? this.id,
+        name: name ?? this.name,
+        nameAr: nameAr ?? this.nameAr,
+        descreption: descreption ?? this.descreption,
+        descreptionAr: descreptionAr ?? this.descreptionAr,
+        image: image ?? this.image,
         itemsCount: itemsCount ?? this.itemsCount,
-        itemsActive: itemsActive ?? this.itemsActive,
-        itemsPrice: itemsPrice ?? this.itemsPrice,
-        itemsDiscount: itemsDiscount ?? this.itemsDiscount,
-        itemsData: itemsData ?? this.itemsData,
+        activeUnits: activeUnits ?? this.activeUnits,
+        price: price ?? this.price,
+        discount: discount ?? this.discount,
+        dateCereate: dateCereate ?? this.dateCereate,
         itemsCate: itemsCate ?? this.itemsCate,
         categoriesId: categoriesId ?? this.categoriesId,
         categoriesName: categoriesName ?? this.categoriesName,
@@ -75,17 +76,17 @@ class ItemsModel {
 
   Map<String, Object?> toJson() {
     return {
-      'items_id': itemsId,
-      'items_name': itemsName,
-      'items_name_ar': itemsNameAr,
-      'items_desc': itemsDesc,
-      'items_dess_ar': itemsDessAr,
-      'items_image': itemsImage,
+      'items_id': id,
+      'items_name': name,
+      'items_name_ar': nameAr,
+      'items_desc': descreption,
+      'items_dess_ar': descreptionAr,
+      'items_image': image,
       'items_count': itemsCount,
-      'items_active': itemsActive,
-      'items_price': itemsPrice,
-      'items_discount': itemsDiscount,
-      'items_data': itemsData,
+      'items_active': activeUnits,
+      'items_price': price,
+      'items_discount': discount,
+      'items_data': dateCereate,
       'items_cate': itemsCate,
       'categories_id': categoriesId,
       'categories_name': categoriesName,
@@ -97,30 +98,29 @@ class ItemsModel {
 
   static ItemsModel fromJson(Map<String, Object?> json) {
     return ItemsModel(
-        itemsId: json['items_id'] == null ? null : json['items_id'] as String,
-        itemsName:
-            json['items_name'] == null ? null : json['items_name'] as String,
-        itemsNameAr: json['items_name_ar'] == null
+        id: json['items_id'] == null ? null : json['items_id'] as String,
+        name: json['items_name'] == null ? null : json['items_name'] as String,
+        nameAr: json['items_name_ar'] == null
             ? null
             : json['items_name_ar'] as String,
-        itemsDesc:
+        descreption:
             json['items_desc'] == null ? null : json['items_desc'] as String,
-        itemsDessAr: json['items_dess_ar'] == null
+        descreptionAr: json['items_dess_ar'] == null
             ? null
             : json['items_dess_ar'] as String,
-        itemsImage:
+        image:
             json['items_image'] == null ? null : json['items_image'] as String,
         itemsCount:
             json['items_count'] == null ? null : json['items_count'] as String,
-        itemsActive: json['items_active'] == null
+        activeUnits: json['items_active'] == null
             ? null
             : json['items_active'] as String,
-        itemsPrice:
+        price:
             json['items_price'] == null ? null : json['items_price'] as String,
-        itemsDiscount: json['items_discount'] == null
+        discount: json['items_discount'] == null
             ? null
             : json['items_discount'] as String,
-        itemsData:
+        dateCereate:
             json['items_data'] == null ? null : json['items_data'] as String,
         itemsCate:
             json['items_cate'] == null ? null : json['items_cate'] as String,
@@ -144,17 +144,17 @@ class ItemsModel {
   @override
   String toString() {
     return '''ItemsModel(
-                itemsId:$itemsId,
-itemsName:$itemsName,
-itemsNameAr:$itemsNameAr,
-itemsDesc:$itemsDesc,
-itemsDessAr:$itemsDessAr,
-itemsImage:$itemsImage,
+                id:$id,
+name:$name,
+nameAr:$nameAr,
+descreption:$descreption,
+descreptionAr:$descreptionAr,
+image:$image,
 itemsCount:$itemsCount,
-itemsActive:$itemsActive,
-itemsPrice:$itemsPrice,
-itemsDiscount:$itemsDiscount,
-itemsData:$itemsData,
+activeUnits:$activeUnits,
+price:$price,
+discount:$discount,
+dateCereate:$dateCereate,
 itemsCate:$itemsCate,
 categoriesId:$categoriesId,
 categoriesName:$categoriesName,
@@ -168,17 +168,17 @@ categoriesImage:$categoriesImage
   bool operator ==(Object other) {
     return other is ItemsModel &&
         other.runtimeType == runtimeType &&
-        other.itemsId == itemsId &&
-        other.itemsName == itemsName &&
-        other.itemsNameAr == itemsNameAr &&
-        other.itemsDesc == itemsDesc &&
-        other.itemsDessAr == itemsDessAr &&
-        other.itemsImage == itemsImage &&
+        other.id == id &&
+        other.name == name &&
+        other.nameAr == nameAr &&
+        other.descreption == descreption &&
+        other.descreptionAr == descreptionAr &&
+        other.image == image &&
         other.itemsCount == itemsCount &&
-        other.itemsActive == itemsActive &&
-        other.itemsPrice == itemsPrice &&
-        other.itemsDiscount == itemsDiscount &&
-        other.itemsData == itemsData &&
+        other.activeUnits == activeUnits &&
+        other.price == price &&
+        other.discount == discount &&
+        other.dateCereate == dateCereate &&
         other.itemsCate == itemsCate &&
         other.categoriesId == categoriesId &&
         other.categoriesName == categoriesName &&
@@ -191,17 +191,17 @@ categoriesImage:$categoriesImage
   int get hashCode {
     return Object.hash(
         runtimeType,
-        itemsId,
-        itemsName,
-        itemsNameAr,
-        itemsDesc,
-        itemsDessAr,
-        itemsImage,
+        id,
+        name,
+        nameAr,
+        descreption,
+        descreptionAr,
+        image,
         itemsCount,
-        itemsActive,
-        itemsPrice,
-        itemsDiscount,
-        itemsData,
+        activeUnits,
+        price,
+        discount,
+        dateCereate,
         itemsCate,
         categoriesId,
         categoriesName,

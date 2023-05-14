@@ -8,8 +8,8 @@ Row titleRow(String title,
         Expanded(
           child: TextWidget(
             title,
-            fontSize: foSiz ?? 20,
-            fontWeight: FontWeight.w600,
+            fontSize: foSiz ?? 17.weight,
+            fontWeight: FontWeight.w700,
           ),
         ),
         if (seeAll)
@@ -20,7 +20,9 @@ Row titleRow(String title,
                 TextWidget("See all", fontSize: 14.weight),
                 3.sW,
                 Icon(
-                  Icons.keyboard_double_arrow_right_rounded,
+                  MyLocaleControllerImp.to.themeData == themeEN
+                      ? Icons.keyboard_double_arrow_right_rounded
+                      : Icons.keyboard_double_arrow_left_rounded,
                   // CupertinoIcons.chevron_right_2,
                   size: 16.weight,
                   color: AppColors.primary,
