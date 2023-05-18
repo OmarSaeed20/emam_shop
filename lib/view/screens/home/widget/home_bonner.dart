@@ -1,5 +1,4 @@
 import '/index.dart';
- 
 
 class HomeBanner extends GetView<HomeControllerImp> {
   const HomeBanner({super.key});
@@ -10,7 +9,7 @@ class HomeBanner extends GetView<HomeControllerImp> {
         child: Stack(
       children: [
         Container(
-          height: 150.height,
+          height: 110.height,
           width: double.infinity,
           alignment: Alignment.center,
           decoration: BoxDecoration(color: AppColors.cardColor1),
@@ -18,15 +17,15 @@ class HomeBanner extends GetView<HomeControllerImp> {
             title: TextWidget(
               "A summer surprise",
               fontWeight: FontWeight.w600,
-              fontSize: 24.weight,
+              fontSize: 22.weight,
             ),
             subtitle: Padding(
-              padding: paddingOnly(top: 20),
+              padding: paddingOnly(top: 5.height),
               child: TextWidget(
                 "Cashback 40%",
                 fontFamily: AppStrings.montserrat,
                 color: AppColors.primary,
-                fontSize: 30.weight,
+                fontSize: 28.weight,
               ),
             ),
           ),
@@ -36,7 +35,7 @@ class HomeBanner extends GetView<HomeControllerImp> {
           right: controller.lang == EndPoint.enCode ? -20 : null,
           left: controller.lang == EndPoint.arCode ? -20 : null,
           child: Container(
-            height: 180.height,
+            height: 140.height,
             width: 155.weight,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,

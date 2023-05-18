@@ -16,6 +16,7 @@ class ItemsModel {
   final String? categoriesNameAr;
   final String? categoriesDatatime;
   final String? categoriesImage;
+  final String? favorite;
   const ItemsModel({
     this.id,
     this.name,
@@ -34,6 +35,7 @@ class ItemsModel {
     this.categoriesNameAr,
     this.categoriesDatatime,
     this.categoriesImage,
+    this.favorite,
   });
   ItemsModel copyWith({
     String? id,
@@ -53,25 +55,28 @@ class ItemsModel {
     String? categoriesNameAr,
     String? categoriesDatatime,
     String? categoriesImage,
+    String? favorite,
   }) {
     return ItemsModel(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        nameAr: nameAr ?? this.nameAr,
-        descreption: descreption ?? this.descreption,
-        descreptionAr: descreptionAr ?? this.descreptionAr,
-        image: image ?? this.image,
-        itemsCount: itemsCount ?? this.itemsCount,
-        activeUnits: activeUnits ?? this.activeUnits,
-        price: price ?? this.price,
-        discount: discount ?? this.discount,
-        dateCereate: dateCereate ?? this.dateCereate,
-        itemsCate: itemsCate ?? this.itemsCate,
-        categoriesId: categoriesId ?? this.categoriesId,
-        categoriesName: categoriesName ?? this.categoriesName,
-        categoriesNameAr: categoriesNameAr ?? this.categoriesNameAr,
-        categoriesDatatime: categoriesDatatime ?? this.categoriesDatatime,
-        categoriesImage: categoriesImage ?? this.categoriesImage);
+      id: id ?? this.id,
+      name: name ?? this.name,
+      nameAr: nameAr ?? this.nameAr,
+      descreption: descreption ?? this.descreption,
+      descreptionAr: descreptionAr ?? this.descreptionAr,
+      image: image ?? this.image,
+      itemsCount: itemsCount ?? this.itemsCount,
+      activeUnits: activeUnits ?? this.activeUnits,
+      price: price ?? this.price,
+      discount: discount ?? this.discount,
+      dateCereate: dateCereate ?? this.dateCereate,
+      itemsCate: itemsCate ?? this.itemsCate,
+      categoriesId: categoriesId ?? this.categoriesId,
+      categoriesName: categoriesName ?? this.categoriesName,
+      categoriesNameAr: categoriesNameAr ?? this.categoriesNameAr,
+      categoriesDatatime: categoriesDatatime ?? this.categoriesDatatime,
+      categoriesImage: categoriesImage ?? this.categoriesImage,
+      favorite: favorite ?? this.favorite,
+    );
   }
 
   Map<String, Object?> toJson() {
@@ -92,53 +97,53 @@ class ItemsModel {
       'categories_name': categoriesName,
       'categories_name_ar': categoriesNameAr,
       'categories_datatime': categoriesDatatime,
-      'categories_image': categoriesImage
+      'categories_image': categoriesImage,
+      'favorite': favorite,
     };
   }
 
   static ItemsModel fromJson(Map<String, Object?> json) {
     return ItemsModel(
-        id: json['items_id'] == null ? null : json['items_id'] as String,
-        name: json['items_name'] == null ? null : json['items_name'] as String,
-        nameAr: json['items_name_ar'] == null
-            ? null
-            : json['items_name_ar'] as String,
-        descreption:
-            json['items_desc'] == null ? null : json['items_desc'] as String,
-        descreptionAr: json['items_dess_ar'] == null
-            ? null
-            : json['items_dess_ar'] as String,
-        image:
-            json['items_image'] == null ? null : json['items_image'] as String,
-        itemsCount:
-            json['items_count'] == null ? null : json['items_count'] as String,
-        activeUnits: json['items_active'] == null
-            ? null
-            : json['items_active'] as String,
-        price:
-            json['items_price'] == null ? null : json['items_price'] as String,
-        discount: json['items_discount'] == null
-            ? null
-            : json['items_discount'] as String,
-        dateCereate:
-            json['items_data'] == null ? null : json['items_data'] as String,
-        itemsCate:
-            json['items_cate'] == null ? null : json['items_cate'] as String,
-        categoriesId: json['categories_id'] == null
-            ? null
-            : json['categories_id'] as String,
-        categoriesName: json['categories_name'] == null
-            ? null
-            : json['categories_name'] as String,
-        categoriesNameAr: json['categories_name_ar'] == null
-            ? null
-            : json['categories_name_ar'] as String,
-        categoriesDatatime: json['categories_datatime'] == null
-            ? null
-            : json['categories_datatime'] as String,
-        categoriesImage: json['categories_image'] == null
-            ? null
-            : json['categories_image'] as String);
+      id: json['items_id'] == null ? null : json['items_id'] as String,
+      name: json['items_name'] == null ? null : json['items_name'] as String,
+      nameAr: json['items_name_ar'] == null
+          ? null
+          : json['items_name_ar'] as String,
+      descreption:
+          json['items_desc'] == null ? null : json['items_desc'] as String,
+      descreptionAr: json['items_dess_ar'] == null
+          ? null
+          : json['items_dess_ar'] as String,
+      image: json['items_image'] == null ? null : json['items_image'] as String,
+      itemsCount:
+          json['items_count'] == null ? null : json['items_count'] as String,
+      activeUnits:
+          json['items_active'] == null ? null : json['items_active'] as String,
+      price: json['items_price'] == null ? null : json['items_price'] as String,
+      discount: json['items_discount'] == null
+          ? null
+          : json['items_discount'] as String,
+      dateCereate:
+          json['items_data'] == null ? null : json['items_data'] as String,
+      itemsCate:
+          json['items_cate'] == null ? null : json['items_cate'] as String,
+      categoriesId: json['categories_id'] == null
+          ? null
+          : json['categories_id'] as String,
+      categoriesName: json['categories_name'] == null
+          ? null
+          : json['categories_name'] as String,
+      categoriesNameAr: json['categories_name_ar'] == null
+          ? null
+          : json['categories_name_ar'] as String,
+      categoriesDatatime: json['categories_datatime'] == null
+          ? null
+          : json['categories_datatime'] as String,
+      categoriesImage: json['categories_image'] == null
+          ? null
+          : json['categories_image'] as String,
+      favorite: json['favorite'] == null ? null : json['favorite'] as String,
+    );
   }
 
   @override
@@ -160,7 +165,8 @@ categoriesId:$categoriesId,
 categoriesName:$categoriesName,
 categoriesNameAr:$categoriesNameAr,
 categoriesDatatime:$categoriesDatatime,
-categoriesImage:$categoriesImage
+categoriesImage:$categoriesImage,
+favorite:$favorite
     ) ''';
   }
 
@@ -184,29 +190,32 @@ categoriesImage:$categoriesImage
         other.categoriesName == categoriesName &&
         other.categoriesNameAr == categoriesNameAr &&
         other.categoriesDatatime == categoriesDatatime &&
+        other.favorite == favorite &&
         other.categoriesImage == categoriesImage;
   }
 
   @override
   int get hashCode {
     return Object.hash(
-        runtimeType,
-        id,
-        name,
-        nameAr,
-        descreption,
-        descreptionAr,
-        image,
-        itemsCount,
-        activeUnits,
-        price,
-        discount,
-        dateCereate,
-        itemsCate,
-        categoriesId,
-        categoriesName,
-        categoriesNameAr,
-        categoriesDatatime,
-        categoriesImage);
+      runtimeType,
+      id,
+      name,
+      nameAr,
+      descreption,
+      descreptionAr,
+      image,
+      itemsCount,
+      activeUnits,
+      price,
+      discount,
+      dateCereate,
+      itemsCate,
+      categoriesId,
+      categoriesName,
+      categoriesNameAr,
+      categoriesDatatime,
+      categoriesImage,
+      favorite,
+    );
   }
 }

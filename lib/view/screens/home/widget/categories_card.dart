@@ -4,7 +4,7 @@ categoriesCard({
   required CategoriesModel model,
   required void Function() onTap,
   Color? color,
-}) { 
+}) {
   return GestureDetector(
     onTap: onTap,
     child: Padding(
@@ -13,9 +13,10 @@ categoriesCard({
         color: AppColors.secondaryLight,
         child: Container(
           constraints: BoxConstraints(minWidth: 105.weight),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            ClipRRect(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ClipRRect(
                 borderRadius: BorderRadius.circular(50.height),
                 child: Container(
                   padding: paddingOnly(top: 5, bottom: 5, left: 5, right: 8),
@@ -25,19 +26,21 @@ categoriesCard({
                     height: 50.height,
                     color: AppColors.primary,
                   ),
-                )),
-            Padding(
-              padding: paddingOnly(right: 8),
-              child: TextWidget(
-                translateDatabase(model.nameAr!, model.name!),
-                fontSize: 12.weight,
-                overFlow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center, 
+                ),
               ),
-            ),
-            10.sH,
-          ]),
+              Padding(
+                padding: paddingOnly(right: 8),
+                child: TextWidget(
+                  translateDatabase(model.nameAr!, model.name!),
+                  fontSize: 12.weight,
+                  overFlow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              10.sH,
+            ],
+          ),
         ),
       ),
     ),

@@ -1,10 +1,22 @@
 import '/index.dart';
 
-class ForgetVerifyCodeScreen extends StatelessWidget {
+class ForgetVerifyCodeScreen extends StatefulWidget {
   const ForgetVerifyCodeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ForgetVerifyCodeScreen> createState() => _ForgetVerifyCodeScreenState();
+}
+
+class _ForgetVerifyCodeScreenState extends State<ForgetVerifyCodeScreen> {
+  @override
+  void dispose() {
+    ForgetPasswordControllerImp.to.timer!.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String phone = Get.arguments;
+    final String email = Get.arguments["email"];
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -17,12 +29,12 @@ class ForgetVerifyCodeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     40.sH,
-                    verfiyScreenHeader(phone),
+                    verfiyScreenHeader(email),
                     60.sH,
                     CustomPinCodeField(
                       onCompleted: (code) {
                         debugPrint("-------Codddde------> $code");
-                        controller.onTappedVerifyCode(code);
+                        controller.onTappedVerifyCode(email, code);
                       },
                       onChanged: (value) {
                         controller.val = value;
@@ -35,16 +47,18 @@ class ForgetVerifyCodeScreen extends StatelessWidget {
                       color: AppColors.awsm,
                       fontWeight: FontWeight.bold,
                     ),
-                    TextButton(
-                      onPressed: () => controller.onCountdownFinish(),
-                      child: TextWidget(
-                        "Resend Code",
-                        color: controller.isCountdownFinish == true
-                            ? AppColors.primary
-                            : AppColors.grey,
-                        fontWeight: FontWeight.bold,
+                    if (controller.isCountdownFinish)
+                      TextButton(
+                        onPressed: () => controller.onCountdownFinish(email),
+                        child: TextWidget(
+                          "Resend Code",
+                          color: controller.isCountdownFinish == true
+                              ? AppColors.primary
+                              : AppColors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                    50.sH
                   ],
                 ),
               ),
@@ -53,24 +67,3 @@ class ForgetVerifyCodeScreen extends StatelessWidget {
     ));
   }
 }
-
-verfiyScreenHeader(String email) => Column(
-      children: [
-        screenPick(
-          icon: Icons.hourglass_empty_rounded,
-          text: AppStrings.verificationCode.tr,
-        ),
-        40.sH,
-        TextWidget(
-          AppStrings.otpsent.tr,
-          color: AppColors.grey,
-          fontWeight: FontWeight.w600,
-        ),
-        TextWidget(
-          email,
-          fontWeight: FontWeight.bold,
-          fontSize: 12.weight,
-          color: AppColors.awsm,
-        ),
-      ],
-    );

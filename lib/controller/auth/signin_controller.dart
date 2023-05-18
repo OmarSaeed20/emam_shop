@@ -80,25 +80,30 @@ class SignInControllerImp extends SignInController {
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
           _requestStatus = RequestStatus.success;
-          _saveUserData(
-            response["data"]["user_id"],
-            response["data"]["user_name"],
-            response["data"]["user_email"],
-            response["data"]["user_phone"],
-          );
-          snackBarSuccess(msg: "welcome ${response["data"]["user_name"]}");
-          _onSuccessLogin();
+          if (response['data']['user_approve'] == "1") {
+            _saveUserData(
+              response["data"]["user_id"],
+              response["data"]["user_name"],
+              response["data"]["user_email"],
+              response["data"]["user_phone"],
+            );
+            _onSuccessLogin();
+          } else {
+            Get.toNamed(
+              RouteHelper.getVerifySignup(),
+              arguments: {"email": email.text},
+            );
+            SignUpControllerImp.to.startCountdown();
+          }
           update();
         } else {
           _requestStatus = RequestStatus.noData;
-          // Get.back();
           snackBarMessage(title: "warning", msg: response["data"]);
         }
         update();
       } else if (_requestStatus == RequestStatus.offLineFailure ||
           _requestStatus == RequestStatus.serverFailure ||
           _requestStatus == RequestStatus.serverException) {
-        // _requestStatus == RequestStatus.offLineFailure;
         snackBarMessage(title: "warning", msg: "Please try again");
         update();
       } else {}
@@ -106,7 +111,6 @@ class SignInControllerImp extends SignInController {
   }
 
   _onSuccessLogin() {
-    // Get.back();
     Get.delete<SignInControllerImp>();
     Get.delete<SignUpControllerImp>();
     Get.offAllNamed(RouteHelper.getMain());

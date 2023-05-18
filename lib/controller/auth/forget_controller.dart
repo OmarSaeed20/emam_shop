@@ -13,9 +13,9 @@ abstract class ForgetPasswordController extends GetxController {
 
   Future<void> onTappedForgetPass();
 
-  void onTappedVerifyCode(val);
+  void onTappedVerifyCode(String email, val);
   Future<void> startCountdown();
-  Future<void> onCountdownFinish();
+  Future<void> onCountdownFinish(String email);
 
   void hiddenPassword();
   void hiddenPasswordRe();
@@ -23,7 +23,7 @@ abstract class ForgetPasswordController extends GetxController {
 }
 
 class ForgetPasswordControllerImp extends ForgetPasswordController {
-  ForgetPasswordControllerImp get to => Get.find();
+  static ForgetPasswordControllerImp get to => Get.find();
 
   @override
   void onInit() {
@@ -108,7 +108,6 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   Future<void> onTappedForgetPass() async {
     if (forgetForm.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
-      popLoading(msg: "Sending OTP");
       update();
       var response = await _authRepo.foSetEmail(email: _email.text);
       _requestStatus = handlingRespose(response);
@@ -116,45 +115,54 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
         if (response["status"] == "success") {
           startCountdown();
           _requestStatus = RequestStatus.success;
-          Get.back();
           snackBarSuccess(
               icon: CupertinoIcons.info_circle, msg: response["message"]);
-          final String email = _email.text;
-          Get.toNamed(RouteHelper.getForgetVerfiyCode(), arguments: email);
+          Get.toNamed(RouteHelper.getForgetVerfiyCode(),
+              arguments: {"email": email.text});
         } else {
           _requestStatus = RequestStatus.noData;
-          Get.back();
           snackBarMessage(title: "Warning", msg: response["message"]);
         }
-      }
-      update();
+        update();
+      } else if (_requestStatus == RequestStatus.offLineFailure ||
+          _requestStatus == RequestStatus.serverFailure ||
+          _requestStatus == RequestStatus.serverException) {
+        snackBarMessage(title: "warning", msg: "Please try again");
+        update();
+      } else {}
     }
   }
 
+  String? argEmail;
   @override
-  void onTappedVerifyCode(val) async {
+  void onTappedVerifyCode(String email, val) async {
+    argEmail = email;
     if (form.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
-      popLoading(msg: "Sending OTP");
       update();
-      var response = await _authRepo.foSetOtp(email: _email.text, otp: val);
+      var response = await _authRepo.foSetOtp(email: email, otp: val);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
           _requestStatus = RequestStatus.success;
           _timer!.cancel();
-          Get.back();
           snackBarSuccess(
               icon: CupertinoIcons.info_circle, msg: response["message"]);
-          final String email = _email.text;
-          Get.offAndToNamed(RouteHelper.getResetPassword(), arguments: email);
+          Get.offAndToNamed(
+            RouteHelper.getResetPassword(),
+            arguments: {"email": email},
+          );
         } else {
           _requestStatus = RequestStatus.noData;
-          Get.back();
           snackBarMessage(title: "Warning", msg: response["message"]);
         }
-      }
-      update();
+        update();
+      } else if (_requestStatus == RequestStatus.offLineFailure ||
+          _requestStatus == RequestStatus.serverFailure ||
+          _requestStatus == RequestStatus.serverException) {
+        snackBarMessage(title: "warning", msg: "Please try again");
+        update();
+      } else {}
     }
   }
 
@@ -163,7 +171,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   bool _isCountdownFinish = false;
   bool get isCountdownFinish => _isCountdownFinish;
   Timer? _timer;
-
+  Timer? get timer => _timer;
   @override
   Future<void> startCountdown() async {
     _countdown = 59;
@@ -181,35 +189,16 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
         update();
       }
     });
-    /* for (int i = 59; i >= 0; i--) {
-      await Future.delayed(const Duration(seconds: 1));
-      _countdown = i;
-      log("$i");
-      update();
-    } */
     update();
   }
-  /* @override
-  Future<void> startCountdown() async {
-    _isCountdownFinish = false;
-    update();
-    for (int i = 59; i >= 0; i--) {
-      await Future.delayed(const Duration(seconds: 1));
-      _countdown = i;
-      log("$i");
-      update();
-    }
-    _isCountdownFinish = true;
-    update();
-  } */
 
   @override
-  Future<void> onCountdownFinish() async {
+  Future<void> onCountdownFinish(String email) async {
     if (_isCountdownFinish == true) {
       _requestStatus = RequestStatus.loading;
       popLoading(msg: "Sending OTP");
       update();
-      var response = await _authRepo.foSetEmail(email: _email.text);
+      var response = await _authRepo.foSetEmail(email: email);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -222,8 +211,13 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
           Get.back();
           snackBarMessage(title: "Warning", msg: response["message"]);
         }
-      }
-      update();
+        update();
+      } else if (_requestStatus == RequestStatus.offLineFailure ||
+          _requestStatus == RequestStatus.serverFailure ||
+          _requestStatus == RequestStatus.serverException) {
+        snackBarMessage(title: "warning", msg: "Please try again");
+        update();
+      } else {}
     }
   }
 
@@ -231,11 +225,10 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   Future<void> onTappedResetPass() async {
     if (resetForm.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
-      popLoading(msg: "Please Wait");
       update();
 
       var response = await _authRepo.foSetNewPass(
-          email: _email.text, password: _rePassword.text);
+          email: argEmail!, password: _rePassword.text);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -251,8 +244,13 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
           Get.back();
           snackBarMessage(title: "Warning", msg: response["message"]);
         }
-      }
-      update();
+        update();
+      } else if (_requestStatus == RequestStatus.offLineFailure ||
+          _requestStatus == RequestStatus.serverFailure ||
+          _requestStatus == RequestStatus.serverException) {
+        snackBarMessage(title: "warning", msg: "Please try again");
+        update();
+      } else {}
     }
   }
 

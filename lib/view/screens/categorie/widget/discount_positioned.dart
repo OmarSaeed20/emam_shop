@@ -2,8 +2,8 @@ import '../../../../index.dart';
 
 Positioned discontPositined({required String dic}) {
   return Positioned(
-    top: 2,
-    right: 10,
+    top: 0,
+    right: 0,
     child: Container(
       height: 15.height,
       width: 45.weight,

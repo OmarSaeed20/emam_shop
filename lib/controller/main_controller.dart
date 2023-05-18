@@ -19,24 +19,22 @@ class MainControllerImp extends MainController {
   final List<Widget> _currentScreen = [
     const HomePage(),
     Container(),
-    const HomePage(),
-    const HomePage(),
-    Container(),
+    const CartScreen(),
+    const FavoriteScreen(),
+    const SettingScreen(),
   ];
   List<IconData> get icon => _currentIcon;
   List<IconData> get activeIcon => _currentActiveIcon;
   final List<IconData> _currentIcon = [
-    // CupertinoIcons.square_grid_2x2,
     Icons.dashboard_outlined,
-    CupertinoIcons.creditcard,
+    CupertinoIcons.person,
     CupertinoIcons.cart,
     CupertinoIcons.heart,
     Icons.settings_outlined,
   ];
   final List<IconData> _currentActiveIcon = [
-    // CupertinoIcons.square_grid_2x2_fill,
     Icons.dashboard_rounded,
-    CupertinoIcons.creditcard_fill,
+    CupertinoIcons.person_fill,
     CupertinoIcons.cart_fill,
     CupertinoIcons.heart_fill,
     CupertinoIcons.gear_solid

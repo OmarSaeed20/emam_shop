@@ -22,6 +22,7 @@ export 'controller/main_controller.dart';
 export "controller/test_controller.dart";
 export "controller/home_controller.dart";
 export 'controller/items_controller.dart';
+export 'controller/favorit_controller.dart';
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
@@ -31,6 +32,7 @@ export "data/repository/home_repo.dart";
 
 export 'data/repository/auth_repo.dart';
 export 'data/repository/items_repo.dart';
+export 'data/repository/favorite_repo.dart';
 export 'data/api/api_end_point.dart';
 
 // model
@@ -38,6 +40,7 @@ export 'data/model/auth/user_model.dart';
 export 'data/model/auth/signup_model.dart';
 export 'data/model/categories_model.dart';
 export 'data/model/items_model.dart';
+export '../data/model/favorite_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -61,6 +64,12 @@ export 'view/screens/auth/forget_password/forget_verfiy_code.dart';
 export 'view/screens/categorie/categories_screen.dart';
 export 'view/screens/item/item_screen.dart';
 export 'view/screens/home/home_screen.dart';
+export 'view/screens/product_detailes/product_details_screen.dart';
+export 'view/screens/favorite/favorite_screen.dart';
+export 'view/screens/setting/setting_screen.dart';
+export 'view/screens/cart/cart_screen.dart';
+export 'view/screens/notification/notification_screen.dart';
+
 
 // widget
 
@@ -78,6 +87,7 @@ export 'view/screens/auth/widget/auth_title.dart';
 export 'view/screens/auth/forget_password/widget/text_form_forg_pass_body.dart';
 export 'view/screens/auth/verification/widget/pain_code_widget.dart';
 export 'view/screens/auth/widget/screen_pick.dart';
+export 'view/screens/auth/widget/verfiy_screen_header.dart';
 export 'view/screens/auth/forget_password/widget/text_form_reset_pass_body.dart';
 export 'view/screens/auth/widget/auth_app_bar.dart';
 
@@ -96,6 +106,14 @@ export 'view/screens/categorie/widget/product_image.dart';
 export 'view/screens/categorie/widget/product_grid_view.dart';
 export 'view/screens/categorie/widget/list_tile_items.dart';
 export 'view/screens/categorie/widget/discount_positioned.dart';
+export 'view/screens/product_detailes/widget/plus_icon_btn.dart';
+export 'view/screens/product_detailes/widget/product_detailes_img.dart';
+export 'view/screens/product_detailes/widget/list_animated_contaier.dart';
+export 'view/screens/product_detailes/widget/product_information.dart';
+export 'view/screens/product_detailes/widget/similar_products.dart';
+export 'view/screens/product_detailes/widget/bottom_navi_bar.dart';
+export 'view/screens/product_detailes/widget/reviews_widget.dart';
+
 // core
 
 ///// constant

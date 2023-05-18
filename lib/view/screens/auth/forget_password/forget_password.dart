@@ -60,7 +60,10 @@ _bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
         children: [
           BtnWidget(
             AppStrings.coontinue.tr,
-            height: 50.height, 
+            height: 50.height,
+            isLoading: controller.requestStatus == RequestStatus.loading
+                ? true
+                : false,
             onPressed: () => controller.onTappedForgetPass(),
           ),
           15.sH,

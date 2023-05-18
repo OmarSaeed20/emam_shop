@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
@@ -12,17 +15,19 @@ abstract class SignUpController extends GetxController {
   void signWithFacebook();
   void signWithApple();
 
+  Future<void> startCountdown();
+  Future<void> onCountdownFinish(String email);
   Future<void> onTappedSignUp(controller);
-  Future<void> onTappedVerifyCode(otp);
+  Future<void> onTappedVerifyCode(String email,otp);
 }
 
 class SignUpControllerImp extends SignUpController {
-  SignUpControllerImp get to => Get.find();
+  static SignUpControllerImp get to => Get.find();
 
   final AuthRepo _authRepo = Get.find();
 
-  RequestStatus? _requestStatus;
-  RequestStatus? get requestStatus => _requestStatus;
+  RequestStatus _requestStatus = RequestStatus.none;
+  RequestStatus get requestStatus => _requestStatus;
 
   // registration
 
@@ -83,7 +88,6 @@ class SignUpControllerImp extends SignUpController {
   @override
   Future<void> onTappedSignUp(controller) async {
     _requestStatus = RequestStatus.loading;
-    popLoading(msg: "Sending OTP");
     update();
     SignUpModel model = SignUpModel();
     model
@@ -96,10 +100,9 @@ class SignUpControllerImp extends SignUpController {
 
     if (requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        _requestStatus == RequestStatus.success;
-        Get.back();
-        String email = _email.text;
-        Get.toNamed(RouteHelper.getVerifySignup(), arguments: email);
+        startCountdown();
+        Get.toNamed(RouteHelper.getVerifySignup(),
+            arguments: {"email": email.text});
       } else {
         Get.back();
         snackBarMessage(
@@ -108,7 +111,12 @@ class SignUpControllerImp extends SignUpController {
         );
         _requestStatus = RequestStatus.noData;
       }
-    }
+    } else if (_requestStatus == RequestStatus.offLineFailure ||
+        _requestStatus == RequestStatus.serverFailure ||
+        _requestStatus == RequestStatus.serverException) {
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    } else {}
     update();
   }
 
@@ -121,14 +129,65 @@ class SignUpControllerImp extends SignUpController {
   @override
   void signWithApple() {}
 
+  int _countdown = 0;
+  int get countdown => _countdown;
+  bool _isCountdownFinish = false;
+  bool get isCountdownFinish => _isCountdownFinish;
+  Timer? _timer;
+  Timer? get timer => _timer;
+
   @override
-  Future<void> onTappedVerifyCode(otp) async {
+  Future<void> startCountdown() async {
+    _countdown = 59;
+    _isCountdownFinish = false;
+    update();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countdown > 0) {
+        _countdown--;
+        log("$_countdown");
+        update();
+      } else {
+        _countdown = 00;
+        _isCountdownFinish = true;
+        _timer!.cancel();
+        update();
+      }
+    });
+    update();
+  }
+
+  @override
+  Future<void> onCountdownFinish(String email) async {
+    if (_isCountdownFinish == true) {
+      _requestStatus = RequestStatus.loading;
+      popLoading(msg: "Sending OTP");
+      update();
+      var response = await _authRepo.foSetEmail(email: email);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response["status"] == "success") {
+          startCountdown();
+          _requestStatus = RequestStatus.success;
+          Get.back();
+          snackBarSuccess(msg: response["message"]);
+        } else {
+          _requestStatus = RequestStatus.noData;
+          Get.back();
+          snackBarMessage(title: "Warning", msg: response["message"]);
+        }
+      }
+      update();
+    }
+  }
+
+  @override
+  Future<void> onTappedVerifyCode(String email,otp) async {
     if (form.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
       popLoading();
       update();
       var response =
-          await _authRepo.verifyOtp(email: email.text, otp: otp.toString());
+          await _authRepo.verifyOtp(email: email, otp: otp.toString());
       _requestStatus = handlingRespose(response);
 
       if (requestStatus == RequestStatus.success) {

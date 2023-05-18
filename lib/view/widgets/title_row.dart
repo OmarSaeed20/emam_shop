@@ -1,7 +1,12 @@
 import '/index.dart';
 
-Row titleRow(String title,
-        {VoidCallback? onTap, double? foSiz, bool seeAll = true}) =>
+Row titleRow(
+  String title, {
+  VoidCallback? onTap,
+  double? foSiz,
+  bool seeAll = true,
+  String? all,
+}) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -9,7 +14,7 @@ Row titleRow(String title,
           child: TextWidget(
             title,
             fontSize: foSiz ?? 17.weight,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         if (seeAll)
@@ -17,7 +22,7 @@ Row titleRow(String title,
             onPressed: onTap ?? () {},
             child: Row(
               children: [
-                TextWidget("See all", fontSize: 14.weight),
+                TextWidget(all??"See all", fontSize: 14.weight),
                 3.sW,
                 Icon(
                   MyLocaleControllerImp.to.themeData == themeEN

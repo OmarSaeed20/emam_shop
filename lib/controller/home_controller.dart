@@ -1,20 +1,21 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
+
 import '/index.dart';
 
 abstract class HomeController extends GetxController {
   Future<dynamic> getHomeData();
   void goToAllCategories();
-  void goToItemScreen(int index, String id);
-  void goToProductDetaile(ItemsModel itemsModel);
-  Future<dynamic> getItemsData(String categoryid);
-/*   void setCategoriesMap();
-  void setItemsMap(); */
+  void goToItemScreen(int index, String cateId);
+  // void goToProductDetaile(ItemsModel itemsModel);
+  // Future<dynamic> getItemsData(String categoryid);
 }
 
 class HomeControllerImp extends HomeController {
   static HomeControllerImp get to => Get.find();
   HomeRepo repo = Get.find();
+  DatabaseHelper database = Get.find();
   String? lang;
 
   RequestStatus _requestStatus = RequestStatus.none;
@@ -22,13 +23,13 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() {
-    lang = DatabaseHelper.to.getString(EndPoint.lang);
+    lang = database.getString(EndPoint.lang);
     getHomeData();
     super.onInit();
   }
 
   List<ItemsModel> _items = [];
-  List<ItemsModel> get items => _items;
+  List<ItemsModel> get allItems => _items;
   List<CategoriesModel>? _categories = [];
   List<CategoriesModel>? get categories => _categories;
   @override
@@ -59,104 +60,97 @@ class HomeControllerImp extends HomeController {
     update();
   }
 
+  CategoriesModel? getCategoryByIdLinear2(int id) {
+    // Use linear search to find a category by its ID
+    for (var i = 0; i < categories!.length; i++) {
+      categories!.sort();
+      if (int.parse(categories![i].id!) == id) {
+        return categories![i];
+      }
+    }
+    return null;
+  }
+
+  CategoriesModel? getCategoryByIdLinear(int id) {
+    // Use linear search to find a category by its ID
+    return categories!.firstWhere(
+      (category) => int.parse(category.id!) == id,
+      orElse: () => const CategoriesModel(),
+    );
+  }
+
+  CategoriesModel? getCategoryByIdBinary(int id) {
+    // Use binary search to find a category by its ID
+    var start = 0;
+    var end = categories!.length - 1;
+    while (start <= end) {
+      var mid = (start + end) ~/ 2;
+      if (int.parse(categories![mid].id!) == id) {
+        return categories![mid];
+      } else if (int.parse(categories![mid].id!) < id) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+    }
+    return null;
+  }
+
+  CategoriesModel? getCategoryByNameBinary(String name) {
+    // Use binary search to find a category by its name
+    log('start');
+    var left = 0;
+    var right = categories!.length - 1;
+    while (left <= right) {
+      var mid = (left + right) ~/ 2;
+      if (categories![mid].name == name) {
+        log('categories![mid]');
+        return categories![mid];
+      } else if (categories![mid].name!.compareTo(name) < 0) {
+        log('left');
+        left = mid + 1;
+      } else {
+        log('right');
+        right = mid - 1;
+      }
+    }
+    return null;
+  }
+
   @override
   void goToAllCategories() {
     Get.toNamed(
       RouteHelper.getAllCategories(),
-      arguments: {
-        "categories": categories,
-        // "items": items,
-      },
+      arguments: {"categories": categories},
     );
   }
 
-  @override
-  void goToItemScreen(index, id) {
-    var categoriesModel = _categories![index];
-    getItemsData(id);
-    Get.toNamed(
-      RouteHelper.getCategorieItemPage(),
-      arguments: {
-        "categoriesModel": categoriesModel,
-        // "categoriesId": id,
-      },
-    );
-  }
-
-  List<ItemsModel> _itemsScreenList = [];
-  List<ItemsModel> get itemsScreenList => _itemsScreenList;
-  @override
-  Future<dynamic> getItemsData(categoryid) async {
-    _requestStatus = RequestStatus.loading;
-    _itemsScreenList = [];
+  bool favoriteHome = false;
+  IconData favoriteHomeIcon = CupertinoIcons.heart;
+  void onfavoritHomeeUpdat() {
+    debugPrint("$favoriteHome");
+    favoriteHome = !favoriteHome;
+    favoriteHomeIcon =
+        favoriteHome ? CupertinoIcons.heart_fill : CupertinoIcons.heart;
     update();
-    var response = await repo.getItems(id: categoryid);
-    _requestStatus = handlingRespose(response);
-    if (_requestStatus == RequestStatus.success) {
-      if (response["status"] == "success") {
-        for (var element in response["data"]) {
-          _itemsScreenList.add(ItemsModel.fromJson(element));
-          update();
-          log("$_itemsScreenList");
-        }
-      } else {
-        _requestStatus = RequestStatus.noData;
-        log('message getItemsData =>>RequestStatus.noData');
-        update();
-      }
-      update();
-    } else if (_requestStatus == RequestStatus.serverFailure ||
-        _requestStatus == RequestStatus.serverException) {
-      // _requestStatus == RequestStatus.offLineFailure;
-      snackBarMessage(title: "warning", msg: "Please try again");
-      update();
-    } else if (_requestStatus == RequestStatus.offLineFailure) {
-      _requestStatus == RequestStatus.offLineFailure;
-    } else {}
   }
 
-  ItemsModel? _itemsModePro;
-  ItemsModel? get itemsModePro => _itemsModePro;
-  @override
-  void goToProductDetaile(itemsModel) {
-    _itemsModePro = itemsModel;
-    Get.toNamed(
-      RouteHelper.getProductDetailePage(),
-      arguments: {"items_model ": itemsModel},
-    ); 
-  }
-  /*   final Map<String, CategoriesModel> _categoryMap = <String, CategoriesModel>{};
-  Map<String, CategoriesModel> get categoryMap => _categoryMap;
-  final Map<int, ItemsModel> _itemsMapInt = <int, ItemsModel>{};
-  Map<int, ItemsModel> get itemsMapInt => _itemsMapInt;
-  final Map<String, ItemsModel> _itemsMap = <String, ItemsModel>{};
-  Map<String, ItemsModel> get itemsMap => _itemsMap; */
 /* 
-  @override
-  void setCategoriesMap() {
-    /* Map<String, CategoriesModel> _categoryMap =
-            Map<String, CategoriesModel>.fromIterable(categories!,
-          key: (category) => category.name,
-          value: (category) => category,
-        ); */
-    for (var category in categories!) {
-      _categoryMap[category.name!] = category;
-      _categoryMap[category.nameAr!] = category;
-    }
-  }
 
-  final myTable = <int, dynamic>{};
+<!-- SELECT itmes1view.* ,1 as favorite FROM itmes1view
+INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favorite.favorite_usersid = 40
+UNION ALL
+SELECT * , 0 as favorite FROM itmes1view 
+WHERE items_id NOT IN ( SELECT itmes1view.items_id FROM itmes1view
+INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favorite.favorite_usersid = 40 ) -->
+ */
+//////////////////////////// item Screen  ////////////////////
   @override
-  void setItemsMap() {
-    // Update the GetByIdHash table using the API data
-    /* var myTable = items.asMap().map((index, item) => MapEntry(item.id, item)); */
-    for (var items in items) {
-      _itemsMapInt[int.parse(items.price!)] = items;
-      _itemsMapInt[int.parse(items.id!)] = items;
-    }
-    for (var items in items) {
-      _itemsMap[items.name!] = items;
-      _itemsMap[items.nameAr!] = items;
-    }
-  } */
+  void goToItemScreen(index, cateId) {
+    var cateModel = _categories![index];
+    Get.toNamed(
+      RouteHelper.getItemsScreen(),
+      arguments: {"cateModel": cateModel, "cateId": cateId},
+    );
+  }
 }

@@ -1,4 +1,3 @@
-import '../view/screens/product_detailes/product_details_screen.dart';
 import '/index.dart';
 
 class RouteHelper {
@@ -19,21 +18,12 @@ class RouteHelper {
   static const String _faqs = '/faqs';
   static const String _privacyPolicy = '/privacy_policy';
   static const String _home = '/home';
-  static const String _categorieItemPage = '/categorie_item_Page';
+  static const String _itemsScreen = '/items_screen';
   static const String _allCategorie = '/all_categorie';
-  static const String _productDetaile = '/product_detaile';
+  static const String _productDetails = '/product_detaile';
 
-  static const String _machinLoc = '/machin_loc';
-  static const String _qrScaner = '/qr_scaner';
-  static const String _chatScreen = '/chat_screen';
-  static const String _community = '/community';
-  static const String _addPeople = '/add_people';
-  static const String _channelsScreen = '/channels_screen';
-  static const String _wallet = '/wallet';
   static const String _searchProduct = '/search_Product';
   static const String _category = '/category';
-  static const String _productDetails = '/product_details';
-  static const String _myCart = '/my_cart';
 
   static String getInitial() => initial;
   static String getWellcom() => _wellcom;
@@ -47,14 +37,14 @@ class RouteHelper {
   static String getForgetVerfiyCode() => _forgetVerfiyCode;
   static String getVerifySignup() => _verifySignup;
   static String getMain() => _main;
-  static String getNotificationsScreen() => _notification;
+  static String getNotifications() => _notification;
   static String getEditProfile() => _editProfile;
   static String getFAQs() => _faqs;
   static String getPrivacyPolicy() => _privacyPolicy;
   static String getHome() => _home;
   static String getAllCategories() => _allCategorie;
-  static String getCategorieItemPage() => _categorieItemPage;
-  static String getProductDetailePage() => _productDetaile;
+  static String getItemsScreen() => _itemsScreen;
+  static String getProductDetaile() => _productDetails;
   // I do this to easy variables sending process
   // static String getCompetationDetails(CompetitionsModel model) =>
   //     "$_competationDetails?competitionsModel=${jsonEncode(model)}";
@@ -62,17 +52,8 @@ class RouteHelper {
   //     '${AppRoutes.popularFood}?product=${jsonEncode(product)}&page=$page';
   // static String getMap(MachineModel model) =>
   //     "$_map?machinModel=${jsonEncode(model)}";
-  static String getMapLoc() => _machinLoc;
-  static String getQrScaner() => _qrScaner;
-  static String getChatScreen() => _chatScreen;
-  static String getComunityPage() => _community;
-  static String getChannelsScreen() => _channelsScreen;
-  static String getAddPeople() => _addPeople;
-  static String getWallet() => _wallet;
   static String getSearchProduct() => _searchProduct;
   static String getCategory() => _category;
-  static String getProductDetails() => _productDetails;
-  static String getMyCart() => _myCart;
 
   static List<GetPage> routes = <GetPage>[
     GetPage(
@@ -126,21 +107,23 @@ class RouteHelper {
         page: () => const CategorigsScreen(),
         transition: Transition.native),
     GetPage(
-        name: _categorieItemPage,
+        name: _itemsScreen,
         page: () => const ItemScreen(),
         transition: Transition.native),
     GetPage(
-        name: _productDetaile,
-        page: () => const ProductDetailsScreen(),
-        transition: Transition.leftToRightWithFade),
+      name: _productDetails,
+      page: () => const ProductDetailsScreen(),
+      transition: Transition.size,
+    ),
+    GetPage(
+      name: _notification,
+      page: () => const NotificationScreen(),
+      transition: Transition.zoom,
+    ),
     /* 
     GetPage(
         name: _setOtp,
         page: () => const SetOTPScre(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _notification,
-        page: () => const NotificationsScreen(),
         transition: Transition.fadeIn),
     GetPage(
         name: _editProfile,
@@ -171,50 +154,6 @@ class RouteHelper {
           );
           return MapPage(macModel: model);
         },
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _machinLoc,
-        page: () => const MachinsMapPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _qrScaner,
-        page: () => const QrScanerPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _chatScreen,
-        page: () => const QrChatScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _community,
-        page: () => const CommunityPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _channelsScreen,
-        page: () => const ChannelsScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _addPeople,
-        page: () => const AddPeopleScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _wallet,
-        page: () => const WalletPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _searchProduct,
-        page: () => const SearchProduct(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _category,
-        page: () => const Categorypage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _productDetails,
-        page: () => const ProductDetailsPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _myCart,
-        page: () => const CartScreen(),
         transition: Transition.fadeIn),
     // getPageWidget("name", page: () => const WalletPage())
  */

@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
           children: [
             homeAppBar(
               searchTap: () {},
-              notfTap: () {},
+              notfTap: () => Get.toNamed(RouteHelper.getNotifications()),
             ),
             Padding(
               padding: paddingSymme(horizontal: 14),
@@ -40,8 +40,7 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     height: 45.height,
                     child: ListView.builder(
-                      itemCount:
-                          cate!.length > 2 ? cate.length - 3 : cate.length,
+                      itemCount: cate!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, i) => categoriesCard(
                         model: controller.categories![i],
@@ -58,12 +57,14 @@ class HomePage extends StatelessWidget {
                     height: 205.height,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.items.length,
+                      itemCount: controller.allItems.length,
                       itemBuilder: (context, i) => ForYouCard(
-                        model: controller.items[i],
-                        onTap: () =>
-                            controller.goToProductDetaile(controller.items[i]),
-                        favTap: () {},
+                        model: controller.allItems[i],
+                        onTap: () {
+                          /*  controller
+                            .goToProductDetaile(controller.allItems[i]) */
+                        },
+                        favTap: () => controller.onfavoritHomeeUpdat(),
                       ),
                     ),
                   ),
@@ -74,15 +75,18 @@ class HomePage extends StatelessWidget {
                     height: 205.height,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.items.length,
+                      itemCount: controller.allItems.length,
                       itemBuilder: (context, i) => ForYouCard(
-                        model: controller.items[i],
-                        onTap: () =>
-                            controller.goToProductDetaile(controller.items[i]),
+                        model: controller.allItems[i],
+                        onTap: () {
+                          /*  controller
+                            .goToProductDetaile(controller.allItems[i]) */
+                        },
                         favTap: () {},
                       ),
                     ),
                   ),
+                  124.sH,
                 ],
               ),
             ),

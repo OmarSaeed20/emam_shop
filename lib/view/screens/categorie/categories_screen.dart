@@ -14,9 +14,16 @@ class CategorigsScreen extends StatelessWidget {
         ),
       ),
       body: GetBuilder<HomeControllerImp>(
-        builder: (controller) => HandlingRequstView(
-          controller.requestStatus,
-          widget: _body(controller),
+        builder: (controller) => Column(
+          children: [
+            searchOnly(onPressed: () {}, onChanged: (p0) {}),
+            Expanded(
+              child: HandlingRequstView(
+                controller.requestStatus,
+                widget: _body(controller),
+              ),
+            ),
+          ],
         ),
       ),
     );

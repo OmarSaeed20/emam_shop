@@ -16,7 +16,6 @@ class ResetPasswordScreen extends StatelessWidget {
           child: GetBuilder<ForgetPasswordControllerImp>(
             builder: (controller) {
               return SizedBox(
-                  // padding: paddingSymme(horizontal: 25),
                   width: double.infinity,
                   child: Column(
                     children: [
@@ -54,17 +53,22 @@ _body(ForgetPasswordControllerImp controller) => Padding(
       ),
     );
 
-_bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
-      padding: paddingSymme(horizontal: 30),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BtnWidget(
-              "Save".tr,  
-              height: 50.height, 
-              onPressed: () => controller.onTappedResetPass(),
-            ),
-          50.sH,
-        ],
-      ),
-    );
+_bottomNavigationBar(ForgetPasswordControllerImp controller) {
+  // final String email = Get.arguments['email'];
+  return Padding(
+    padding: paddingSymme(horizontal: 30),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BtnWidget(
+          "Save".tr,
+          isLoading:
+              controller.requestStatus == RequestStatus.loading ? true : false,
+          height: 50.height,
+          onPressed: () => controller.onTappedResetPass( ),
+        ),
+        50.sH,
+      ],
+    ),
+  );
+}

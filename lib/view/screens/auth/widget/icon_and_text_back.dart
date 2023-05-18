@@ -1,8 +1,9 @@
 import '/index.dart';
 
 class IconAndTextBack extends StatelessWidget {
-  const IconAndTextBack({super.key, this.onTap});
+  const IconAndTextBack({super.key, this.onTap, this.showTextBack = true});
   final VoidCallback? onTap;
+  final bool showTextBack;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -26,7 +27,7 @@ class IconAndTextBack extends StatelessWidget {
               ),
             ),
             5.sW,
-            TextWidget(AppStrings.back.tr)
+            showTextBack ? TextWidget(AppStrings.back.tr) : Container()
           ],
         ),
       ),

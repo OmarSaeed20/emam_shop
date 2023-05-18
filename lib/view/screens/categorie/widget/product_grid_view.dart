@@ -1,11 +1,19 @@
+import 'dart:developer';
+
 import '/index.dart';
 
 class ProductGridView extends StatelessWidget {
-  const ProductGridView({super.key, required this.model, required this.onTap});
-  final ItemsModel model;
+  const ProductGridView({
+    super.key,
+    required this.itemsModel,
+    required this.onTap,
+    required this.active,
+  });
+  final ItemsModel itemsModel;
   final VoidCallback onTap;
+  final bool active;
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         GestureDetector(
@@ -21,28 +29,37 @@ class ProductGridView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   productImage(
-                    model.image,
+                    itemsModel.image!,
+                    dic: "${int.parse(itemsModel.discount!)}",
                     fit: BoxFit.fitHeight,
-                    // "https://m.media-amazon.com/images/I/71zOaQmhBPL._AC_UL480_QL65_.jpg",
-                    favTap: () {},
                   ),
                   Divider(height: 1.height),
-                  productCardBody(
-                    name: translateDatabase(
-                      model.nameAr!,
-                      model.name!,
+                  GetBuilder<FavoriteControllerImp>(
+                    builder: (favController) => productCardBody(
+                      name: translateDatabase(
+                          itemsModel.nameAr!, itemsModel.name!),
+                      favTap: () {
+                        log(itemsModel.id!);
+                        if (favController.isFavor[itemsModel.id] == "1") {
+                          favController.onTapSetFavorite(itemsModel.id!, '0');
+                          favController.onTapRemovefavo(itemsModel.id!);
+                        } else {
+                          favController.onTapSetFavorite(itemsModel.id!, '1');
+                          favController.onTapAddFavo(itemsModel.id!);
+                        }
+                      },
+                      pric: "${int.parse(itemsModel.price!)}",
+                      oldPric: "${int.parse(itemsModel.price!) + 266}",
+                      active: favController.isFavor[itemsModel.id] == "1"
+                          ? true
+                          : false,
                     ),
-                    // "Samsung Galaxy A13 LTE Smartphone, Android OS, 128 GB, 4 GB RAM, Dual Sim, Light Blue",
-                    onTap: () {},
-                    pric: "${int.parse(model.price!)}",
-                    oldPric: "${int.parse(model.price!) + 266}",
                   )
                 ],
               ),
             ),
           ),
         ),
-        discontPositined(dic: "${int.parse(model.discount!)}")
       ],
     );
   }

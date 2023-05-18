@@ -1,29 +1,27 @@
-/* 
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
+
 import '/index.dart';
 
 abstract class ItemsController extends GetxController {
   void intialData();
-  // Future<dynamic> getItemsData(String id);
-  // void goToProductDetaile(ItemsModel itemsModel);
+  Future<dynamic> getItemsData(String categoryid);
+  void goToProductDetaile(ItemsModel itemsModel);
   /* void updateOrientation(Orientation newOrientation); */
 }
 
 class ItemsControllerImp extends ItemsController {
   static ItemsControllerImp get to => Get.find();
 
-  ItemsRepo itemsRepo = Get.find();
+  HomeRepo repo = Get.find();
+  DatabaseHelper database = Get.find();
   String? lang;
 
-  RequestStatus _requestStatus = RequestStatus.none;
-  RequestStatus get requestStatus => _requestStatus;
+  RequestStatus _requestStatu = RequestStatus.none;
+  RequestStatus get requestStatu => _requestStatu;
 
-  final CategoriesModel? categoriesModel = Get.arguments["categoriesModel"];
-  final List<CategoriesModel>? _categories = Get.arguments["categories"];
-  List<CategoriesModel>? get categories => _categories;
-  List<ItemsModel>? _items = Get.arguments["items"];
-  List<ItemsModel>? get items => _items;
-
-  String? _categoryId;
+  final String? _categoryId = Get.arguments['cateId'];
   /* // Store the current screen orientation
   var orientation = Orientation.portrait;
 
@@ -38,9 +36,8 @@ class ItemsControllerImp extends ItemsController {
 
   @override
   void intialData() {
-    lang = DatabaseHelper.to.getString(EndPoint.lang);
-    _categoryId = Get.arguments["categoriesId"];
-    // getItemsData(_categoryId!);
+    lang = database.getString(EndPoint.lang);
+    getItemsData(_categoryId!);
   }
 
   @override
@@ -49,6 +46,151 @@ class ItemsControllerImp extends ItemsController {
     super.onInit();
   }
 
+  List<ItemsModel> _itemsScreenList = [];
+  List<ItemsModel> get itemsScreenList => _itemsScreenList;
+  @override
+  Future<dynamic> getItemsData(categoryid) async {
+    _requestStatu = RequestStatus.loading;
+    _itemsScreenList = [];
+    update();
+    var response = await repo.getItems(
+      categoryid: categoryid,
+      usersid: database.getString(EndPoint.userId),
+    );
+    _requestStatu = handlingRespose(response);
+    if (_requestStatu == RequestStatus.success) {
+      if (response["status"] == "success") {
+        for (var element in response["data"]) {
+          _itemsScreenList.add(ItemsModel.fromJson(element));
+          update();
+          log("$_itemsScreenList");
+        }
+      } else {
+        _requestStatu = RequestStatus.noData;
+        log('message getItemsData =>>RequestStatus.noData');
+        update();
+      }
+      update();
+    } else if (_requestStatu == RequestStatus.serverFailure ||
+        _requestStatu == RequestStatus.serverException) {
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    } else if (_requestStatu == RequestStatus.offLineFailure) {
+      _requestStatu == RequestStatus.offLineFailure;
+    } else {}
+  }
+
+  ItemsModel? getItemsByNameBinary(String name) {
+    // Use binary search to find a category by its name
+    // itemsScreenList.sort();
+    var left = 0;
+    var right = itemsScreenList.length - 1;
+    while (left <= right) {
+      var mid = (left + right) ~/ 2;
+      if (itemsScreenList[mid].name == name) {
+        log('itemsScreenList[mid]');
+        return itemsScreenList[mid];
+      } else if (itemsScreenList[mid].name!.compareTo(name) < 0) {
+        log('left');
+        left = mid + 1;
+      } else {
+        log('right');
+        right = mid - 1;
+      }
+    }
+    return null;
+  }
+
+  List<ItemsModel> resultListItems = [];
+  List<ItemsModel> getCategoriesByNameBinary(String name) {
+    int low = 0;
+    int high = itemsScreenList.length - 1;
+
+    while (low <= high) {
+      int mid = (low + high) ~/ 2;
+      int cmp = itemsScreenList[mid].name!.compareTo(name);
+
+      if (cmp == 0) {
+        log('cmp == 0  $resultListItems');
+        resultListItems.add(itemsScreenList[mid]);
+        // Search for other matching categories to the left of mid.
+        for (int i = mid - 1; i >= 0 && itemsScreenList[i].name == name; i--) {
+          resultListItems.add(itemsScreenList[i]);
+          log('left  $resultListItems');
+        }
+        // Search for other matching categories to the right of mid.
+        for (int i = mid + 1;
+            i < itemsScreenList.length && itemsScreenList[i].name == name ||
+                itemsScreenList[i].nameAr == name;
+            i++) {
+          log('right  $resultListItems');
+          resultListItems.add(itemsScreenList[i]);
+        }
+        log('cmp   $resultListItems');
+        return resultListItems;
+      } else if (cmp < 0) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+
+    return resultListItems;
+  }
+
+  ItemsModel? _itemsModePro;
+  ItemsModel? get itemsModePro => _itemsModePro;
+  @override
+  void goToProductDetaile(itemsModel) {
+    _itemsModePro = itemsModel;
+    Get.toNamed(RouteHelper.getProductDetaile());
+  }
+
+  List<String> productDis = ["Description", "Color", "Materials", "Reviews"];
+
+  int? selectedIndex = 0;
+  changeSelectedIndex(int index) {
+    selectedIndex = index;
+    update();
+  }
+
+  int count = 0;
+  void increse({required bool add}) {
+    log(">>>>$count");
+    if (add == true) {
+      count++;
+      update();
+    } else {
+      count > 0 ? count-- : null;
+      update();
+    }
+  }
+
+  double ratingVal = 3.4;
+  void onRatingUpdat(value) {
+    debugPrint("$value");
+    ratingVal = value;
+    update();
+  }
+
+  bool favorite = false;
+  void onfavoriteUpdat() {
+    debugPrint("$favorite");
+    favorite = !favorite;
+    update();
+  }
+
+  bool pain = false;
+  IconData painIcon = CupertinoIcons.cart_badge_plus;
+  void onAddPinUpdat() {
+    debugPrint("$pain");
+    pain = !pain;
+    painIcon =
+        !pain ? CupertinoIcons.cart_badge_plus : CupertinoIcons.cart_fill;
+    update();
+  }
+
+  void addToBag() {}
   /* double originalPrice = 100.0;
   double discountPercentage = 10.0;  var discountAmount = 0;
   var discountedPrice = 0;
@@ -178,4 +320,3 @@ class ItemsControllerImp extends ItemsController {
   }
  */
 }
- */

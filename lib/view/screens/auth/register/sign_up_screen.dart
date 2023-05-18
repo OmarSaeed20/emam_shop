@@ -9,23 +9,16 @@ class SignUpScreen extends StatelessWidget {
       bottomNavigationBar: GetBuilder<SignUpControllerImp>(
         builder: (controller) => _bottomNavigationBar(controller),
       ),
-      /* extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: const IconAndTextBack(),
-        leadingWidth: 120.weight,
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-      ), */
       body: SafeArea(
         child: SingleChildScrollView(
           child: GetBuilder<SignUpControllerImp>(
             builder: (controller) {
               return SizedBox(
-                  // padding: paddingSymme(horizontal: 25),
-                  width: double.infinity,
-                  child: Column(
-                    children: [const IconAndTextBack(), _body(controller)],
-                  ));
+                width: double.infinity,
+                child: Column(
+                  children: [const IconAndTextBack(), _body(controller)],
+                ),
+              );
             },
           ),
         ),
@@ -48,7 +41,7 @@ _body(SignUpControllerImp controller) => Padding(
         ],
       ),
     );
-    
+
 _bottomNavigationBar(SignUpControllerImp controller) => Padding(
       padding: paddingSymme(horizontal: 30),
       child: Column(
@@ -61,9 +54,12 @@ _bottomNavigationBar(SignUpControllerImp controller) => Padding(
               fontSize: 18.weight,
               height: 50.height,
               width: double.infinity,
+              isLoading: controller.requestStatus == RequestStatus.loading
+                  ? true
+                  : false,
               backgroundColor: controller.isEmptyFeild
                   ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary, 
+                  : AppColors.primary,
               onPressed: () => controller.onTappedSignUp(controller),
             ),
           ),

@@ -1,21 +1,23 @@
 import '/index.dart';
 
-class VerifyCodeSignupScreen extends StatelessWidget {
-  const VerifyCodeSignupScreen({
-    Key? key,
-    // this.yourEmail,
-  }) : super(key: key);
-  // final String? yourEmail;
+class VerifyCodeSignupScreen extends StatefulWidget {
+  const VerifyCodeSignupScreen({Key? key}) : super(key: key);
+
+  @override
+  State<VerifyCodeSignupScreen> createState() => _VerifyCodeSignupScreenState();
+}
+
+class _VerifyCodeSignupScreenState extends State<VerifyCodeSignupScreen> {
+  @override
+  void dispose() {
+    SignUpControllerImp.to.timer!.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String phone = Get.arguments;
+    final String email = Get.arguments["email"];
     return Scaffold(
-        /*  bottomNavigationBar: Padding(
-          padding: paddingSymme(horizontal: 30),
-          child: GetBuilder<SignUpControllerImp>(
-            builder: (controller) => _bottomNavi(controller, val),
-          ),
-        ), */
         body: SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -27,27 +29,12 @@ class VerifyCodeSignupScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     40.sH,
-                    screenPick(
-                      icon: Icons.hourglass_empty_rounded,
-                      text: AppStrings.verificationCode.tr,
-                    ),
-                    40.sH,
-                    TextWidget(
-                      AppStrings.otpsent.tr,
-                      color: AppColors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    TextWidget(
-                      phone,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.weight,
-                      color: AppColors.awsm,
-                    ),
+                    verfiyScreenHeader(email),
                     60.sH,
                     CustomPinCodeField(
                       onCompleted: (code) {
                         debugPrint("-------Codddde------> $code");
-                        controller.onTappedVerifyCode(code);
+                        controller.onTappedVerifyCode(email, code);
                       },
                       onChanged: (value) {
                         controller.val = value;
@@ -56,23 +43,23 @@ class VerifyCodeSignupScreen extends StatelessWidget {
                     ),
                     10.sH,
                     TextWidget(
-                      "00:30",
-                      color: AppColors.primary,
-                      fontSize: 16.weight,
+                      "00:${controller.countdown}",
+                      color: AppColors.awsm,
                       fontWeight: FontWeight.bold,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        // Get.back();
-                        // => AuthController.to.onTappedReSendOTPCode()
-                      },
-                      child: TextWidget(
-                        "Resend Code",
-                        color: AppColors.awsm,
-                        fontSize: 16.weight,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    controller.isCountdownFinish
+                        ? TextButton(
+                            onPressed: () =>
+                                controller.onCountdownFinish(email),
+                            child: TextWidget(
+                              "Resend Code",
+                              color: controller.isCountdownFinish == true
+                                  ? AppColors.primary
+                                  : AppColors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -80,19 +67,4 @@ class VerifyCodeSignupScreen extends StatelessWidget {
       ),
     ));
   }
-/* 
-  Column _bottomNavi(SignUpControllerImp controller, String? val) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BtnWidget(
-          AppStrings.confirm.tr,
-          fontSize: 16.weight,
-          height: 50.height,
-          onPressed: () => controller.onTappedVerifyCode(val!),
-        ),
-        50.sH,
-      ],
-    );
-  } */
 }

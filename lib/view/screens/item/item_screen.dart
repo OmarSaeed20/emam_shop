@@ -1,22 +1,49 @@
 import '/index.dart';
 
-class ItemScreen extends StatelessWidget {
+class ItemScreen extends StatefulWidget {
   const ItemScreen({super.key});
 
   @override
+  State<ItemScreen> createState() => _ItemScreenState();
+}
+
+class _ItemScreenState extends State<ItemScreen> {
+  GlobalKey<ScaffoldState>? scaffoldKey;
+
+  @override
+  void initState() {
+    scaffoldKey = GlobalKey<ScaffoldState>();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeControllerImp>(
-      builder: (controller) => Scaffold(
-        appBar: _categorieItemsAppBar(controller),
-        body: SingleChildScrollView(
+    String? val;
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: _categorieItemsAppBar(),
+      body: GetBuilder<ItemsControllerImp>(
+        builder: (controller) => SingleChildScrollView(
           child: Column(
             children: [
+              if (controller.requestStatu == RequestStatus.loading)
+                PreferredSize(
+                  preferredSize: Size(double.infinity, 2.height),
+                  child: const LinearProgressIndicator(),
+                )
+              else
+                Container(),
               Container(
                 padding: paddingOnly(left: 12, right: 12, bottom: 15),
-                child: searchBar(),
+                child: searchBar(
+                  onPressed: () => val!.isNotEmpty
+                      ? controller.getItemsByNameBinary(val!)
+                      : null,
+                  onChanged: (String value) => val = value,
+                ),
               ),
               HandlingRequstView(
-                controller.requestStatus,
+                controller.requestStatu,
                 widget: _body(controller),
               ),
             ],
@@ -26,8 +53,9 @@ class ItemScreen extends StatelessWidget {
     );
   }
 
-  Container _body(HomeControllerImp controller) {
+  Container _body(ItemsControllerImp controller) {
     List<ItemsModel> itemsList = controller.itemsScreenList;
+    FavoriteControllerImp favController = Get.find();
     return Container(
       padding: paddingSymme(horizontal: 6),
       width: double.infinity,
@@ -40,29 +68,29 @@ class ItemScreen extends StatelessWidget {
         ),
         children: List.generate(
           itemsList.length,
-          (i) => ProductGridView(
-            model: itemsList[i],
-            onTap: () => controller.goToProductDetaile(itemsList[i]),
-          ),
+          (i) {
+            favController.isFavor[itemsList[i].id] = itemsList[i].favorite;
+            return ProductGridView(
+              active: favController.isFavor[itemsList[i].id] == "1"
+                  ? true
+                  : false,
+              itemsModel: itemsList[i],
+              onTap: () => controller.goToProductDetaile(itemsList[i]),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-AppBar _categorieItemsAppBar(HomeControllerImp controller) {
-  CategoriesModel? cateModel = Get.arguments["categoriesModel"];
+AppBar _categorieItemsAppBar() {
+  CategoriesModel? cateModel = Get.arguments["cateModel"];
   return AppBar(
     title: TextWidget(
       translateDatabase(cateModel!.nameAr!, cateModel.name!),
       fontSize: 18.weight,
     ),
-    bottom: controller.requestStatus == RequestStatus.loading
-        ? PreferredSize(
-            preferredSize: Size(double.infinity, 2.height),
-            child: const LinearProgressIndicator(),
-          )
-        : null,
     actions: [
       Padding(
         padding: paddingSymme(horizontal: 20.weight),

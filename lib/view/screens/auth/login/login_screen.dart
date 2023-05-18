@@ -7,10 +7,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: GetBuilder<SignInControllerImp>(
-        builder: (controller) =>
-            controller.requestStatus != RequestStatus.loading
-                ? _bottomNavigationBar(controller)
-                : const Text('data'),
+        builder: (controller) => _bottomNavigationBar(controller),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -18,14 +15,11 @@ class LoginScreen extends StatelessWidget {
             builder: (controller) {
               return SizedBox(
                 width: double.infinity,
-                child: HandlingRequstServerAuth(
-                  controller.requestStatus,
-                  widget: Column(
-                    children: [
-                      const IconAndTextBack(),
-                      _body(controller),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    const IconAndTextBack(),
+                    _body(controller),
+                  ],
                 ),
               );
             },
@@ -77,6 +71,9 @@ _bottomNavigationBar(SignInControllerImp controller) => Padding(
             fontSize: 18.weight,
             width: double.infinity,
             height: 50.height,
+            isLoading: controller.requestStatus == RequestStatus.loading
+                ? true
+                : false,
             onPressed: () => controller.onTappedSignIn(),
           ),
           /* AbsorbPointer(

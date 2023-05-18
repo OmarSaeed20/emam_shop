@@ -26,6 +26,12 @@ class AuthRepo {
     return requset.fold((l) => l, (r) => r);
   }
 
+  Future<dynamic> resendCode({required String email}) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.resendCode, {"email": email});
+    return requset.fold((l) => l, (r) => r);
+  }
+
   Future<dynamic> signin({
     required String email,
     required String password,
