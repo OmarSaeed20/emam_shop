@@ -2,7 +2,7 @@ import 'package:ecommerce/index.dart';
 import 'package:flutter/cupertino.dart';
 
 ListTile homeAppBar({
-  required VoidCallback searchTap,
+  required VoidCallback cartTap,
   required VoidCallback notfTap,
 }) =>
     ListTile(
@@ -38,21 +38,29 @@ ListTile homeAppBar({
         leading: appBarImg(
           onTap: () {},
           AppImages.user,
-          size: 50,
+          size: 50.weight,
           fit: BoxFit.cover,
           border: Border.all(width: .5.weight, color: AppColors.grey200),
         ),
         trailing: SizedBox(
-          width: 70,
+          width: 70.weight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                  onTap: searchTap,
-                  child: const Icon(CupertinoIcons.search, color:AppColors.primary)),
+                onTap: cartTap,
+                child: const Icon(
+                  CupertinoIcons.cart,
+                  color: AppColors.primary,
+                ),
+              ),
               GestureDetector(
-                  onTap: notfTap,
-                  child: const Icon(CupertinoIcons.bell, color:AppColors.primary)),
+                onTap: notfTap,
+                child: const Icon(
+                  Icons.notifications_active_outlined,
+                  color: AppColors.primary,
+                ),
+              ),
               // appBarImg(AppImages.notification),
             ],
           ),

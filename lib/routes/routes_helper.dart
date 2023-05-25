@@ -14,16 +14,17 @@ class RouteHelper {
   static const String _forgetVerfiyCode = '/forget_verfiy_code';
   static const String _main = '/main';
   static const String _notification = '/notification';
-  static const String _editProfile = '/edit_profile';
-  static const String _faqs = '/faqs';
-  static const String _privacyPolicy = '/privacy_policy';
-  static const String _home = '/home';
   static const String _itemsScreen = '/items_screen';
   static const String _allCategorie = '/all_categorie';
   static const String _productDetails = '/product_detaile';
-
-  static const String _searchProduct = '/search_Product';
-  static const String _category = '/category';
+  static const String _editProfile = '/edit_profile';
+  static const String _termsPolicies = '/terms_policies';
+  static const String _paymentMethods = '/payment_methods';
+  static const String _deliveryAddress = '/delivery_address';
+  static const String _myOrders = '/my_orders';
+  static const String _helpSupport = '/help_support';
+  static const String _report = '/report_problem';
+  static const String _cart = '/cart';
 
   static String getInitial() => initial;
   static String getWellcom() => _wellcom;
@@ -37,23 +38,18 @@ class RouteHelper {
   static String getForgetVerfiyCode() => _forgetVerfiyCode;
   static String getVerifySignup() => _verifySignup;
   static String getMain() => _main;
-  static String getNotifications() => _notification;
-  static String getEditProfile() => _editProfile;
-  static String getFAQs() => _faqs;
-  static String getPrivacyPolicy() => _privacyPolicy;
-  static String getHome() => _home;
   static String getAllCategories() => _allCategorie;
   static String getItemsScreen() => _itemsScreen;
   static String getProductDetaile() => _productDetails;
-  // I do this to easy variables sending process
-  // static String getCompetationDetails(CompetitionsModel model) =>
-  //     "$_competationDetails?competitionsModel=${jsonEncode(model)}";
-  // static getPopularFood(Data product, {String page = 'home_page'}) =>
-  //     '${AppRoutes.popularFood}?product=${jsonEncode(product)}&page=$page';
-  // static String getMap(MachineModel model) =>
-  //     "$_map?machinModel=${jsonEncode(model)}";
-  static String getSearchProduct() => _searchProduct;
-  static String getCategory() => _category;
+  static String getNotifications() => _notification;
+  static String getProfile() => _editProfile;
+  static String getHelpSupport() => _helpSupport;
+  static String getTermsPolicies() => _termsPolicies;
+  static String getPaymentMethods() => _paymentMethods;
+  static String getDeliveryAddress() => _deliveryAddress;
+  static String getMyOrders() => _myOrders;
+  static String getReport() => _report;
+  static String getCart() => _cart;
 
   static List<GetPage> routes = <GetPage>[
     GetPage(
@@ -120,41 +116,40 @@ class RouteHelper {
       page: () => const NotificationScreen(),
       transition: Transition.zoom,
     ),
-    /* 
-    GetPage(
-        name: _setOtp,
-        page: () => const SetOTPScre(),
-        transition: Transition.fadeIn),
     GetPage(
         name: _editProfile,
-        page: () => const EditProfileScreen(),
-        transition: Transition.fadeIn),
+        page: () => const EditProfilePage(),
+        transition: Transition.native),
     GetPage(
-        name: _faqs,
-        page: () => const FAQsScreen(),
-        transition: Transition.fadeIn),
+        name: _helpSupport,
+        page: () => const HelpSupportPage(),
+        transition: Transition.native),
     GetPage(
-        name: _privacyPolicy,
-        page: () => const PrivacyPolicyScreen(),
-        transition: Transition.fadeIn),
+        name: _termsPolicies,
+        page: () => const TermsPoliciesPage(),
+        transition: Transition.native),
     GetPage(
-        name: _competationDetails,
-        page: () {
-          CompetitionsModel? model = CompetitionsModel.fromJson(
-            jsonDecode(Get.parameters['competitionsModel']!),
-          );
-          return CompetationDetails(model: model);
-        },
-        transition: Transition.fadeIn),
+        name: _paymentMethods,
+        page: () => const PaymentPage(),
+        transition: Transition.native),
     GetPage(
-        name: _map,
-        page: () {
-          MachineModel? model = MachineModel.fromJson(
-            jsonDecode(Get.parameters['machinModel']!),
-          );
-          return MapPage(macModel: model);
-        },
-        transition: Transition.fadeIn),
+        name: _deliveryAddress,
+        page: () => const MyAddressPage(),
+        transition: Transition.native),
+    GetPage(
+        name: _myOrders,
+        page: () => const MyOrdersPage(),
+        transition: Transition.native),
+    GetPage(
+        name: _report,
+        page: () => const RreportPage(),
+        transition: Transition.native),
+    GetPage(
+        name: _cart,
+        page: () => const CartScreen(),
+        transition: Transition.native),
+    /* 
+   
     // getPageWidget("name", page: () => const WalletPage())
  */
   ];

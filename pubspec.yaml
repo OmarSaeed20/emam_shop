@@ -12,23 +12,27 @@ dependencies:
   auto_animated: ^3.0.1
   badges: ^2.0.2
   cached_network_image: ^3.2.0
+  connectivity: ^3.0.6
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   device_preview: ^0.7.5
   dropdown_search: ^3.0.1
   equatable: ^2.0.5
-  # cloud_firestore: ^3.1.9
   firebase_core: ^2.11.0
   firebase_messaging: ^14.5.0
   flutter:
     sdk: flutter
+  flutter_animate: ^4.1.1+1
   flutter_local_notifications: ^9.5.3+1
   flutter_polyline_points: ^1.0.0
+  flutter_rating_bar: ^4.0.1
+  flutter_svg: ^0.23.0+1
   fluttericon: ^2.0.0
   font_awesome_flutter: ^10.1.0
   geocoding: ^2.0.4
   geolocator: ^8.0.5
   get: ^4.6.1
+  google_fonts: ^4.0.4
   google_maps_flutter: ^2.1.5
   google_sign_in: ^5.3.1
   grouped_list: ^4.2.0
@@ -37,7 +41,9 @@ dependencies:
   image_pickers: ^2.0.0+2
   intl: ^0.17.0
   jiffy: ^5.0.0
+  lottie: ^2.3.2
   path: ^1.8.0
+  pin_code_fields: ^7.4.0
   qr_flutter: ^4.0.0
   responsive_builder: ^0.4.2
   scan: ^1.6.0
@@ -45,13 +51,6 @@ dependencies:
   show_up_animation: ^2.0.0
   sqflite: ^2.0.2
   url_launcher: ^6.1.2
-  flutter_animate: ^4.1.1+1
-  flutter_svg: ^0.23.0+1
-
-  pin_code_fields: ^7.4.0
-  connectivity: ^3.0.6 
-  lottie: ^2.3.2
-  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -65,8 +64,7 @@ flutter:
   assets:
     - assets/image/
     - assets/rive/
- 
- 
+
   # example:
   fonts:
     - family: Montserrat
@@ -110,7 +108,7 @@ flutter:
           weight: 200
         - asset: assets/fonts/Poppins-Thin.ttf
           weight: 100
-          
+
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo-Black.ttf
@@ -129,7 +127,6 @@ flutter:
           weight: 300
         - asset: assets/fonts/Cairo-ExtraLight.ttf
           weight: 200
-         
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,

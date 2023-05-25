@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             homeAppBar(
-              searchTap: () {},
+              cartTap: () => controller.goToCart(),
               notfTap: () => Get.toNamed(RouteHelper.getNotifications()),
             ),
             Padding(
@@ -54,17 +54,17 @@ class HomePage extends StatelessWidget {
                   15.sH,
                   titleRow("Product For you", onTap: () {}),
                   SizedBox(
-                    height: 205.height,
+                    height: 225.height,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.allItems.length,
                       itemBuilder: (context, i) => ForYouCard(
                         model: controller.allItems[i],
                         onTap: () {
-                          /*  controller
-                            .goToProductDetaile(controller.allItems[i]) */
+                          /*  ItemsControllerImp.to.getItemsData(controller.allItems[i].categoriesId!);
+                          ItemsControllerImp.to
+                              .goToProductDetaile(controller.allItems[i]); */
                         },
-                        favTap: () => controller.onfavoritHomeeUpdat(),
                       ),
                     ),
                   ),
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                   titleRow("Popular", seeAll: false),
                   15.sH,
                   SizedBox(
-                    height: 205.height,
+                    height: 225.height,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.allItems.length,
@@ -82,7 +82,6 @@ class HomePage extends StatelessWidget {
                           /*  controller
                             .goToProductDetaile(controller.allItems[i]) */
                         },
-                        favTap: () {},
                       ),
                     ),
                   ),

@@ -16,7 +16,11 @@ class CategorigsScreen extends StatelessWidget {
       body: GetBuilder<HomeControllerImp>(
         builder: (controller) => Column(
           children: [
-            searchOnly(onPressed: () {}, onChanged: (p0) {}),
+            searchOnly(
+              onChanged: (String val) => val.isNotEmpty
+                  ? controller.getCategoriesSearch(val)
+                  : controller.getCategories(),
+            ),
             Expanded(
               child: HandlingRequstView(
                 controller.requestStatus,

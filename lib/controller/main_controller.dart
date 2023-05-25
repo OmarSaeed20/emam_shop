@@ -49,7 +49,7 @@ class MainControllerImp extends MainController {
   //  drawer
 
   void editProfile() {
-    Get.toNamed(RouteHelper.getEditProfile());
+    Get.toNamed(RouteHelper.getProfile());
   }
 
   bool _value = false;
@@ -67,12 +67,8 @@ class MainControllerImp extends MainController {
     ); */
   }
 
-  void fAQs() {
-    Get.toNamed(RouteHelper.getFAQs());
-  }
-
   void privacyPolicy() {
-    Get.toNamed(RouteHelper.getPrivacyPolicy());
+    Get.toNamed(RouteHelper.getTermsPolicies());
   }
   // ResponseModel? _response;
 

@@ -2,7 +2,6 @@ import 'package:ecommerce/index.dart';
 import 'package:flutter/cupertino.dart';
 
 Widget searchBar({
-  required void Function()? onPressed,
   required void Function(String)? onChanged,
   bool showFilter = true,
 }) =>
@@ -23,10 +22,7 @@ Widget searchBar({
               ),
               filled: true,
               fillColor: AppColors.grey150,
-              prefixIcon: IconButton(
-                onPressed: onPressed,
-                icon: const Icon(CupertinoIcons.search),
-              ),
+              prefixIcon: const Icon(CupertinoIcons.search),
             ),
             onChanged: onChanged,
           ),
@@ -46,7 +42,6 @@ Widget searchBar({
     );
 
 Container searchOnly({
-  required void Function()? onPressed,
   required void Function(String)? onChanged,
 }) {
   return Container(
@@ -66,10 +61,7 @@ Container searchOnly({
         ),
         filled: true,
         fillColor: AppColors.grey150,
-        prefixIcon: IconButton(
-          onPressed: onPressed,
-          icon: const Icon(CupertinoIcons.search),
-        ),
+        prefixIcon: const Icon(CupertinoIcons.search),
       ),
       onChanged: onChanged,
     ),

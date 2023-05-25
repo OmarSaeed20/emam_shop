@@ -19,7 +19,10 @@ class ProductGridView extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Card(
-            color: AppColors.cardColor2,
+            color: AppColors.cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6.0.height),
+            ),
             elevation: 5,
             child: Container(
               decoration: BoxDecoration(

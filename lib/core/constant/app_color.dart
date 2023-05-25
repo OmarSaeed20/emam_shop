@@ -19,7 +19,8 @@ class AppColors {
   static const Color secondaryLight = Color(0xFFE5E8E9);
   static const Color awsmLight = Color(0xFFC5CAE9);
 
-  static Color cardColor = secondaryLight.withOpacity(.5);
+  static Color cardColor = secondaryLight;
+  static Color cardColor11 = secondaryLight.withOpacity(.5);
   static Color cardColor1 = cardColor2.withOpacity(.5);
   static const Color cardColor2 = Color(0xFFEAE8DC);
 
@@ -32,6 +33,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
 
   static const Color grey = Color(0xFF9E9E9E);
+  static const Color greyDeep = Color(0xFF544C4C);
   static const Color grey100 = Color(0xFFF5F5F5);
   static const Color grey150 =  Color(0xFFF2F3F2);
   static const Color grey200 = Color(0xFFEEEEEE);

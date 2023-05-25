@@ -5,15 +5,19 @@ class HomeRepo {
   static HomeRepo get to => Get.find();
   ApiClient api = ApiClient.to;
 
+  Future<dynamic> getCategoriesView() async {
+    Either<RequestStatus, Map> requset = await api.getData(ApiLinks.categoriesView);
+    return requset.fold((l) => l, (r) => r);
+  }
+  
   Future<dynamic> getHome() async {
     Either<RequestStatus, Map> requset = await api.getData(ApiLinks.home);
     return requset.fold((l) => l, (r) => r);
   }
 
-  Future<dynamic> getItems(
-      {required String categoryid, required String usersid}) async {
-    Either<RequestStatus, Map> requset = await api.postData(
-        ApiLinks.items, {"categoryid": categoryid, "usersid": usersid});
+  Future<dynamic> getCategoriesSearch({required String search}) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.categoriesSearch, {"search": search});
     return requset.fold((l) => l, (r) => r);
   }
 }

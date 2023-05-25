@@ -13,7 +13,7 @@ class BtnWidget extends StatelessWidget {
     this.radius,
     this.isAnimation = false,
     this.border,
-    this.isLoading = false,
+    this.isLoading = false, this.padding,
   }) : super(key: key);
   final String text;
   final VoidCallback onPressed;
@@ -26,11 +26,13 @@ class BtnWidget extends StatelessWidget {
   final double? radius;
   final bool isLoading;
   final bool? isAnimation;
+  final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: getProportionateScreenHeight(height ?? 44),
       width: width ?? double.infinity,
+      padding: padding,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -51,19 +53,19 @@ class BtnWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   )
-              .animate()
-              .fadeIn(curve: Curves.easeInCirc)
-              .scaleY()
-              .shimmer(delay: 300.ms, colors: <Color>[
-              AppColors.white,
-              const Color(0xff5b0060),
-              const Color(0xff870160),
-              const Color(0xffac255e),
-              const Color(0xffca485c),
-              const Color(0xffe16b5c),
-              const Color(0xfff39060),
-              const Color(0xffffb56b),
-            ])
+                    .animate()
+                    .fadeIn(curve: Curves.easeInCirc)
+                    .scaleY()
+                    .shimmer(delay: 300.ms, colors: <Color>[
+                    AppColors.white,
+                    const Color(0xff5b0060),
+                    const Color(0xff870160),
+                    const Color(0xffac255e),
+                    const Color(0xffca485c),
+                    const Color(0xffe16b5c),
+                    const Color(0xfff39060),
+                    const Color(0xffffb56b),
+                  ])
             : isLoading
                 ? const Center(child: LoadingWidget())
                 : TextWidget(

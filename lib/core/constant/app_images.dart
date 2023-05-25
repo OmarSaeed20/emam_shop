@@ -41,10 +41,18 @@ class AppImages {
   static const String e404 = "${_img}404.png";
   static const String e4044 = "${_img}4044.png";
 
+  static const String vector = "${_img}Vector.png";
+  static const String vector2 = "${_img}Vector1.png";
+  static const String group = "${_img}Group.png";
+  static const String group2 = "${_img}Group2.png";
+  static const String camira = "${_img}camira.png";
+
 
   static const String eNowifi2= "${_img}no-wifi2.png";
 
   //loading 
   static const String loading2= "${_lot}loading2.json";
   static const String loadingWait= "${_lot}loading-wait.json";
+
+  static const String imagNet= "https://m.media-amazon.com/images/I/31hBP+4iaHL._AC_UF226,226_FMjpg_.jpg";
 }

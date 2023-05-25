@@ -1,11 +1,10 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
-
 import '/index.dart';
 
 abstract class HomeController extends GetxController {
   Future<dynamic> getHomeData();
+  Future<dynamic> getCategoriesSearch(String search);
   void goToAllCategories();
   void goToItemScreen(int index, String cateId);
   // void goToProductDetaile(ItemsModel itemsModel);
@@ -17,6 +16,7 @@ class HomeControllerImp extends HomeController {
   HomeRepo repo = Get.find();
   DatabaseHelper database = Get.find();
   String? lang;
+  CartControllerImp cartController = Get.find();
 
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
@@ -43,11 +43,11 @@ class HomeControllerImp extends HomeController {
 
     if (requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        for (var i in response["categories"]) {
+        for (var i in response["categories"]["data"]) {
           _categories!.add(CategoriesModel.fromJson(i));
           // setCategoriesMap();
         }
-        for (var i in response["items"]) {
+        for (var i in response["items"]["data"]) {
           _items.add(ItemsModel.fromJson(i));
           // setItemsMap();
         }
@@ -58,6 +58,63 @@ class HomeControllerImp extends HomeController {
       }
     }
     update();
+  }
+
+  @override
+  Future<dynamic> getCategoriesSearch(search) async {
+    _requestStatus = RequestStatus.loading;
+    _categories!.clear();
+    update();
+    var response = await repo.getCategoriesSearch(search: search.trim());
+    _requestStatus = handlingRespose(response);
+    if (_requestStatus == RequestStatus.success) {
+      if (response["status"] == "success") {
+        for (var element in response["data"]) {
+          _categories!.add(CategoriesModel.fromJson(element));
+          update();
+          log("$categories");
+        }
+      } else {
+        _requestStatus = RequestStatus.noData;
+        log('  get_categoriesearch =>>RequestStatus.noData');
+        update();
+      }
+      update();
+    } else if (_requestStatus == RequestStatus.serverFailure ||
+        _requestStatus == RequestStatus.serverException) {
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    } else if (_requestStatus == RequestStatus.offLineFailure) {
+      _requestStatus == RequestStatus.offLineFailure;
+    } else {}
+  }
+
+  Future<dynamic> getCategories() async {
+    _requestStatus = RequestStatus.loading;
+    _categories!.clear();
+    update();
+    var response = await repo.getCategoriesView();
+    _requestStatus = handlingRespose(response);
+    if (_requestStatus == RequestStatus.success) {
+      if (response["status"] == "success") {
+        for (var element in response["data"]) {
+          _categories!.add(CategoriesModel.fromJson(element));
+          update();
+          log("$categories");
+        }
+      } else {
+        _requestStatus = RequestStatus.noData;
+        log('  get_categorie  =>>RequestStatus.noData');
+        update();
+      }
+      update();
+    } else if (_requestStatus == RequestStatus.serverFailure ||
+        _requestStatus == RequestStatus.serverException) {
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    } else if (_requestStatus == RequestStatus.offLineFailure) {
+      _requestStatus == RequestStatus.offLineFailure;
+    } else {}
   }
 
   CategoriesModel? getCategoryByIdLinear2(int id) {
@@ -125,7 +182,7 @@ class HomeControllerImp extends HomeController {
     );
   }
 
-  bool favoriteHome = false;
+  /* bool favoriteHome = false;
   IconData favoriteHomeIcon = CupertinoIcons.heart;
   void onfavoritHomeeUpdat() {
     debugPrint("$favoriteHome");
@@ -133,7 +190,7 @@ class HomeControllerImp extends HomeController {
     favoriteHomeIcon =
         favoriteHome ? CupertinoIcons.heart_fill : CupertinoIcons.heart;
     update();
-  }
+  } */
 
 /* 
 
@@ -152,5 +209,11 @@ INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favor
       RouteHelper.getItemsScreen(),
       arguments: {"cateModel": cateModel, "cateId": cateId},
     );
+  }
+
+  void goToCart() {
+    cartController.getCart();
+
+    Get.toNamed(RouteHelper.getCart());
   }
 }

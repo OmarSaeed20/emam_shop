@@ -4,7 +4,7 @@ SizedBox productTitle(String title, {double? wid, int? maxLi}) => SizedBox(
       width: wid,
       child: TextWidget(
         title,
-        fontSize: 16.weight,
+        fontSize: 14.weight,
         maxLines: maxLi ?? 1,
         fontWeight: FontWeight.w400,
         textAlign: TextAlign.start,

@@ -1,5 +1,4 @@
-import "package:firebase_core/firebase_core.dart";
-
+ 
 import "/index.dart";
 
 /* class AppBinding implements Bindings {
@@ -38,6 +37,8 @@ Future<void> init() async {
   Get.lazyPut(() => HomeControllerImp(), fenix: true);
   Get.lazyPut(() => ItemsControllerImp(), fenix: true);
   Get.lazyPut(() => FavoriteControllerImp(), fenix: true);
+  Get.lazyPut(() => CartControllerImp(), fenix: true);
+  Get.lazyPut(() => SettingControllerImp(), fenix: true);
 
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
@@ -47,8 +48,7 @@ Future<void> init() async {
   Get.lazyPut(() => HomeRepo(), fenix: true);
   Get.lazyPut(() => ItemsRepo(), fenix: true);
   Get.lazyPut(() => FavoriteRepo(), fenix: true);
+  Get.lazyPut(() => CartRepo(), fenix: true);
 }
 
-Future<void> appInit() async {
-  await Firebase.initializeApp();
-}
+

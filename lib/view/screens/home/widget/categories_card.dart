@@ -10,7 +10,10 @@ categoriesCard({
     child: Padding(
       padding: paddingOnly(right: 5),
       child: Card(
-        color: AppColors.secondaryLight,
+        color: AppColors.cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0.height),
+        ),
         child: Container(
           constraints: BoxConstraints(minWidth: 105.weight),
           child: Row(

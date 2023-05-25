@@ -18,7 +18,7 @@ class _ItemScreenState extends State<ItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String? val;
+    final String cateId = Get.arguments["cateId"];
     return Scaffold(
       key: scaffoldKey,
       appBar: _categorieItemsAppBar(),
@@ -26,20 +26,12 @@ class _ItemScreenState extends State<ItemScreen> {
         builder: (controller) => SingleChildScrollView(
           child: Column(
             children: [
-              if (controller.requestStatu == RequestStatus.loading)
-                PreferredSize(
-                  preferredSize: Size(double.infinity, 2.height),
-                  child: const LinearProgressIndicator(),
-                )
-              else
-                Container(),
               Container(
                 padding: paddingOnly(left: 12, right: 12, bottom: 15),
                 child: searchBar(
-                  onPressed: () => val!.isNotEmpty
-                      ? controller.getItemsByNameBinary(val!)
-                      : null,
-                  onChanged: (String value) => val = value,
+                  onChanged: (String val) => val.isNotEmpty
+                      ? controller.getItemsSearch(val)
+                      : controller.getItemsData(cateId),
                 ),
               ),
               HandlingRequstView(
@@ -71,9 +63,8 @@ class _ItemScreenState extends State<ItemScreen> {
           (i) {
             favController.isFavor[itemsList[i].id] = itemsList[i].favorite;
             return ProductGridView(
-              active: favController.isFavor[itemsList[i].id] == "1"
-                  ? true
-                  : false,
+              active:
+                  favController.isFavor[itemsList[i].id] == "1" ? true : false,
               itemsModel: itemsList[i],
               onTap: () => controller.goToProductDetaile(itemsList[i]),
             );
@@ -94,8 +85,52 @@ AppBar _categorieItemsAppBar() {
     actions: [
       Padding(
         padding: paddingSymme(horizontal: 20.weight),
-        child: const Icon(Icons.menu),
+        // child: Icon(Icons.),
       )
     ],
   );
+}
+
+class MyAnimatedIcon extends StatefulWidget {
+  const MyAnimatedIcon({super.key, required this.icon});
+  final AnimatedIconData icon;
+  @override
+  MyAnimatedIconState createState() => MyAnimatedIconState();
+}
+
+class MyAnimatedIconState extends State<MyAnimatedIcon>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (_animationController.status == AnimationStatus.completed) {
+          _animationController.reverse();
+        } else {
+          _animationController.forward();
+        }
+      },
+      child: AnimatedIcon(
+        icon: widget.icon,
+        progress: _animationController,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 }

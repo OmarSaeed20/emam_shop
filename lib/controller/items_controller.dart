@@ -7,6 +7,7 @@ import '/index.dart';
 abstract class ItemsController extends GetxController {
   void intialData();
   Future<dynamic> getItemsData(String categoryid);
+  Future<dynamic> getItemsSearch(String search);
   void goToProductDetaile(ItemsModel itemsModel);
   /* void updateOrientation(Orientation newOrientation); */
 }
@@ -14,13 +15,15 @@ abstract class ItemsController extends GetxController {
 class ItemsControllerImp extends ItemsController {
   static ItemsControllerImp get to => Get.find();
 
-  HomeRepo repo = Get.find();
+  ItemsRepo repo = Get.find();
+  CartControllerImp cartController = Get.find();
   DatabaseHelper database = Get.find();
   String? lang;
 
   RequestStatus _requestStatu = RequestStatus.none;
   RequestStatus get requestStatu => _requestStatu;
 
+  CartControllerImp cartContro = Get.find();
   final String? _categoryId = Get.arguments['cateId'];
   /* // Store the current screen orientation
   var orientation = Orientation.portrait;
@@ -68,6 +71,35 @@ class ItemsControllerImp extends ItemsController {
       } else {
         _requestStatu = RequestStatus.noData;
         log('message getItemsData =>>RequestStatus.noData');
+        update();
+      }
+      update();
+    } else if (_requestStatu == RequestStatus.serverFailure ||
+        _requestStatu == RequestStatus.serverException) {
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    } else if (_requestStatu == RequestStatus.offLineFailure) {
+      _requestStatu == RequestStatus.offLineFailure;
+    } else {}
+  }
+ 
+  @override
+  Future<dynamic> getItemsSearch(search) async {
+    _requestStatu = RequestStatus.loading;
+    _itemsScreenList.clear();
+    update();
+    var response = await repo.getItemsSearch(search: search.trim());
+    _requestStatu = handlingRespose(response);
+    if (_requestStatu == RequestStatus.success) {
+      if (response["status"] == "success") {
+        for (var element in response["data"]) {
+          _itemsScreenList.add(ItemsModel.fromJson(element));
+          update();
+          log("$_itemsScreenList");
+        }
+      } else {
+        _requestStatu = RequestStatus.noData;
+        log('  getItemssearch =>>RequestStatus.noData');
         update();
       }
       update();
@@ -143,6 +175,8 @@ class ItemsControllerImp extends ItemsController {
   @override
   void goToProductDetaile(itemsModel) {
     _itemsModePro = itemsModel;
+    cartContro.getCountItem(_itemsModePro!.id!);
+    update();
     Get.toNamed(RouteHelper.getProductDetaile());
   }
 
@@ -152,18 +186,6 @@ class ItemsControllerImp extends ItemsController {
   changeSelectedIndex(int index) {
     selectedIndex = index;
     update();
-  }
-
-  int count = 0;
-  void increse({required bool add}) {
-    log(">>>>$count");
-    if (add == true) {
-      count++;
-      update();
-    } else {
-      count > 0 ? count-- : null;
-      update();
-    }
   }
 
   double ratingVal = 3.4;
@@ -190,7 +212,6 @@ class ItemsControllerImp extends ItemsController {
     update();
   }
 
-  void addToBag() {}
   /* double originalPrice = 100.0;
   double discountPercentage = 10.0;  var discountAmount = 0;
   var discountedPrice = 0;
@@ -202,36 +223,6 @@ class ItemsControllerImp extends ItemsController {
   }
 
    */
-
-/*   @override
-  Future<dynamic> getItemsData(id) async {
-    _requestStatus = RequestStatus.loading;
-    _items = [];
-    update();
-    var response = await itemsRepo.getItems(id: id);
-    _requestStatus = handlingRespose(response);
-    if (_requestStatus == RequestStatus.success) {
-      if (response["status"] == "success") {
-        for (var element in response["data"]) {
-          _items!.add(ItemsModel.fromJson(element));
-          update();
-          // log("$_items");
-        }
-      } else {
-        _requestStatus = RequestStatus.noData;
-        log('message getItemsData =>>RequestStatus.noData');
-        update();
-      }
-      update();
-    } else if (_requestStatus == RequestStatus.serverFailure ||
-        _requestStatus == RequestStatus.serverException) {
-      // _requestStatus == RequestStatus.offLineFailure;
-      snackBarMessage(title: "warning", msg: "Please try again");
-      update();
-    } else if (_requestStatus == RequestStatus.offLineFailure) {
-      _requestStatus == RequestStatus.offLineFailure;
-    } else {}
-  } */
 
 /*   ItemsModel? _itemsMode = Get.arguments["items_model"];
   ItemsModel? get itemsMode => _itemsMode;

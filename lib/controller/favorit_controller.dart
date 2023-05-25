@@ -15,6 +15,7 @@ abstract class FavoriteController extends GetxController {
 class FavoriteControllerImp extends FavoriteController {
   static FavoriteControllerImp get to => Get.find();
   FavoriteRepo favRepo = Get.find();
+  CartControllerImp cartController = Get.find();
 
   final DatabaseHelper database = Get.find();
   String userId = DatabaseHelper.to.getString(EndPoint.userId);
@@ -116,7 +117,7 @@ class FavoriteControllerImp extends FavoriteController {
     }
   }
 
-  List<FavoriteModel> _getFavList = [];
+  final List<FavoriteModel> _getFavList = [];
   List<FavoriteModel> get getFavList => _getFavList;
   @override
   Future<void> getFavourite() async {
@@ -151,7 +152,7 @@ class FavoriteControllerImp extends FavoriteController {
   }
 
   deleteFavourite(String favId) {
-    var response = favRepo.deleteFromFavo(favId: favId);
+    favRepo.deleteFromFavo(favId: favId);
     getFavList.removeWhere((element) => element.favoriteId == favId);
     update();
   }

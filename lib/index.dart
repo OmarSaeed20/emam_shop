@@ -23,6 +23,8 @@ export "controller/test_controller.dart";
 export "controller/home_controller.dart";
 export 'controller/items_controller.dart';
 export 'controller/favorit_controller.dart';
+export 'controller/cart_controller.dart';
+export 'controller/setting_controller.dart';
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
@@ -33,6 +35,8 @@ export "data/repository/home_repo.dart";
 export 'data/repository/auth_repo.dart';
 export 'data/repository/items_repo.dart';
 export 'data/repository/favorite_repo.dart';
+export 'data/repository/cart_repo.dart';
+
 export 'data/api/api_end_point.dart';
 
 // model
@@ -40,7 +44,8 @@ export 'data/model/auth/user_model.dart';
 export 'data/model/auth/signup_model.dart';
 export 'data/model/categories_model.dart';
 export 'data/model/items_model.dart';
-export '../data/model/favorite_model.dart';
+export 'data/model/favorite_model.dart';
+export 'data/model/cart_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -113,6 +118,18 @@ export 'view/screens/product_detailes/widget/product_information.dart';
 export 'view/screens/product_detailes/widget/similar_products.dart';
 export 'view/screens/product_detailes/widget/bottom_navi_bar.dart';
 export 'view/screens/product_detailes/widget/reviews_widget.dart';
+export 'view/screens/setting/widget/user_profile_image.dart';
+export 'view/screens/setting/widget/setting_header.dart';
+export 'view/screens/setting/widget/setting_list_tile.dart';
+export 'view/screens/setting/pages/address/my_address_page.dart';
+export 'view/screens/setting/pages/edit_profile/edit_profile_page.dart';
+export 'view/screens/setting/pages/help_support/help_support_page.dart';
+export 'view/screens/setting/pages/orders/my_orders_page.dart';
+export 'view/screens/setting/pages/payment/paymen_page.dart';
+export 'view/screens/setting/pages/report/report_page.dart';
+export 'view/screens/setting/pages/terms_policies/terms_policies_page.dart';
+export 'view/screens/cart/widget/bottom_sheet.dart';
+export 'view/screens/cart/widget/cart_and_favorie_card.dart';
 
 // core
 
@@ -131,8 +148,10 @@ export 'core/function/translate_database.dart';
 export 'data/datasource/locale/local_end_point.dart';
 export 'core/theme/app_theme.dart';
 export 'core/shared/dependencies.dart';
+export 'core/shared/serves.dart';
 
 export 'core/function/valied_input.dart';
+export 'core/function/calculating_oldprice.dart';
 export 'core/function/pop_dialogs/alert_exit_app_dialog.dart';
 export "core/function/chick_internet_coniction.dart";
 export 'core/function/statuse_request.dart';

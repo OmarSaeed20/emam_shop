@@ -2,7 +2,7 @@ import 'package:ecommerce/index.dart';
 
 Container productCardBody({
   required String name,
-  required VoidCallback favTap,
+  VoidCallback? favTap,
   VoidCallback? cartTap,
   required String pric,
   required String oldPric,
@@ -10,7 +10,8 @@ Container productCardBody({
   bool isFavoritScreen = false,
   IconData? icon2,
   bool? active2 = false,
-  required bool active,
+  bool? active = false,
+  bool? isHome = false,
 }) =>
     Container(
       padding: padding ?? paddingOnly(right: 6, top: 2, bottom: 2, left: 4),
@@ -20,6 +21,7 @@ Container productCardBody({
         children: [
           productTitle(name, maxLi: isFavoritScreen ? 2 : 1),
           isFavoritScreen ? 18.sH : Container(),
+          if (isHome!) 10.sH,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,16 +55,15 @@ Container productCardBody({
                     Container(
                       margin: paddingOnly(top: 2, right: 4),
                       child: proCardIcon(active2!, icon: icon2, onTap: cartTap),
-                    )
-                  else
-                    Container(),
-                  Container(
-                    margin: paddingOnly(top: 2, right: 4),
-                    padding: paddingSymme(vertical: 3, horizontal: 3),
-                    alignment: Alignment.center,
-                    child:
-                        btnFavWidget(home: true, onTap: favTap, active: active),
-                  ),
+                    ),
+                  if (!isHome)
+                    Container(
+                      margin: paddingOnly(top: 2, right: 4),
+                      padding: paddingSymme(vertical: 3, horizontal: 3),
+                      alignment: Alignment.center,
+                      child: btnFavWidget(
+                          home: true, onTap: favTap ?? () {}, active: active!),
+                    ),
                 ],
               ),
             ],
