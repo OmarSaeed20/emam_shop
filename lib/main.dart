@@ -1,9 +1,19 @@
 import '/index.dart';
-import 'core/shared/dependencies.dart' as dependencies; 
+import 'core/shared/dependencies.dart' as dependencies;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dependencies.init();
+  /* ErrorWidget.builder = (FlutterErrorDetails details) {
+    if (kDebugMode) {
+      return Center(child: ErrorWidget(details.exception));
+    } else {
+      // Display user-friendly error widget in release mode
+      return const Center(
+        child: TextWidget('An error occurred'),
+      );
+    }
+  }; */
+   await dependencies.init();
   await initialServices();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

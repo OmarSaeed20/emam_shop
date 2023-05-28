@@ -13,7 +13,8 @@ class BtnWidget extends StatelessWidget {
     this.radius,
     this.isAnimation = false,
     this.border,
-    this.isLoading = false, this.padding,
+    this.isLoading = false,
+    this.padding, this.fontWeight,
   }) : super(key: key);
   final String text;
   final VoidCallback onPressed;
@@ -26,6 +27,7 @@ class BtnWidget extends StatelessWidget {
   final double? radius;
   final bool isLoading;
   final bool? isAnimation;
+final  FontWeight? fontWeight;
   final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,7 @@ class BtnWidget extends StatelessWidget {
                 : TextWidget(
                     text,
                     color: color ?? AppColors.white,
-                    fontWeight: FontWeight.w600,
+                    fontWeight:fontWeight?? FontWeight.w600,
                     fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   ),
       ),

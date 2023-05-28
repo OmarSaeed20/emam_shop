@@ -24,7 +24,7 @@ class ItemsControllerImp extends ItemsController {
   RequestStatus get requestStatu => _requestStatu;
 
   CartControllerImp cartContro = Get.find();
-  final String? _categoryId = Get.arguments['cateId'];
+  // final String? _categoryId = Get.arguments['cateId'];
   /* // Store the current screen orientation
   var orientation = Orientation.portrait;
 
@@ -40,7 +40,7 @@ class ItemsControllerImp extends ItemsController {
   @override
   void intialData() {
     lang = database.getString(EndPoint.lang);
-    getItemsData(_categoryId!);
+    // getItemsData(_categoryId!);
   }
 
   @override
@@ -176,8 +176,8 @@ class ItemsControllerImp extends ItemsController {
   void goToProductDetaile(itemsModel) {
     _itemsModePro = itemsModel;
     cartContro.getCountItem(_itemsModePro!.id!);
-    update();
     Get.toNamed(RouteHelper.getProductDetaile());
+    update();
   }
 
   List<String> productDis = ["Description", "Color", "Materials", "Reviews"];

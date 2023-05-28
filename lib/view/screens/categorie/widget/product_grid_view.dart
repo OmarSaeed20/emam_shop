@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import '/index.dart';
 
-class ProductGridView extends StatelessWidget {
-  const ProductGridView({
+class ProductGridViewCard extends StatelessWidget {
+  const ProductGridViewCard({
     super.key,
     required this.itemsModel,
     required this.onTap,
@@ -32,7 +32,7 @@ class ProductGridView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   productImage(
-                    itemsModel.image!,
+                    "${ApiLinks.imagLink}${itemsModel.image!}",
                     dic: "${int.parse(itemsModel.discount!)}",
                     fit: BoxFit.fitHeight,
                   ),

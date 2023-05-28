@@ -19,6 +19,7 @@ class CartControllerImp extends CartController {
   @override
   void onInit() {
     // getCart();
+    selectedIndexEnum = CheckOutEnum.check1;
     super.onInit();
   }
 
@@ -62,8 +63,6 @@ class CartControllerImp extends CartController {
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
-        // _cartList.remove(itemsId);
-        log(' (success) ---> ${response["message"]}');
         getCountItem(itemsId);
       } else {
         _requestStatus = RequestStatus.noData;
@@ -81,7 +80,6 @@ class CartControllerImp extends CartController {
   @override
   Future<void> getCart() async {
     try {
-      _listCart.clear();
       _requestStatus = RequestStatus.loading;
       update();
       final response = await cartRepo.getCartView(userId: userId);
@@ -90,12 +88,12 @@ class CartControllerImp extends CartController {
         if (response['status'] == 'success') {
           isEmpty = response["datacart"]["status"] == 'failure' ? true : false;
           if (response["datacart"]["status"] == 'success') {
+            _listCart.clear();
             List result = response["datacart"]["data"];
             _listCart.addAll(result.map((e) => CartModel.fromJson(e)));
-            log(_listCart.toString());
 
             _countprice = CountPriceModel.fromJson(response["countprice"]);
-            log('_countprice $_countprice');
+
             update();
           }
         } else {
@@ -121,11 +119,9 @@ class CartControllerImp extends CartController {
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
         _countItems = int.parse(response['data']);
-        log(" countItems suc>>>>>>>  $_countItems");
         update();
       } else {
         _requestStatus = RequestStatus.noData;
-        log(" countItems noDat>>>>>>>  $_countItems");
         update();
       }
       update();
@@ -166,4 +162,17 @@ class CartControllerImp extends CartController {
     listCart.removeWhere((element) => element.cartItemsid == itemsId);
     update();
   }
+
+  CheckOutEnum? selectedIndexEnum;
+  changeSelectedIndex() {
+    if (selectedIndexEnum == CheckOutEnum.check1) {
+      selectedIndexEnum = CheckOutEnum.check2;
+      update();
+    } else {
+      selectedIndexEnum = CheckOutEnum.check1;
+      update();
+    }
+  }
 }
+
+enum CheckOutEnum { check1, check2 }

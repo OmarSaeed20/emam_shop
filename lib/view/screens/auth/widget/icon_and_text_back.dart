@@ -1,9 +1,10 @@
 import '/index.dart';
 
 class IconAndTextBack extends StatelessWidget {
-  const IconAndTextBack({super.key, this.onTap, this.showTextBack = true});
+  const IconAndTextBack({super.key, this.onTap, this.showTextBack = true, this.backgroundColor});
   final VoidCallback? onTap;
   final bool showTextBack;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -18,7 +19,7 @@ class IconAndTextBack extends StatelessWidget {
               onTap: onTap ?? () => Get.offNamed(RouteHelper.getWellcom()),
               child: CircleAvatar(
                 radius: 15.height,
-                backgroundColor: AppColors.secondaryLight,
+                backgroundColor:backgroundColor?? AppColors.secondaryLight,
                 child: Icon(
                   Icons.arrow_back_rounded,
                   size: 20.weight,

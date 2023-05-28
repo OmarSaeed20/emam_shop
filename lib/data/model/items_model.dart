@@ -17,6 +17,7 @@ class ItemsModel {
   final String? categoriesDatatime;
   final String? categoriesImage;
   final String? favorite;
+  final String? priceDiscount;
   const ItemsModel({
     this.id,
     this.name,
@@ -36,6 +37,7 @@ class ItemsModel {
     this.categoriesDatatime,
     this.categoriesImage,
     this.favorite,
+    this.priceDiscount,
   });
   ItemsModel copyWith({
     String? id,
@@ -56,6 +58,7 @@ class ItemsModel {
     String? categoriesDatatime,
     String? categoriesImage,
     String? favorite,
+    String? priceDiscount,
   }) {
     return ItemsModel(
       id: id ?? this.id,
@@ -76,6 +79,7 @@ class ItemsModel {
       categoriesDatatime: categoriesDatatime ?? this.categoriesDatatime,
       categoriesImage: categoriesImage ?? this.categoriesImage,
       favorite: favorite ?? this.favorite,
+      priceDiscount: priceDiscount ?? this.priceDiscount,
     );
   }
 
@@ -99,6 +103,7 @@ class ItemsModel {
       'categories_datatime': categoriesDatatime,
       'categories_image': categoriesImage,
       'favorite': favorite,
+      'price_discount': priceDiscount,
     };
   }
 
@@ -143,6 +148,7 @@ class ItemsModel {
           ? null
           : json['categories_image'] as String,
       favorite: json['favorite'] == null ? null : json['favorite'] as String,
+      priceDiscount: json['price_discount'] == null ? null : json['price_discount'] as String,
     );
   }
 
@@ -166,6 +172,7 @@ categoriesName:$categoriesName,
 categoriesNameAr:$categoriesNameAr,
 categoriesDatatime:$categoriesDatatime,
 categoriesImage:$categoriesImage,
+priceDiscount:$priceDiscount,
 favorite:$favorite
     ) ''';
   }
@@ -191,6 +198,7 @@ favorite:$favorite
         other.categoriesNameAr == categoriesNameAr &&
         other.categoriesDatatime == categoriesDatatime &&
         other.favorite == favorite &&
+        other.priceDiscount == priceDiscount &&
         other.categoriesImage == categoriesImage;
   }
 
@@ -216,6 +224,7 @@ favorite:$favorite
       categoriesDatatime,
       categoriesImage,
       favorite,
+      priceDiscount,
     );
   }
 }

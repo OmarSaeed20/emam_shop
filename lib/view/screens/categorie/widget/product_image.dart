@@ -21,9 +21,15 @@ productImage(
             child: SizedBox(
               height: height ?? 190.height,
               width: Dimensions.screenWidth,
-              child: img.isEmpty
-                  ? Image.asset(AppImages.e404, fit: fit ?? BoxFit.fitHeight)
-                  : Image.network(img, fit: fit ?? BoxFit.fitHeight),
+              child: Image.network(
+                img,
+                fit: fit ?? BoxFit.fitHeight,
+                filterQuality: FilterQuality.high,
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset(AppImages.e404, fit: fit ?? BoxFit.fitHeight),
+                /* loadingBuilder: (context, child, loadingProgress) =>
+                    const CircularProgressIndicator(), */
+              ),
             ),
           ),
         ),

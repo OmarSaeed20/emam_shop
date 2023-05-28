@@ -18,7 +18,7 @@ abstract class SignUpController extends GetxController {
   Future<void> startCountdown();
   Future<void> onCountdownFinish(String email);
   Future<void> onTappedSignUp(controller);
-  Future<void> onTappedVerifyCode(String email,otp);
+  Future<void> onTappedVerifyCode(String email, otp);
 }
 
 class SignUpControllerImp extends SignUpController {
@@ -89,12 +89,13 @@ class SignUpControllerImp extends SignUpController {
   Future<void> onTappedSignUp(controller) async {
     _requestStatus = RequestStatus.loading;
     update();
-    SignUpModel model = SignUpModel();
-    model
-      ..userName = _name.text.trim()
-      ..userEmail = _email.text.trim()
-      ..userPassword = _password.text.trim()
-      ..userPhone = _phone.text.trim();
+    SignUpModel model = SignUpModel(
+      userName: _name.text.trim(),
+      userEmail: _email.text.trim(),
+      userPassword: _password.text.trim(),
+      userPhone: _phone.text.trim(),
+    );
+
     var response = await _authRepo.signUp(body: model);
     _requestStatus = handlingRespose(response);
 
@@ -181,7 +182,7 @@ class SignUpControllerImp extends SignUpController {
   }
 
   @override
-  Future<void> onTappedVerifyCode(String email,otp) async {
+  Future<void> onTappedVerifyCode(String email, otp) async {
     if (form.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
       popLoading();

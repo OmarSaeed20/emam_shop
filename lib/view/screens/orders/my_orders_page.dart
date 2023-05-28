@@ -1,4 +1,4 @@
-import '../../../../../index.dart';
+import '../../../index.dart';
 
 class MyOrdersPage extends StatelessWidget {
   const MyOrdersPage({super.key});

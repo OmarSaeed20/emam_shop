@@ -41,7 +41,7 @@ class ForYouCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       productImage(
-                        model.image!,
+                        "${ApiLinks.imagLink}${model.image!}",
                         dic: "${int.parse(model.discount!)}",
                         height: 148.height,
                         fit: BoxFit.fitHeight,

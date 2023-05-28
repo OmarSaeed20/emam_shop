@@ -1,13 +1,15 @@
-class SignUpModel {
-  String? userName;
-  String? userEmail;
-  String? userPassword;
-  String? userPhone;
-  SignUpModel({
-    this.userName,
-    this.userEmail,
-    this.userPassword,
-    this.userPhone,
+import 'package:equatable/equatable.dart';
+
+class SignUpModel extends Equatable {
+  final String userName;
+  final String userEmail;
+  final String userPassword;
+  final String userPhone;
+  const SignUpModel({
+    required this.userName,
+    required this.userEmail,
+    required this.userPassword,
+    required this.userPhone,
   });
   SignUpModel copyWith({
     String? userName,
@@ -34,14 +36,10 @@ class SignUpModel {
 
   static SignUpModel fromJson(Map<String, Object?> json) {
     return SignUpModel(
-      userName: json['username'] == null ? null : json['username'] as String,
-      userEmail:
-          json['email'] == null ? null : json['email'] as String,
-      userPassword: json['password'] == null
-          ? null
-          : json['password'] as String,
-      userPhone:
-          json['phone'] == null ? null : json['phone'] as String,
+      userName: json['username'] as String,
+      userEmail: json['email'] as String,
+      userPassword: json['password'] as String,
+      userPhone: json['phone'] as String,
     );
   }
 
@@ -55,7 +53,7 @@ userPhone:$userPhone,
     ) ''';
   }
 
-  @override
+ /*  @override
   bool operator ==(Object other) {
     return other is SignUpModel &&
         other.runtimeType == runtimeType &&
@@ -74,5 +72,16 @@ userPhone:$userPhone,
       userPassword,
       userPhone,
     );
-  }
+  } */
+
+  @override
+  List<Object?> get props => [
+        userName,
+        userEmail,
+        userPassword,
+        userPhone,
+      ];
+      
+  @override
+  bool get stringify => true;
 }

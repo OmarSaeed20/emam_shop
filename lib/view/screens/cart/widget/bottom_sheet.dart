@@ -6,70 +6,76 @@ bottomSheetWidget(
   required String supTotle,
   required String tax,
   required String delivery,
+  required VoidCallback selectAddress,
+  required VoidCallback cancel,
   // required int totle,
 }) =>
-    Container(
-      height: 270.height,
-      padding: paddingOnly(top: 8, left: 20, right: 20, bottom: 15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: () => Get.back(),
-              child: const Icon(Icons.cancel, color: AppColors.red),
+    SingleChildScrollView(
+      child: Container(
+        height: 270.height,
+        padding: paddingOnly(top: 8, left: 20, right: 20, bottom: 15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: cancel,
+                child: const Icon(Icons.cancel, color: AppColors.red),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 170.height,
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () => applyPromoCode(context),
-                  child: const TextWidget(
-                    "coupon code",
-                    decoration: TextDecoration.underline,
-                    color: AppColors.primaryMid,
+            SizedBox(
+              height: 170.height,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => applyPromoCode(context),
+                    child: const TextWidget(
+                      "coupon code",
+                      decoration: TextDecoration.underline,
+                      color: AppColors.primaryMid,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 100.height,
-                  child: Column(
-                    children: [
-                      cartListTile("Count", count),
-                      cartListTile("SubTotle", "$supTotle.40 \$"),
-                      cartListTile("Tax and Fees", "$tax \$"),
-                      cartListTile("Delivery", "$delivery \$"),
-                    ],
+                  SizedBox(
+                    height: 100.height,
+                    child: Column(
+                      children: [
+                        cartCheckoutListTile("Count", count),
+                        cartCheckoutListTile("SubTotle", "$supTotle \$"),
+                        cartCheckoutListTile("Tax and Fees", "$tax \$"),
+                        cartCheckoutListTile("Delivery", "$delivery \$"),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  height: .5,
-                  width: double.infinity,
-                  color: AppColors.grey,
-                ),
-                cartListTile(
-                  "Totle",
-                  "${double.parse(supTotle) + double.parse(tax) + double.parse(delivery)} \$",
-                  color: AppColors.primary2,
-                  fontSize: 16.weight,
-                  fontWeight: FontWeight.w700,
-                ),
-              ],
+                  Container(
+                    height: .5,
+                    width: double.infinity,
+                    color: AppColors.grey,
+                  ),
+                  cartCheckoutListTile(
+                    "Totle",
+                    "${double.parse(supTotle) + double.parse(tax) + double.parse(delivery)} \$",
+                    color: AppColors.primary2,
+                    fontSize: 16.weight,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ],
+              ),
             ),
-          ),
-          BtnWidget(
-            "Check Out",
-            width: 190.weight,
-            height: 40.height,
-            onPressed: () => Get.back(),
-          )
-        ],
+            BtnWidget(
+              "select address",
+              fontWeight: FontWeight.w400,
+              fontSize: 16.weight,
+              width: 200.weight,
+              height: 40.height,
+              onPressed: selectAddress,
+            )
+          ],
+        ),
       ),
     );
 
-cartListTile(
+cartCheckoutListTile(
   String title,
   String num, {
   double? fontSize,

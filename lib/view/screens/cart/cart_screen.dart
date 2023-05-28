@@ -6,7 +6,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: botNavigationBar(context),
+      bottomNavigationBar: GetBuilder<CartControllerImp>(
+        builder: (controller) => botNavigationBar(context, controller),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -77,127 +79,43 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  botNavigationBar(context) => Container(
-        height: 80.height,
+  botNavigationBar(context, CartControllerImp controller) => AnimatedContainer(
+        duration: const Duration(seconds: 1),
+        curve: Curves.decelerate,
+        height: controller.selectedIndexEnum == CheckOutEnum.check1
+            ? 80.height
+            : 280.height,
         width: double.infinity,
         color: AppColors.offWhite,
-        padding: paddingOnly(top: 16, bottom: 20, right: 20, left: 20),
-        child: GetBuilder<CartControllerImp>(
-          builder: (controller) => BtnWidget(
-            'Check Out',
-            height: 40.height,
-            onPressed: () {
-              if (controller.isEmpty != true) {
-                Get.bottomSheet(
-                  bottomSheetWidget(
-                    context,
-                    count: controller.countpriceModel!.totalcount!,
-                    supTotle: controller.countpriceModel!.totalprice!,
-                    tax: '5.55',
-                    delivery: "2.00",
-                  ),
-                  backgroundColor: AppColors.white,
-                );
-              } else {
-                snackBarMessage(msg: "No items in cart", title: "waring");
-              }
-            },
-          ),
-        ),
+        child: controller.selectedIndexEnum == CheckOutEnum.check1
+            ? checkOut1(controller)
+            : bottomSheetWidget(
+                context,
+                count: controller.countpriceModel!.totalcount!,
+                supTotle: controller.countpriceModel!.totalprice!,
+                tax:
+                    '${double.parse(controller.countpriceModel!.totalprice!) * (2.5 / 100)}',
+                delivery:
+                    "${double.parse(controller.countpriceModel!.totalprice!) * (.5 / 100)}",
+                selectAddress: () {
+                  Get.toNamed(RouteHelper.getDeliveryAddress());
+                },
+                cancel: () => controller.changeSelectedIndex(),
+              ),
       );
-/*   GestureDetector getPromoCode(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        var formKey = GlobalKey<FormState>();
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Enter The points '),
-            content: Form(
-              key: formKey,
-              child: TextFormField(
-                cursorColor: Colors.black,
-                validator: (v) {
-                  if (v!.isEmpty) {
-                    return 'this is required';
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                  labelText: 'enter points',
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            actions: [
-              BtnWidget(
-                'get code',
-                width: 100.weight,
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text(
-                            'Check it out before expiring in a week'),
-                        content: Row(
-                          children: const [
-                            Text(
-                              'Discount Code: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SelectableText('14673ERT'),
-                          ],
-                        ),
-                        actions: [
-                          MaterialButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            color: AppColors.primary,
-                            child: const Text(
-                              'OK',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        );
+
+  checkOut1(CartControllerImp controller) {
+    return BtnWidget(
+      'Check Out',
+      padding: paddingOnly(top: 16, bottom: 20, right: 20, left: 20),
+      height: 40.height,
+      onPressed: () {
+        if (controller.isEmpty != true) {
+          controller.changeSelectedIndex();
+        } else {
+          snackBarMessage(msg: "No items in cart", title: "waring");
+        }
       },
-      child: Container(
-        width: 60.weight,
-        decoration: BoxDecoration(
-          color: AppColors.awsm,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(6.height),
-            bottomLeft: Radius.circular(12.height),
-          ),
-        ),
-        child: const TextWidget(
-          'get promo Code',
-          maxLines: 3,
-          textAlign: TextAlign.center,
-          color: AppColors.white,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
     );
-  } */
+  }
 }

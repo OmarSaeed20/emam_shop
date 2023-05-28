@@ -25,6 +25,8 @@ export 'controller/items_controller.dart';
 export 'controller/favorit_controller.dart';
 export 'controller/cart_controller.dart';
 export 'controller/setting_controller.dart';
+export 'controller/address/address_controller.dart';
+export 'controller/address/get_address_data_conreoller.dart';
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
@@ -36,6 +38,7 @@ export 'data/repository/auth_repo.dart';
 export 'data/repository/items_repo.dart';
 export 'data/repository/favorite_repo.dart';
 export 'data/repository/cart_repo.dart';
+export 'data/repository/address_repo.dart';
 
 export 'data/api/api_end_point.dart';
 
@@ -46,6 +49,7 @@ export 'data/model/categories_model.dart';
 export 'data/model/items_model.dart';
 export 'data/model/favorite_model.dart';
 export 'data/model/cart_model.dart';
+export 'data/model/address_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -121,15 +125,18 @@ export 'view/screens/product_detailes/widget/reviews_widget.dart';
 export 'view/screens/setting/widget/user_profile_image.dart';
 export 'view/screens/setting/widget/setting_header.dart';
 export 'view/screens/setting/widget/setting_list_tile.dart';
-export 'view/screens/setting/pages/address/my_address_page.dart';
-export 'view/screens/setting/pages/edit_profile/edit_profile_page.dart';
+export 'view/screens/address/my_address_screen.dart';
+export 'view/screens/address/add_address_screen.dart';
+export 'view/screens/edit_profile/edit_profile_page.dart';
 export 'view/screens/setting/pages/help_support/help_support_page.dart';
-export 'view/screens/setting/pages/orders/my_orders_page.dart';
-export 'view/screens/setting/pages/payment/paymen_page.dart';
+export 'view/screens/orders/my_orders_page.dart';
+export 'view/screens/payment/paymen_page.dart';
 export 'view/screens/setting/pages/report/report_page.dart';
 export 'view/screens/setting/pages/terms_policies/terms_policies_page.dart';
 export 'view/screens/cart/widget/bottom_sheet.dart';
 export 'view/screens/cart/widget/cart_and_favorie_card.dart';
+export 'view/screens/address/widget/bottm_navi_bar.dart';  
+export 'view/screens/address/widget/bottom_navi_address_edit.dart';  
 
 // core
 

@@ -49,3 +49,11 @@ valiedInput(InputType type, {String? val, String? val2, int? max, int? min}) {
     }
   }
 }
+
+enum AddressType { address, landMark, fullName, adTitle }
+
+addressValied(AddressType type, {required String val}) {
+  if (val.isEmpty) {
+    return "can't be Empty";
+  }
+}

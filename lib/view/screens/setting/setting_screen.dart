@@ -63,7 +63,7 @@ Column accountBody(SettingControllerImp controller) => Column(
             child: Column(
               children: [
                 settingListTile(Icons.person, "Profile",
-                    onTap: () => controller.goToProfile()),
+                    onTap: () => controller.goToProfile(),),
                 settingListTile(
                   Icons.payment,
                   "Payment Methods",

@@ -4,18 +4,18 @@ Stack productDetailseImage(ItemsControllerImp controller) => Stack(
       children: [
         Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: AppColors.secondaryLight,
+          // color: AppColors.secondaryLight,
           margin: const EdgeInsets.all(0),
           child: Container(
             height: 260.height,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: AppColors.cardColor,
+              color: AppColors.grey150,
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.circular(12.height)),
             ),
             child: Image.network(
-              controller.itemsModePro!.image!,
+              "${ApiLinks.imagLink}${controller.itemsModePro!.image!}",
               filterQuality: FilterQuality.medium,
               fit: BoxFit.contain,
             ),
@@ -55,12 +55,15 @@ Stack productDetailseImage(ItemsControllerImp controller) => Stack(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconAndTextBack(onTap: () => Get.back(), showTextBack: false),
+                IconAndTextBack(
+                    onTap: () => Get.back(),
+                    backgroundColor: AppColors.primarylight,
+                    showTextBack: false),
                 InkWell(
                   onTap: () {},
                   child: CircleAvatar(
                     radius: 15.height,
-                    backgroundColor: AppColors.secondaryLight,
+                    backgroundColor: AppColors.primarylight,
                     child: Icon(
                       Icons.share_outlined,
                       size: 20.weight,

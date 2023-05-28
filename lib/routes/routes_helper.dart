@@ -21,6 +21,7 @@ class RouteHelper {
   static const String _termsPolicies = '/terms_policies';
   static const String _paymentMethods = '/payment_methods';
   static const String _deliveryAddress = '/delivery_address';
+  static const String _selectNewAddress = '/select_new_address';
   static const String _myOrders = '/my_orders';
   static const String _helpSupport = '/help_support';
   static const String _report = '/report_problem';
@@ -47,6 +48,7 @@ class RouteHelper {
   static String getTermsPolicies() => _termsPolicies;
   static String getPaymentMethods() => _paymentMethods;
   static String getDeliveryAddress() => _deliveryAddress;
+  static String getSelectNewAddress() => _selectNewAddress;
   static String getMyOrders() => _myOrders;
   static String getReport() => _report;
   static String getCart() => _cart;
@@ -135,6 +137,10 @@ class RouteHelper {
     GetPage(
         name: _deliveryAddress,
         page: () => const MyAddressPage(),
+        transition: Transition.native),
+    GetPage(
+        name: _selectNewAddress,
+        page: () => const SelectNewAddress(),
         transition: Transition.native),
     GetPage(
         name: _myOrders,

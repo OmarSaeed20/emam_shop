@@ -5,10 +5,9 @@ import '/index.dart';
 abstract class HomeController extends GetxController {
   Future<dynamic> getHomeData();
   Future<dynamic> getCategoriesSearch(String search);
+  
   void goToAllCategories();
   void goToItemScreen(int index, String cateId);
-  // void goToProductDetaile(ItemsModel itemsModel);
-  // Future<dynamic> getItemsData(String categoryid);
 }
 
 class HomeControllerImp extends HomeController {
@@ -63,17 +62,17 @@ class HomeControllerImp extends HomeController {
   @override
   Future<dynamic> getCategoriesSearch(search) async {
     _requestStatus = RequestStatus.loading;
-    _categories!.clear();
+
     update();
     var response = await repo.getCategoriesSearch(search: search.trim());
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        for (var element in response["data"]) {
-          _categories!.add(CategoriesModel.fromJson(element));
-          update();
-          log("$categories");
-        }
+        _categories!.clear();
+        List result = response["data"];
+        _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
+        update();
+        log("$categories");
       } else {
         _requestStatus = RequestStatus.noData;
         log('  get_categoriesearch =>>RequestStatus.noData');
@@ -97,11 +96,10 @@ class HomeControllerImp extends HomeController {
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        for (var element in response["data"]) {
-          _categories!.add(CategoriesModel.fromJson(element));
-          update();
-          log("$categories");
-        }
+        List result = response["data"];
+        _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
+        update();
+        log("$categories");
       } else {
         _requestStatus = RequestStatus.noData;
         log('  get_categorie  =>>RequestStatus.noData');
@@ -202,13 +200,25 @@ WHERE items_id NOT IN ( SELECT itmes1view.items_id FROM itmes1view
 INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favorite.favorite_usersid = 40 ) -->
  */
 //////////////////////////// item Screen  ////////////////////
+  ItemsControllerImp itemsControl = Get.find();
   @override
   void goToItemScreen(index, cateId) {
     var cateModel = _categories![index];
+    itemsControl.getItemsData(cateId);
     Get.toNamed(
       RouteHelper.getItemsScreen(),
       arguments: {"cateModel": cateModel, "cateId": cateId},
     );
+  }
+
+  void goToProductDeScreen(ItemsModel model, catId) {
+    itemsControl
+        .getItemsData(catId)
+        .then((value) => itemsControl.goToProductDetaile(model
+            /* model.id == itemsControl.itemsModePro!.id
+                  ? itemsControl.itemsModePro!
+                  : model, */
+            ));
   }
 
   void goToCart() {

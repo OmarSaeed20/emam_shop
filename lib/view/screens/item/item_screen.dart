@@ -62,7 +62,7 @@ class _ItemScreenState extends State<ItemScreen> {
           itemsList.length,
           (i) {
             favController.isFavor[itemsList[i].id] = itemsList[i].favorite;
-            return ProductGridView(
+            return ProductGridViewCard(
               active:
                   favController.isFavor[itemsList[i].id] == "1" ? true : false,
               itemsModel: itemsList[i],

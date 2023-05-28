@@ -1,5 +1,6 @@
 class ApiLinks {
   static const String baseUri = "http://192.168.111.229:80/emam";
+  static const String imagLink = "http://192.168.111.229:80/emam/uplode/items/";
   // static const String baseUri = "http://192.168.1.7:80/emam";
 
 
@@ -38,6 +39,11 @@ class ApiLinks {
     static const String carCountItems = "$baseUri/cart/getcountitems.php";
     static const String cartAdd = "$baseUri/cart/add.php";
     static const String cartDelete = "$baseUri/cart/delete.php";
+
+    static const String addressView = "$baseUri/address/view.php";
+    static const String addressAdd = "$baseUri/address/add.php";
+    static const String addressEdit = "$baseUri/address/edit.php";
+    static const String addressRemove = "$baseUri/address/remove.php";
 
 
 

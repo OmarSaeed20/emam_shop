@@ -45,6 +45,7 @@ class FavoriteScreen extends StatelessWidget {
               image: list[i].itemsImage!,
               favTap: () => controller.deleteFavourite(list[i].favoriteId!),
               active: true,
+              discont: list[i].itemsDiscount,
               active2: controller.pain,
               icon2: controller.painIcon,
               cartTap: () => controller.onAddPinUpdat(),

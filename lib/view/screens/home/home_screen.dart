@@ -61,9 +61,10 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, i) => ForYouCard(
                         model: controller.allItems[i],
                         onTap: () {
-                          /*  ItemsControllerImp.to.getItemsData(controller.allItems[i].categoriesId!);
-                          ItemsControllerImp.to
-                              .goToProductDetaile(controller.allItems[i]); */
+                          controller.goToProductDeScreen(
+                            controller.allItems[i],
+                            controller.allItems[i].categoriesId,
+                          );
                         },
                       ),
                     ),

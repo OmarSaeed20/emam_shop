@@ -6,6 +6,7 @@ class TextInputWidget extends StatelessWidget {
     Key? key,
     this.controller,
     this.type,
+    this.hintText,
     this.isPassword = false,
     this.onChanged,
     this.validator,
@@ -13,13 +14,15 @@ class TextInputWidget extends StatelessWidget {
     this.suffixIcon,
     this.onPressed,
     this.val,
-    this.suffixIconColor,
+    this.suffixIconColor, this.fontSize,
   }) : super(key: key);
   final TextEditingController? controller;
   final TextInputType? type;
   final String? title;
+  final String? hintText;
   final bool isPassword;
   final IconData? prefixIcon;
+  final double? fontSize;
   final IconData? suffixIcon;
   final Color? suffixIconColor;
   final VoidCallback? onPressed;
@@ -54,11 +57,11 @@ class TextInputWidget extends StatelessWidget {
             onChanged: onChanged,
             validator: validator,
             cursorColor: AppColors.black,
-            style: TextStyle(color: AppColors.black, fontSize: 16.weight),
+            style: TextStyle(color: AppColors.black, fontSize: fontSize?? 16.weight),
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.fromSTEB(
                   10.weight, 15.height, 0.0, 15.weight),
-              hintText: title,
+              hintText: hintText ?? title,
               hintStyle: TextStyle(
                   color: AppColors.grey.withOpacity(0.6), fontSize: 12.weight),
               border: OutlineInputBorder(

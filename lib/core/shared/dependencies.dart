@@ -39,6 +39,8 @@ Future<void> init() async {
   Get.lazyPut(() => FavoriteControllerImp(), fenix: true);
   Get.lazyPut(() => CartControllerImp(), fenix: true);
   Get.lazyPut(() => SettingControllerImp(), fenix: true);
+  Get.lazyPut(() => AddressControllerImp(), fenix: true);
+  Get.lazyPut(() => GetAddressDataControllerImp(), fenix: true);
 
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
@@ -49,6 +51,7 @@ Future<void> init() async {
   Get.lazyPut(() => ItemsRepo(), fenix: true);
   Get.lazyPut(() => FavoriteRepo(), fenix: true);
   Get.lazyPut(() => CartRepo(), fenix: true);
+  Get.lazyPut(() => AddressRepo(), fenix: true);
 }
 
 

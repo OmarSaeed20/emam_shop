@@ -1,4 +1,4 @@
- import '../../../../index.dart';
+import '../../../../index.dart';
 
 class CartAndFavoCard extends StatelessWidget {
   final String title;
@@ -61,7 +61,7 @@ class CartAndFavoCard extends StatelessWidget {
                   color: AppColors.grey200,
                   borderRadius: BorderRadius.circular(6.height),
                   image: DecorationImage(
-                    image: NetworkImage(image),
+                    image: NetworkImage("${ApiLinks.imagLink}$image"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
