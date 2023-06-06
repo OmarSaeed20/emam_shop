@@ -12,8 +12,7 @@ Widget searchBar({
             keyboardType: TextInputType.name,
             style: TextStyle(color: AppColors.black, fontSize: 16.weight),
             decoration: InputDecoration(
-              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                  10.weight, 15.height, 0.0, 15.weight),
+              contentPadding: paddingOnly(left: 10, top: 15, bottom: 15),
               hintText: "Find for food or phone",
               hintStyle: TextStyle(color: AppColors.grey, fontSize: 12.weight),
               border: OutlineInputBorder(
@@ -51,8 +50,7 @@ Container searchOnly({
       keyboardType: TextInputType.name,
       style: TextStyle(color: AppColors.black, fontSize: 16.weight),
       decoration: InputDecoration(
-        contentPadding: EdgeInsetsDirectional.fromSTEB(
-            10.weight, 15.height, 0.0, 15.weight),
+        contentPadding: paddingOnly(left: 10, top: 15, bottom: 15),
         hintText: "home.., books!",
         hintStyle: TextStyle(color: AppColors.grey, fontSize: 12.weight),
         border: OutlineInputBorder(

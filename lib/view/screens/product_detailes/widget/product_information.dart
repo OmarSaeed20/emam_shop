@@ -20,11 +20,25 @@ Container productDetailes(ItemsControllerImp controller) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextWidget(
-              "${controller.itemsModePro!.price!}\$",
-              fontSize: 20.weight,
-              fontWeight: FontWeight.w600,
-              color: AppColors.primary,
+            Row(
+              children: [
+                TextWidget(
+                  '${calculatingPrice(controller.itemsModePro!.price!, controller.itemsModePro!.discount!)} \$',
+                  fontSize: 20.weight,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primary,
+                ),
+                5.sW,
+                TextWidget(
+                  "${controller.itemsModePro!.price!}\$",
+                  fontSize: 14.weight,
+                  fontFamily: AppStrings.montserrat,
+                  color: AppColors.black.withOpacity(.6),
+                  textAlign: TextAlign.justify,
+                  fontWeight: FontWeight.w400,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              ],
             ),
             GetBuilder<CartControllerImp>(
               builder: (controller) => SizedBox(

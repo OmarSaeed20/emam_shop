@@ -3,11 +3,10 @@ import '../../../../index.dart';
 class CartAndFavoCard extends StatelessWidget {
   final String title;
   final String price;
+  final String dicountPrice;
   final String image;
   final String? count;
   final String? discont;
-/*   final VoidCallback? checkout;
-  final VoidCallback? delete; */
   final VoidCallback? plus;
   final VoidCallback? minus;
   final double? bottom;
@@ -22,10 +21,9 @@ class CartAndFavoCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.price,
+    required this.dicountPrice,
     required this.image,
     this.count,
-/*     this.checkout,
-    this.delete, */
     this.discont,
     this.plus,
     this.minus,
@@ -95,14 +93,13 @@ class CartAndFavoCard extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   TextWidget(
-                                    '$price \$',
+                                    '$dicountPrice \$',
                                     fontFamily: AppStrings.montserrat,
                                     color: AppColors.primary,
                                     fontWeight: FontWeight.w700,
                                   ),
                                   TextWidget(
-                                    calculatingOldprice(price, discont!),
-                                    // ' ${int.parse(price) + int.parse(price) * discont! / 100} \$',
+                                    discont != "0" ? price : "", 
                                     color: AppColors.greyDeep,
                                     fontFamily: AppStrings.montserrat,
                                     fontSize: 12.weight,

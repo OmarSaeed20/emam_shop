@@ -50,7 +50,7 @@ class AddressControllerImp extends AddressController {
     super.onInit();
   }
 
-  GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+  LabeledGlobalKey<ScaffoldState> scaffoldkey = LabeledGlobalKey("my_address");
 
   IconData icon = FontAwesome.github;
   IconData icon2 = Octicons.bold;
@@ -104,6 +104,14 @@ class AddressControllerImp extends AddressController {
       update();
     }
     // Get.toNamed(RouteHelper.getSelectNewAddress());
+  }
+
+  AddressModel? selectedAdressmodel;
+  continueToCheckOut({required AddressModel addrModel}) {
+    selectedAdressmodel = addrModel;
+    log(selectedAdressmodel.toString());
+    Get.back();
+    update();
   }
 
   final List<AddressModel> _listaddress = [];

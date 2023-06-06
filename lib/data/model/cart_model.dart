@@ -1,5 +1,5 @@
 class CartModel {
-  final String? itemsprice;
+  final String? descountPrice;
   final String? countitems;
   final String? cartId;
   final String? cartUsersid;
@@ -17,7 +17,7 @@ class CartModel {
   final String? itemsData;
   final String? itemsCate;
   const CartModel({
-    this.itemsprice,
+    this.descountPrice,
     this.countitems,
     this.cartId,
     this.cartUsersid,
@@ -36,7 +36,7 @@ class CartModel {
     this.itemsCate,
   });
   CartModel copyWith({
-    String? itemsprice,
+    String? descountPrice,
     String? countitems,
     String? cartId,
     String? cartUsersid,
@@ -55,7 +55,7 @@ class CartModel {
     String? itemsCate,
   }) {
     return CartModel(
-      itemsprice: itemsprice ?? this.itemsprice,
+      descountPrice: descountPrice ?? this.descountPrice,
       countitems: countitems ?? this.countitems,
       cartId: cartId ?? this.cartId,
       cartUsersid: cartUsersid ?? this.cartUsersid,
@@ -77,7 +77,7 @@ class CartModel {
 
   Map<String, Object?> toJson() {
     return {
-      'itemsprice': itemsprice,
+      'itemsprice': descountPrice,
       'countitems': countitems,
       'cart_id': cartId,
       'cart_usersid': cartUsersid,
@@ -99,7 +99,7 @@ class CartModel {
 
   static CartModel fromJson(Map<String, Object?> json) {
     return CartModel(
-        itemsprice:
+        descountPrice:
             json['itemsprice'] == null ? null : json['itemsprice'] as String,
         countitems:
             json['countitems'] == null ? null : json['countitems'] as String,
@@ -142,7 +142,7 @@ class CartModel {
   @override
   String toString() {
     return '''CartModel(
-                itemsprice:$itemsprice,
+                itemsprice:$descountPrice,
 countitems:$countitems,
 cartId:$cartId,
 cartUsersid:$cartUsersid,
@@ -166,7 +166,7 @@ itemsCate:$itemsCate
   bool operator ==(Object other) {
     return other is CartModel &&
         other.runtimeType == runtimeType &&
-        other.itemsprice == itemsprice &&
+        other.descountPrice == descountPrice &&
         other.countitems == countitems &&
         other.cartId == cartId &&
         other.cartUsersid == cartUsersid &&
@@ -189,7 +189,7 @@ itemsCate:$itemsCate
   int get hashCode {
     return Object.hash(
       runtimeType,
-      itemsprice,
+      descountPrice,
       countitems,
       cartId,
       cartUsersid,
@@ -207,61 +207,5 @@ itemsCate:$itemsCate
       itemsData,
       itemsCate,
     );
-  }
-}
-
-class CountPriceModel {
-  final String? totalprice;
-  final String? totalcount;
-  final String? totalitems;
-  const CountPriceModel({this.totalprice, this.totalcount, this.totalitems});
-  CountPriceModel copyWith(
-          {String? totalprice, String? totalcount, String? totalitems}) =>
-      CountPriceModel(
-        totalprice: totalprice ?? this.totalprice,
-        totalcount: totalcount ?? this.totalcount,
-        totalitems: totalitems ?? this.totalitems,
-      );
-
-  Map<String, Object?> toJson() {
-    return {
-      'totalprice': totalprice,
-      'totalcount': totalcount,
-      'totalitems': totalitems,
-    };
-  }
-
-  static CountPriceModel fromJson(Map<String, Object?> json) {
-    return CountPriceModel(
-      totalprice:
-          json['totalprice'] == null ? null : json['totalprice'] as String,
-      totalcount:
-          json['totalcount'] == null ? null : json['totalcount'] as String,
-      totalitems:
-          json['totalitems'] == null ? null : json['totalitems'] as String,
-    );
-  }
-
-  @override
-  String toString() {
-    return '''CountPriceModel(
-                totalprice:$totalprice,
-totalcount:$totalcount,
-totalitems:$totalitems
-    ) ''';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is CountPriceModel &&
-        other.runtimeType == runtimeType &&
-        other.totalprice == totalprice &&
-        other.totalcount == totalcount &&
-        other.totalitems == totalitems;
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(runtimeType, totalprice, totalcount, totalitems);
   }
 }

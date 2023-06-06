@@ -20,7 +20,15 @@ class AppImages {
 
   static const String filter2 = "${_img}filter.png";
 
-  static const String user = "${_img}boy.png"; 
+  static const String user = "${_img}boy.png";
+
+  static const String creditCard = "${_img}credit-card.png";
+  static const String cashOnDelivery = "${_img}cash-on-delivery.png";
+  static const String pay = "${_img}pay.png";
+
+  static const String dilvery = "${_img}delivery.png";
+  static const String location = "${_img}location.png";
+  static const String drivethru = "${_img}drive-thru.png";
 
 // categores
 
@@ -35,8 +43,9 @@ class AppImages {
 
   // server status
   static const String empty = "${_img}empty.png";
-  
+
   static const String eServer = "${_img}server.png";
+  static const String empty2 = "${_img}opps_internet.png";
   static const String e5033 = "${_img}5033.png";
   static const String e404 = "${_img}404.png";
   static const String e4044 = "${_img}4044.png";
@@ -47,12 +56,18 @@ class AppImages {
   static const String group2 = "${_img}Group2.png";
   static const String camira = "${_img}camira.png";
 
+  static const String eNowifi2 = "${_img}no-wifi2.png";
 
-  static const String eNowifi2= "${_img}no-wifi2.png";
+  static const String mastercard = "${_img}mastercard.png";
+  static const String paypal = "${_img}paypal.png";
+  static const String paytm = "${_img}paytm.png";
+  static const String visa = "${_img}visa.png";
+  static const String safePayment = "${_img}safe_payment.png";
 
-  //loading 
-  static const String loading2= "${_lot}loading2.json";
-  static const String loadingWait= "${_lot}loading-wait.json";
+  //loading
+  static const String loading2 = "${_lot}loading2.json";
+  static const String loadingWait = "${_lot}loading-wait.json";
 
-  static const String imagNet= "https://m.media-amazon.com/images/I/31hBP+4iaHL._AC_UF226,226_FMjpg_.jpg";
+  static const String imagNet =
+      "https://m.media-amazon.com/images/I/31hBP+4iaHL._AC_UF226,226_FMjpg_.jpg";
 }

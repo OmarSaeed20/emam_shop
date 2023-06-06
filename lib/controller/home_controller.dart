@@ -14,8 +14,7 @@ class HomeControllerImp extends HomeController {
   static HomeControllerImp get to => Get.find();
   HomeRepo repo = Get.find();
   DatabaseHelper database = Get.find();
-  String? lang;
-  CartControllerImp cartController = Get.find();
+  String? lang; 
 
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
@@ -222,7 +221,7 @@ INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favor
   }
 
   void goToCart() {
-    cartController.getCart();
+    CartControllerImp.to.getCart();
 
     Get.toNamed(RouteHelper.getCart());
   }

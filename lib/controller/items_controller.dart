@@ -15,15 +15,13 @@ abstract class ItemsController extends GetxController {
 class ItemsControllerImp extends ItemsController {
   static ItemsControllerImp get to => Get.find();
 
-  ItemsRepo repo = Get.find();
-  CartControllerImp cartController = Get.find();
+  ItemsRepo repo = Get.find(); 
   DatabaseHelper database = Get.find();
   String? lang;
 
   RequestStatus _requestStatu = RequestStatus.none;
   RequestStatus get requestStatu => _requestStatu;
-
-  CartControllerImp cartContro = Get.find();
+ 
   // final String? _categoryId = Get.arguments['cateId'];
   /* // Store the current screen orientation
   var orientation = Orientation.portrait;
@@ -175,7 +173,7 @@ class ItemsControllerImp extends ItemsController {
   @override
   void goToProductDetaile(itemsModel) {
     _itemsModePro = itemsModel;
-    cartContro.getCountItem(_itemsModePro!.id!);
+    CartControllerImp.to.getCountItem(_itemsModePro!.id!);
     Get.toNamed(RouteHelper.getProductDetaile());
     update();
   }

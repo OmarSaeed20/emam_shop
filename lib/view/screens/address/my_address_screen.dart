@@ -1,12 +1,12 @@
 import '../../../index.dart';
 
-class MyAddressPage extends StatelessWidget {
+class MyAddressPage extends GetView<AddressControllerImp> {
   const MyAddressPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: AddressControllerImp.to.scaffoldkey,
+      // key: controller.scaffoldkey,
       appBar: AppBar(title: const Text('Delivery address')),
       bottomNavigationBar: botNavigationBar(),
       body: GetBuilder<AddressControllerImp>(
@@ -16,6 +16,7 @@ class MyAddressPage extends StatelessWidget {
             child: Column(
               children: [
                 ListTile(
+                  dense: true,
                   leading: const Icon(Icons.location_searching,
                       color: AppColors.greyDeep),
                   title: TextWidget(
@@ -41,41 +42,45 @@ class MyAddressPage extends StatelessWidget {
                 ),
                 ...List.generate(
                   controller.listaddress.length,
-                  (index) => ListTile(
-                      onTap: () {
-                        controller.goToSelectNewAddress(
-                          addrEnum: AdresEnm.edit,
-                          model: controller.listaddress[index],
-                        );
-                      },
-                      leading: const Icon(Icons.location_on,
-                          color: AppColors.greyDeep),
-                      title: TextWidget(
-                          '${controller.listaddress[index].title}',
-                          fontSize: 12.weight),
-                      style: ListTileStyle.drawer,
-                      subtitle: TextWidget(
-                        '${controller.listaddress[index].fullAddress}',
-                        fontSize: 9.weight,
-                        fontWeight: FontWeight.w400,
+                  (index) => ListTileWidget(
+                    title: '${controller.listaddress[index].title}',
+                    leadingIc: Icons.location_city,
+                    subtitle: '${controller.listaddress[index].fullAddress}',
+                    onTap: () {
+                      controller.continueToCheckOut(
+                        addrModel: controller.listaddress[index],
+                      );
+                    },
+                    trailing: SizedBox(
+                      width: 60.weight,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () => controller.deleteAddress(
+                              controller.listaddress[index].addressId!,
+                            ),
+                            child: Icon(
+                              Icons.delete,
+                              color: AppColors.red,
+                              size: 20.weight,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => controller.goToSelectNewAddress(
+                              addrEnum: AdresEnm.edit,
+                              model: controller.listaddress[index],
+                            ),
+                            child: Icon(
+                              Icons.edit_location_alt,
+                              color: AppColors.secondaryPro,
+                              size: 20.weight,
+                            ),
+                          ),
+                        ],
                       ),
-                      horizontalTitleGap: 0,
-                      trailing: IconButton(
-                        onPressed: () => controller.deleteAddress(
-                            controller.listaddress[index].addressId!),
-                        icon: Icon(
-                          Icons.delete,
-                          color: AppColors.red,
-                          size: 20.weight,
-                        ),
-                      )
-                      /* TextWidget(
-                      "100 m",
-                      fontSize: 10.weight,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: AppStrings.montserrat,
-                    ), */
-                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

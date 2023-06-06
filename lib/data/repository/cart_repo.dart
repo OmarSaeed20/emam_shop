@@ -33,4 +33,17 @@ class CartRepo {
         ApiLinks.cartDelete, {"usersid": usersId, "itemsid": itemsId});
     return requset.fold((l) => l, (r) => r);
   }
+
+  Future<dynamic> checkout({required Map map}) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.checkout, map);
+    return requset.fold((l) => l, (r) => r);
+  }
+  
+  Future<dynamic> getOrdersView({required String userId}) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.ordersView, {"user_id": userId});
+    return requset.fold((l) => l, (r) => r);
+  }
+
 }

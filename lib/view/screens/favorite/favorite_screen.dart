@@ -49,6 +49,8 @@ class FavoriteScreen extends StatelessWidget {
               active2: controller.pain,
               icon2: controller.painIcon,
               cartTap: () => controller.onAddPinUpdat(),
+              dicountPrice:
+                  '${calculatingPrice(list[i].itemsPrice!, list[i].itemsDiscount!)}',
             ),
           );
         },

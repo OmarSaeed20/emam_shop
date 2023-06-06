@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                   5.sH,
                   welcomeUser(),
                   5.sH,
-                  const HomeBanner(),
+                  HomeBanner(controller),
                   15.sH,
                   titleRow(
                     "Categories",

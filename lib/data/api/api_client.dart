@@ -18,18 +18,19 @@ class ApiClient {
           return Right(result);
         } else {
           debugPrint("<POST Data-->serverFailure>");
+          snackBarMessage(msg: "msg");
           return const Left(RequestStatus.serverFailure);
         }
       } else {
-        log("<POST Data-->offLineFailure>");
+        debugPrint("<POST Data-->offLineFailure>");
         return const Left(RequestStatus.offLineFailure);
       }
     } catch (e) {
-      log("catch<POST Data-->serverException> $e");
+      debugPrint("catch<POST Data-->serverException> $e");
       return left(RequestStatus.serverException);
     }
   }
-  
+
   Future<Either<RequestStatus, Map>> getData(String uri) async {
     try {
       if (await checkInternetConnection()) {
@@ -46,7 +47,7 @@ class ApiClient {
         log("<get Data--> offLineFailure >");
         return const Left(RequestStatus.offLineFailure);
       }
-    } catch (e) { 
+    } catch (e) {
       log("catch<get Data-->serverException> $e");
       return left(RequestStatus.serverException);
     }

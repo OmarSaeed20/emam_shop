@@ -13,28 +13,33 @@ abstract class CartController extends GetxController {
 class CartControllerImp extends CartController {
   static CartControllerImp get to => Get.find();
   CartRepo cartRepo = Get.find();
+  CouponControllerImp couponControl = Get.find<CouponControllerImp>();
 
+  AddressControllerImp addressControl = Get.find();
+  PaymentControllerImp paymentControl = Get.find();
+
+  // AddressModel? selectedAddsModel = AddressControllerImp.to.selectedAdressmodel;
   final DatabaseHelper database = Get.find();
+  String lang = DatabaseHelper.to.getString(EndPoint.lang);
   String userId = DatabaseHelper.to.getString(EndPoint.userId);
+  String usernaem = DatabaseHelper.to.getString(EndPoint.userName);
+  String userEmail = DatabaseHelper.to.getString(EndPoint.userEmail);
+  String userPhone = DatabaseHelper.to.getString(EndPoint.userPhone);
+
+  /* LabeledGlobalKey<ScaffoldState> cartKey = LabeledGlobalKey("cart_key");
+  LabeledGlobalKey<ScaffoldState> securePaymentKey =
+      LabeledGlobalKey("secure_payment_key");
+  LabeledGlobalKey<ScaffoldState> creditKey = LabeledGlobalKey("credit_key"); */
+
   @override
   void onInit() {
-    // getCart();
     selectedIndexEnum = CheckOutEnum.check1;
+
     super.onInit();
   }
 
-  /*  final List<String> _cartList = [];
-  List<String> get favoList => _cartList; */
-
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
-
-  /* Map isFavor = {};
-  void onTapSetFavorite(id, String val) {
-    debugPrint(val);
-    isFavor[id] = val;
-    update();
-  } */
 
   @override
   Future<void> onTapAddCart(itemsId) async {
@@ -171,6 +176,107 @@ class CartControllerImp extends CartController {
     } else {
       selectedIndexEnum = CheckOutEnum.check1;
       update();
+    }
+  }
+
+  goToCouponScreen() {
+    couponControl.initData();
+
+    Get.toNamed(RouteHelper.getCoupon());
+  }
+
+  goToCheckoutScreen() {
+    {
+      if (listCart.isEmpty != true) {
+        Get.toNamed(RouteHelper.getCheckout());
+      } else {
+        snackBarMessage(msg: "No items in cart", title: "waring");
+      }
+    }
+  }
+
+  bool selectCredit = false;
+
+  changePaymentVal(value) {
+    debugPrint(value.toString());
+    selectCredit = value;
+    update();
+  }
+
+  bool selectDilvery = false;
+
+  changeDilveryVal(value) {
+    debugPrint(value.toString());
+    selectDilvery = value;
+    update();
+  }
+
+  String? ordersPrice;
+  String? totalPrice;
+  String? deliveryPrice;
+  String? totalOldPrice;
+  Future<void> onTapCheckout() async {
+    debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> onTapCheckout");
+    debugPrint(
+        "${addressControl.selectedAdressmodel!.addressId ?? '0'}\\//${couponControl.couponModel!.couponId ?? '0'} \\//${couponControl.couponModel!.couponDiscount ?? '0'}\\//${deliveryPrice ?? '0'}");
+
+    _requestStatus = RequestStatus.loading;
+    update();
+    var model = {
+      "users_id": userId,
+      "address_id":
+          selectDilvery ? addressControl.selectedAdressmodel!.addressId : "",
+      "coupon_id": couponControl.couponModel != null
+          ? couponControl.couponModel!.couponId
+          : "0",
+      "coupon_dicount": couponControl.couponModel != null
+          ? couponControl.couponModel!.couponDiscount
+          : '0',
+      "delivery_price": deliveryPrice ?? "0",
+      "orders_price": ordersPrice ?? "0",
+      "orders_type": selectDilvery ? "0" : "1",
+      "payment_method": selectCredit ? "0" : "1",
+    };
+    debugPrint(model.toString());
+    final response = await cartRepo.checkout(map: model);
+    _requestStatus = handlingRespose(response);
+    debugPrint(_requestStatus.toString());
+    if (_requestStatus == RequestStatus.success) {
+      if (response['status'] == 'success') {
+        debugPrint('check (success) ---> ${response["message"]}');
+        snackBarSuccess();
+        Get.toNamed(RouteHelper.getMain());
+        getOrders();
+      } else {
+        _requestStatus = RequestStatus.noData;
+        debugPrint(' (success) ---> ${response["message"]}');
+      }
+    }
+    update();
+  }
+
+  List<CheckoutModel> listOrders = [];
+  Future<void> getOrders() async {
+    try {
+      _requestStatus = RequestStatus.loading;
+      update();
+      final response = await cartRepo.getOrdersView(userId: userId);
+      _requestStatus = handlingRespose(response);
+      if (_requestStatus == RequestStatus.success) {
+        if (response['status'] == 'success') {
+          listOrders.clear();
+          List result = response["data"];
+          listOrders.addAll(result.map((e) => CheckoutModel.fromJson(e)));
+
+          update();
+        } else {
+          _requestStatus = RequestStatus.noData;
+          update();
+        }
+      }
+      update();
+    } catch (error) {
+      log('error in get my cart ----> $error');
     }
   }
 }

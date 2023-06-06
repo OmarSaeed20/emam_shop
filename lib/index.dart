@@ -9,7 +9,6 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:pin_code_fields/pin_code_fields.dart';
 export 'package:flutter_animate/flutter_animate.dart';
 
-
 //  Controller
 
 export "controller/onboarding_controller.dart";
@@ -27,6 +26,8 @@ export 'controller/cart_controller.dart';
 export 'controller/setting_controller.dart';
 export 'controller/address/address_controller.dart';
 export 'controller/address/get_address_data_conreoller.dart';
+export 'controller/coupon_controller.dart';
+export 'controller/payment_controller.dart';
 
 export "core/localization/locale_controller.dart";
 export 'core/localization/locale.dart';
@@ -39,6 +40,7 @@ export 'data/repository/items_repo.dart';
 export 'data/repository/favorite_repo.dart';
 export 'data/repository/cart_repo.dart';
 export 'data/repository/address_repo.dart';
+export 'data/repository/coupon_repo.dart';
 
 export 'data/api/api_end_point.dart';
 
@@ -49,7 +51,10 @@ export 'data/model/categories_model.dart';
 export 'data/model/items_model.dart';
 export 'data/model/favorite_model.dart';
 export 'data/model/cart_model.dart';
+export 'data/model/count_price_model.dart';
+export 'data/model/coupon_model.dart';
 export 'data/model/address_model.dart';
+export 'data/model/checkout_model.dart';
 
 // helper
 export 'routes/routes_helper.dart';
@@ -78,7 +83,8 @@ export 'view/screens/favorite/favorite_screen.dart';
 export 'view/screens/setting/setting_screen.dart';
 export 'view/screens/cart/cart_screen.dart';
 export 'view/screens/notification/notification_screen.dart';
-
+export 'view/screens/coupon/coupon_screen.dart';
+export 'view/screens/checkout/checkout_screen.dart';
 
 // widget
 
@@ -135,8 +141,16 @@ export 'view/screens/setting/pages/report/report_page.dart';
 export 'view/screens/setting/pages/terms_policies/terms_policies_page.dart';
 export 'view/screens/cart/widget/bottom_sheet.dart';
 export 'view/screens/cart/widget/cart_and_favorie_card.dart';
-export 'view/screens/address/widget/bottm_navi_bar.dart';  
-export 'view/screens/address/widget/bottom_navi_address_edit.dart';  
+export 'view/screens/cart/widget/checkout_list_tile.dart';
+export 'view/screens/address/widget/bottm_navi_bar.dart';
+export 'view/screens/address/widget/bottom_navi_address_edit.dart';
+export 'view/screens/coupon/widget/coupon_appbar.dart';
+export 'view/screens/checkout/widget/order_product.dart';
+export 'view/screens/checkout/widget/order_details.dart';
+export 'view/screens/checkout/widget/chose_payment_type.dart';
+export 'view/screens/checkout/widget/chose_dilvery_type.dart';
+export 'view/screens/checkout/widget/select_user_data.dart';
+export 'view/screens/checkout/widget/bottom__navi_bar_checkout.dart';
 
 // core
 
@@ -151,6 +165,7 @@ export 'core/constant/app_color.dart';
 export 'core/constant/app_dialog.dart';
 export 'core/function/handling_response.dart';
 export 'core/function/translate_database.dart';
+export 'core/function/check_model.dart';
 
 export 'data/datasource/locale/local_end_point.dart';
 export 'core/theme/app_theme.dart';
@@ -165,7 +180,6 @@ export 'core/function/statuse_request.dart';
 export 'routes/middleware/route_welcome_middleware.dart';
 export 'core/function/handling_requset_view.dart';
 
-
 // app Widget
 export 'view/widgets/text_widget.dart';
 export 'view/widgets/size_box_widget.dart';
@@ -175,7 +189,10 @@ export 'view/widgets/loading_widget.dart';
 export 'view/widgets/snack_bar.dart';
 export 'core/function/pop_dialogs/pop_loading.dart';
 export 'view/widgets/title_row.dart';
+export 'view/widgets/payment_form_failed.dart';
 export 'view/widgets/handling_view_widgets/costum_bage_state_widget.dart';
 
-
-
+export 'view/widgets/radio_list_tile_wiget.dart';
+export 'view/widgets/list_tile.dart';
+export 'view/widgets/checkbox_listtile_widget.dart';
+export 'view/widgets/divider.dart';

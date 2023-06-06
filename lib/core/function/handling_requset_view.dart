@@ -6,15 +6,21 @@ import '../../view/widgets/handling_view_widgets/server_failure_state_widget.dar
 import '/index.dart';
 
 class HandlingRequstView extends StatelessWidget {
-  const HandlingRequstView(this.requeStat, {super.key, required this.widget});
+  const HandlingRequstView(
+    this.requeStat, {
+    super.key,
+    required this.widget,
+    this.loading,
+  });
   final RequestStatus requeStat;
   final Widget widget;
+  final Widget? loading;
 
   @override
   Widget build(BuildContext context) {
     switch (requeStat) {
       case RequestStatus.loading:
-        return const Center(child: LoadingStateWidget());
+        return loading ?? const Center(child: LoadingStateWidget());
       case RequestStatus.offLineFailure:
         return const Center(child: OfflineInterNetWidget());
       case RequestStatus.serverFailure:

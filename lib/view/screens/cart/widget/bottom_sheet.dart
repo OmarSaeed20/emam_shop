@@ -2,102 +2,120 @@ import '../../../../index.dart';
 
 bottomSheetWidget(
   BuildContext context, {
+  required CartControllerImp controller,
   required String count,
   required String supTotle,
+  required String totaldiscount,
+  required String couponTitle,
   required String tax,
+  required String coupon,
   required String delivery,
-  required VoidCallback selectAddress,
-  required VoidCallback cancel,
-  // required int totle,
-}) =>
-    SingleChildScrollView(
-      child: Container(
-        height: 270.height,
-        padding: paddingOnly(top: 8, left: 20, right: 20, bottom: 15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: GestureDetector(
-                onTap: cancel,
-                child: const Icon(Icons.cancel, color: AppColors.red),
-              ),
-            ),
-            SizedBox(
-              height: 170.height,
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => applyPromoCode(context),
-                    child: const TextWidget(
-                      "coupon code",
-                      decoration: TextDecoration.underline,
-                      color: AppColors.primaryMid,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 100.height,
-                    child: Column(
-                      children: [
-                        cartCheckoutListTile("Count", count),
-                        cartCheckoutListTile("SubTotle", "$supTotle \$"),
-                        cartCheckoutListTile("Tax and Fees", "$tax \$"),
-                        cartCheckoutListTile("Delivery", "$delivery \$"),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: .5,
-                    width: double.infinity,
-                    color: AppColors.grey,
-                  ),
-                  cartCheckoutListTile(
-                    "Totle",
-                    "${double.parse(supTotle) + double.parse(tax) + double.parse(delivery)} \$",
-                    color: AppColors.primary2,
-                    fontSize: 16.weight,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ],
-              ),
-            ),
-            BtnWidget(
-              "select address",
-              fontWeight: FontWeight.w400,
-              fontSize: 16.weight,
-              width: 200.weight,
-              height: 40.height,
-              onPressed: selectAddress,
-            )
-          ],
-        ),
-      ),
-    );
-
-cartCheckoutListTile(
-  String title,
-  String num, {
-  double? fontSize,
-  FontWeight? fontWeight,
-  Color? color,
+  required VoidCallback continueTap,
+  required VoidCallback couponTap,
 }) {
-  return SizedBox(
-    height: 20.height,
-    child: ListTile(
-      title: TextWidget(
-        title,
-        fontSize: fontSize ?? 14.weight,
-        fontWeight: fontWeight ?? FontWeight.w600,
-        color: color,
-      ),
-      horizontalTitleGap: 0,
-      trailing: TextWidget(
-        num,
-        fontFamily: AppStrings.montserrat,
-        fontWeight: fontWeight ?? FontWeight.w600,
-        color: color,
-        fontSize: fontSize,
+  String totalPreic =
+      "${int.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax) + double.parse(delivery)}";
+  controller.totalPrice = totalPreic;
+  String savingPrice =
+      "${double.parse(controller.countpriceModel!.savingPrice!) + (double.parse(supTotle) > double.parse(totalPreic) ? (double.parse(supTotle) - double.parse(totalPreic)) : 0)}";
+
+  controller.ordersPrice =
+      "${int.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax)}";
+  controller.deliveryPrice = "${int.parse(delivery)}";
+  controller.totalOldPrice = "${calculatingPrice(totalPreic, totaldiscount)}";
+  return SingleChildScrollView(
+    child: Container(
+      height: 345.height,
+      padding: paddingOnly(top: 8, bottom: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextWidget("PAYMENT DETAILS".toLowerCase()),
+          Container(
+            height: 200.height,
+            padding: paddingOnly(left: 20, right: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      cartCheckoutListTile("Count", count),
+                      cartCheckoutListTile("Coupon", "$coupon \$"),
+                      cartCheckoutListTile("SubTotle", "$supTotle \$"),
+                      cartCheckoutListTile("Tax and Fees", "$tax \$"),
+                      cartCheckoutListTile("Delivery", "$delivery \$"),
+                    ],
+                  ),
+                ),
+                15.sH,
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: .5,
+                        width: double.infinity,
+                        color: AppColors.grey,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            cartCheckoutListTile(
+                              "TOTAL",
+                              "$totalPreic \$",
+                              color: AppColors.primary2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            Container(
+                              height: 20.height,
+                              width: double.infinity,
+                              color: AppColors.grey150,
+                              child: TextWidget(
+                                "You’re saving ₹$savingPrice on this order!",
+                                fontSize: 12,
+                                textAlign: TextAlign.center,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            height: 45.height,
+            alignment: Alignment.center,
+            child: ListTileWidget(
+              title: couponTitle,
+              isSubtitle: false,
+              trailing: const Icon(
+                Icons.add,
+                color: AppColors.primary2,
+              ),
+              leadingIc: Icons.percent_sharp,
+              onTap: couponTap,
+              leadcolor: const Color(0xFFF0BC68),
+            ),
+          ),
+          Container(
+            padding: paddingOnly(left: 20, right: 20),
+            child: BtnWidget(
+              AppStrings.coontinue.tr,
+              fontWeight: FontWeight.w500,
+              fontSize: 16.weight,
+              height: 40.height,
+              onPressed: continueTap,
+            ),
+          )
+        ],
       ),
     ),
   );

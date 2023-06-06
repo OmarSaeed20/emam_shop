@@ -26,6 +26,8 @@ class RouteHelper {
   static const String _helpSupport = '/help_support';
   static const String _report = '/report_problem';
   static const String _cart = '/cart';
+  static const String _coupon = '/coupon';
+  static const String _checkout = '/checkout';
 
   static String getInitial() => initial;
   static String getWellcom() => _wellcom;
@@ -52,6 +54,8 @@ class RouteHelper {
   static String getMyOrders() => _myOrders;
   static String getReport() => _report;
   static String getCart() => _cart;
+  static String getCoupon() => _coupon;
+  static String getCheckout() => _checkout;
 
   static List<GetPage> routes = <GetPage>[
     GetPage(
@@ -153,6 +157,14 @@ class RouteHelper {
     GetPage(
         name: _cart,
         page: () => const CartScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _coupon,
+        page: () => const CouponScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _checkout,
+        page: () => const Checkoutscreen(),
         transition: Transition.native),
     /* 
    

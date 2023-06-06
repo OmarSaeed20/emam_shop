@@ -40,10 +40,10 @@ Container listTileItems(HomeControllerImp controller, int index) {
             ),
           ),
           trailing: Icon(
-            MyLocaleControllerImp.to.themeData == themeEN
+            controller.lang == EndPoint.enCode
                 ? Icons.keyboard_arrow_right_sharp
                 : Icons.keyboard_arrow_left_sharp,
-            color: AppColors.awsm,
+            color: AppColors.primary2,
           ),
         ),
       ),

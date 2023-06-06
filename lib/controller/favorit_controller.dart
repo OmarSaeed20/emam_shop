@@ -14,8 +14,7 @@ abstract class FavoriteController extends GetxController {
 
 class FavoriteControllerImp extends FavoriteController {
   static FavoriteControllerImp get to => Get.find();
-  FavoriteRepo favRepo = Get.find();
-  CartControllerImp cartController = Get.find();
+  FavoriteRepo favRepo = Get.find(); 
 
   final DatabaseHelper database = Get.find();
   String userId = DatabaseHelper.to.getString(EndPoint.userId);

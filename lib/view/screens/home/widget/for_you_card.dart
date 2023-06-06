@@ -51,8 +51,9 @@ class ForYouCard extends StatelessWidget {
                         isHome: true,
                         padding: paddingOnly(right: 4, top: 2, left: 10),
                         name: translateDatabase(model.nameAr!, model.name!),
-                        pric: "${model.price}",
-                        oldPric: "${int.parse('${model.price}') + 80}",
+                        pric:
+                            "${calculatingPrice(model.price!, model.discount!)}",
+                        oldPric: "${int.parse(model.price!)}",
                         favTap: favTap,
                       )
                     ],
