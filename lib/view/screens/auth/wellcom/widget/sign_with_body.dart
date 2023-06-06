@@ -11,28 +11,27 @@ class SignWithBody extends StatelessWidget {
         _socialContainer(
           AppStrings.google.tr,
           img: AppImages.google,
-          color: Colors.red,
           onTap: () => controller.signWithGoogle(),
         ),
         15.sH,
         _socialContainer(
           AppStrings.facebock.tr,
           img: AppImages.facebook,
-          color: Colors.blueAccent,
           onTap: () => controller.signWithFacebook(),
         ),
         15.sH,
         // if (GetPlatform.isIOS)
-          _socialContainer(
-            AppStrings.apple.tr,
-            icon: Icons.apple,
-            onTap: () => controller.signWithApple(),
-            isImg: false,
-          ),
+        _socialContainer(
+          AppStrings.apple.tr,
+          icon: Icons.apple,
+          color: AppColors.black,
+          onTap: () => controller.signWithApple(),
+          isImg: false,
+        ),
         30.sH,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_divider(), const TextWidget(AppStrings.or), _divider()],
+          children: [_divider(), TextWidget(AppStrings.or.tr), _divider()],
         ),
         35.sH,
         _socialContainer(
@@ -67,33 +66,34 @@ _socialContainer(
   bool? isSocil = true,
   bool? isImg = true,
 }) =>
-    InkWell(
-      onTap: onTap,
-      child: SizedBox(
-        height: 55.height,
-        width: Dimensions.screenWidth - 50,
-        child: Card(
-          color: cardColor,
-          elevation: 2,
-          child: Padding(
-            padding: paddingSymme(horizontal: 35),
-            child: isSocil == true
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      isImg == true
-                          ? Image.asset(img!, height: 20.height)
-                          : Icon(icon, color: color, size: 24.height),
-                      25.sW,
-                      TextWidget(
-                        "${AppStrings.signWith.tr} $text",
-                        color: textColo,
-                      )
-                    ],
-                  )
-                : Center(child: TextWidget(text, color: textColo)),
-          ),
+    Container(
+      // width: Dimensions.screenWidth - 50,
+      margin: paddingSymme(horizontal: 25),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.weight)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(6.weight),
+        child: MaterialButton(
+          height: 55.height,
+          // style: ButtonStyle(backgroundColor: cardColor?!),
+          color: cardColor ?? AppColors.grey200,
+          elevation: 5,
+          onPressed: onTap,
+          child: isSocil == true
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    isImg == true
+                        ? Image.asset(img!, height: 20.height)
+                        : Icon(icon, color: color, size: 24.height),
+                    25.sW,
+                    TextWidget(
+                      "${AppStrings.signWith.tr} $text",
+                      color: textColo,
+                    )
+                  ],
+                )
+              : Center(child: TextWidget(text, color: textColo)),
         ),
       ),
     );

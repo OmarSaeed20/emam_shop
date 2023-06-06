@@ -8,28 +8,26 @@ class RouteHelper {
   static const String _phoneNumber = '/_phone_number';
   static const String _forgetPass = '/_forget_pass';
   static const String _setOtp = '/set_otp';
-  static const String _setNewPassword = '/set_new_password';
+  static const String _resetPassword = '/set_new_password';
   static const String _register = '/register';
-  static const String _verification = '/verification';
+  static const String _verifySignup = '/verify_signup';
+  static const String _forgetVerfiyCode = '/forget_verfiy_code';
   static const String _main = '/main';
   static const String _notification = '/notification';
+  static const String _itemsScreen = '/items_screen';
+  static const String _allCategorie = '/all_categorie';
+  static const String _productDetails = '/product_detaile';
   static const String _editProfile = '/edit_profile';
-  static const String _faqs = '/faqs';
-  static const String _privacyPolicy = '/privacy_policy';
-  static const String _home = '/home';
-  static const String _competationDetails = '/competation_details';
-  static const String _map = '/map';
-  static const String _machinLoc = '/machin_loc';
-  static const String _qrScaner = '/qr_scaner';
-  static const String _chatScreen = '/chat_screen';
-  static const String _community = '/community';
-  static const String _addPeople = '/add_people';
-  static const String _channelsScreen = '/channels_screen';
-  static const String _wallet = '/wallet';
-  static const String _searchProduct = '/search_Product';
-  static const String _category = '/category';
-  static const String _productDetails = '/product_details';
-  static const String _myCart = '/my_cart';
+  static const String _termsPolicies = '/terms_policies';
+  static const String _paymentMethods = '/payment_methods';
+  static const String _deliveryAddress = '/delivery_address';
+  static const String _selectNewAddress = '/select_new_address';
+  static const String _myOrders = '/my_orders';
+  static const String _helpSupport = '/help_support';
+  static const String _report = '/report_problem';
+  static const String _cart = '/cart';
+  static const String _coupon = '/coupon';
+  static const String _checkout = '/checkout';
 
   static String getInitial() => initial;
   static String getWellcom() => _wellcom;
@@ -38,176 +36,145 @@ class RouteHelper {
   static String getPhoneNumber() => _phoneNumber;
   static String getForgetPass() => _forgetPass;
   static String getSetOTPScre() => _setOtp;
-  static String getSetPassword() => _setNewPassword;
+  static String getResetPassword() => _resetPassword;
   static String getRegister() => _register;
-  static String getVerification() => _verification;
+  static String getForgetVerfiyCode() => _forgetVerfiyCode;
+  static String getVerifySignup() => _verifySignup;
   static String getMain() => _main;
-  static String getNotificationsScreen() => _notification;
-  static String getEditProfile() => _editProfile;
-  static String getFAQs() => _faqs;
-  static String getPrivacyPolicy() => _privacyPolicy;
-  static String getHome() => _home;
-  // I do this to easy variables sending process
-  // static String getCompetationDetails(CompetitionsModel model) =>
-  //     "$_competationDetails?competitionsModel=${jsonEncode(model)}";
-  // static getPopularFood(Data product, {String page = 'home_page'}) =>
-  //     '${AppRoutes.popularFood}?product=${jsonEncode(product)}&page=$page';
-  // static String getMap(MachineModel model) =>
-  //     "$_map?machinModel=${jsonEncode(model)}";
-  static String getMapLoc() => _machinLoc;
-  static String getQrScaner() => _qrScaner;
-  static String getChatScreen() => _chatScreen;
-  static String getComunityPage() => _community;
-  static String getChannelsScreen() => _channelsScreen;
-  static String getAddPeople() => _addPeople;
-  static String getWallet() => _wallet;
-  static String getSearchProduct() => _searchProduct;
-  static String getCategory() => _category;
-  static String getProductDetails() => _productDetails;
-  static String getMyCart() => _myCart;
+  static String getAllCategories() => _allCategorie;
+  static String getItemsScreen() => _itemsScreen;
+  static String getProductDetaile() => _productDetails;
+  static String getNotifications() => _notification;
+  static String getProfile() => _editProfile;
+  static String getHelpSupport() => _helpSupport;
+  static String getTermsPolicies() => _termsPolicies;
+  static String getPaymentMethods() => _paymentMethods;
+  static String getDeliveryAddress() => _deliveryAddress;
+  static String getSelectNewAddress() => _selectNewAddress;
+  static String getMyOrders() => _myOrders;
+  static String getReport() => _report;
+  static String getCart() => _cart;
+  static String getCoupon() => _coupon;
+  static String getCheckout() => _checkout;
 
   static List<GetPage> routes = <GetPage>[
     GetPage(
       name: initial,
       page: () => const SplashScreen(),
-      transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: _onboarding,
-      page: () => const OnBoardingScreen(),
       transition: Transition.native,
     ),
     GetPage(
-      name: _wellcom,
-      page: () => const WelcomeScreen(),
-      transition: Transition.native,
-    ),
+        name: _onboarding,
+        page: () => const OnBoardingScreen(),
+        middlewares: [RouteWelcomeMiddleware()],
+        transition: Transition.native),
     GetPage(
-      name: _phoneNumber,
-      page: () => const PhoneScreen(),
-      transition: Transition.native,
-    ),
+        name: _wellcom,
+        page: () => const WelcomeScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _phoneNumber,
+        page: () => const PhoneScreen(),
+        transition: Transition.native),
     GetPage(
         name: _login,
         page: () => const LoginScreen(),
         transition: Transition.native),
     GetPage(
-      name: _register,
-      page: () => const SignUpScreen(),
-      transition: Transition.native,
-    ),
-    GetPage(
-      name: _forgetPass,
-      page: () => const ForgetPasswordScreen(),
-      transition: Transition.native,
-    ),
-    GetPage(
-        name: _verification,
-        page: () => const VerificationCodeScreen(),
+        name: _register,
+        page: () => const SignUpScreen(),
         transition: Transition.native),
-
-    /* 
     GetPage(
-        name: _setOtp,
-        page: () => const SetOTPScre(),
-        transition: Transition.fadeIn),
+        name: _verifySignup,
+        page: () => const VerifyCodeSignupScreen(),
+        transition: Transition.native),
     GetPage(
-        name: _setNewPassword,
-        page: () => const SetPasswordScreen(),
-        transition: Transition.fadeIn),
+        name: _forgetPass,
+        page: () => const ForgetPasswordScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _forgetVerfiyCode,
+        page: () => const ForgetVerifyCodeScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _resetPassword,
+        page: () => const ResetPasswordScreen(),
+        transition: Transition.native),
     GetPage(
         name: _main,
         page: () => const MainScreen(),
-        transition: Transition.fadeIn),
+        transition: Transition.native),
     GetPage(
-        name: _notification,
-        page: () => const NotificationsScreen(),
-        transition: Transition.fadeIn),
+        name: _allCategorie,
+        page: () => const CategorigsScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _itemsScreen,
+        page: () => const ItemScreen(),
+        transition: Transition.native),
+    GetPage(
+      name: _productDetails,
+      page: () => const ProductDetailsScreen(),
+      transition: Transition.size,
+    ),
+    GetPage(
+      name: _notification,
+      page: () => const NotificationScreen(),
+      transition: Transition.zoom,
+    ),
     GetPage(
         name: _editProfile,
-        page: () => const EditProfileScreen(),
-        transition: Transition.fadeIn),
+        page: () => const EditProfilePage(),
+        transition: Transition.native),
     GetPage(
-        name: _faqs,
-        page: () => const FAQsScreen(),
-        transition: Transition.fadeIn),
+        name: _helpSupport,
+        page: () => const HelpSupportPage(),
+        transition: Transition.native),
     GetPage(
-        name: _privacyPolicy,
-        page: () => const PrivacyPolicyScreen(),
-        transition: Transition.fadeIn),
+        name: _termsPolicies,
+        page: () => const TermsPoliciesPage(),
+        transition: Transition.native),
     GetPage(
-        name: _home,
-        page: () => const HomePage(),
-        transition: Transition.fadeIn),
+        name: _paymentMethods,
+        page: () => const PaymentPage(),
+        transition: Transition.native),
     GetPage(
-        name: _competationDetails,
-        page: () {
-          CompetitionsModel? model = CompetitionsModel.fromJson(
-            jsonDecode(Get.parameters['competitionsModel']!),
-          );
-          return CompetationDetails(model: model);
-        },
-        transition: Transition.fadeIn),
+        name: _deliveryAddress,
+        page: () => const MyAddressPage(),
+        transition: Transition.native),
     GetPage(
-        name: _map,
-        page: () {
-          MachineModel? model = MachineModel.fromJson(
-            jsonDecode(Get.parameters['machinModel']!),
-          );
-          return MapPage(macModel: model);
-        },
-        transition: Transition.fadeIn),
+        name: _selectNewAddress,
+        page: () => const SelectNewAddress(),
+        transition: Transition.native),
     GetPage(
-        name: _machinLoc,
-        page: () => const MachinsMapPage(),
-        transition: Transition.fadeIn),
+        name: _myOrders,
+        page: () => const MyOrdersPage(),
+        transition: Transition.native),
     GetPage(
-        name: _qrScaner,
-        page: () => const QrScanerPage(),
-        transition: Transition.fadeIn),
+        name: _report,
+        page: () => const RreportPage(),
+        transition: Transition.native),
     GetPage(
-        name: _chatScreen,
-        page: () => const QrChatScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _community,
-        page: () => const CommunityPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _channelsScreen,
-        page: () => const ChannelsScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _addPeople,
-        page: () => const AddPeopleScreen(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _wallet,
-        page: () => const WalletPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _searchProduct,
-        page: () => const SearchProduct(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _category,
-        page: () => const Categorypage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _productDetails,
-        page: () => const ProductDetailsPage(),
-        transition: Transition.fadeIn),
-    GetPage(
-        name: _myCart,
+        name: _cart,
         page: () => const CartScreen(),
-        transition: Transition.fadeIn),
+        transition: Transition.native),
+    GetPage(
+        name: _coupon,
+        page: () => const CouponScreen(),
+        transition: Transition.native),
+    GetPage(
+        name: _checkout,
+        page: () => const Checkoutscreen(),
+        transition: Transition.native),
+    /* 
+   
     // getPageWidget("name", page: () => const WalletPage())
  */
   ];
-  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
+  /*  dynamic _getPageWidget(String name, {required Widget Function() page}) =>
       GetPage(
         name: name,
         page: page,
         transition: Transition.fadeIn,
-      );
+      ); */
 }

@@ -1,4 +1,4 @@
-import 'dart:developer';
+  
 
 import '/index.dart';
 
@@ -8,16 +8,20 @@ class OnBoardingContoller extends GetxController {
   void onInit() {
     pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      diallog();
+      _dialdebugPrintChoseLang();
     });
     super.onInit();
   }
 
-  diallog() {
+  _dialdebugPrintChoseLang() {
     Get.defaultDialog(
-        title: "Language",
-        middleText: AppStrings.choseLang,
+        backgroundColor: AppColors.white,
+        title: AppStrings.lang.tr,
+        titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.weight),
+        middleText: AppStrings.choseLang.tr,
+        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 14.weight),
         barrierDismissible: false,
+        radius: 6.weight,
         actions: [const ChooseLang()]);
   }
 
@@ -26,16 +30,13 @@ class OnBoardingContoller extends GetxController {
 
   next() {
     _currentPage++;
-    log("$_currentPage");
+    debugPrint("$_currentPage");
     if (_currentPage > Static.onBoardingList.length - 1) {
-      log(AutofillHints.birthday);
+      debugPrint(AutofillHints.birthday);
       skip();
     } else {
-      pageController!.animateToPage(
-        currentPage,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.linear,
-      );
+      pageController!
+          .animateToPage(currentPage, duration: 600.ms, curve: Curves.linear);
     }
 
     update();
@@ -46,7 +47,10 @@ class OnBoardingContoller extends GetxController {
     update();
   }
 
+  DatabaseHelper database = Get.find();
   skip() {
+    // database.setBool(EndPoint.onboarding, true);
+    database.setString(EndPoint.step, EndPoint.onboard);
     Get.offAllNamed(RouteHelper.getWellcom());
   }
 }

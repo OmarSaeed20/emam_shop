@@ -1,3 +1,4 @@
+
 import '/index.dart';
 
 class ChooseLang extends StatelessWidget {
@@ -5,48 +6,15 @@ class ChooseLang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyLocaleControllerImp localeContro = Get.find();
-    return Column(
-      children: [
-        CircleAvatar(
-            radius: 60.weight,
-            backgroundColor: AppColors.trans,
-            child: Icon(
-              Icons.translate_outlined,
-              size: 120.weight,
-              color: AppColors.primary,
-            )),
-        50.sH,
-        10.sH,
-        Row(
-          children: [
-            2.sW,
-            _choseLangBtn(
-              "ألعربية",
-              onTap: () => localeContro
-                  .updateLocale(const Locale(LocaleEndPoint.arCode)),
-            ),
-            15.sW,
-            _choseLangBtn(
-              'English',
-              onTap: () => localeContro
-                  .updateLocale(const Locale(LocaleEndPoint.enCode)),
-            ),
-            2.sW,
-          ],
+    return dialogBody(
+        icon: Icons.translate_outlined,
+        btn1: dialogBtn(
+          AppStrings.arabic.tr,
+          onTap: () => localeContro.onChangeLang(EndPoint.arCode),
         ),
-        10.sH,
-      ],
-    );
-  }
-
-  _choseLangBtn(String lang, {required void Function() onTap}) {
-    return BtnWidget(
-      lang,
-      width: 120.weight,
-      onPressed: onTap,
-      backgroundColor: AppColors.trans,
-      color: AppColors.black,
-      border: BorderSide(color: AppColors.primary, width: .5.weight),
-    );
+        btn2: dialogBtn(
+          AppStrings.english.tr,
+          onTap: () => localeContro.onChangeLang(EndPoint.enCode),
+        ));
   }
 }

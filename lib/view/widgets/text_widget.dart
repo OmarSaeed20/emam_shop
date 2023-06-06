@@ -15,6 +15,7 @@ class TextWidget extends StatelessWidget {
     this.fontFamily,
     this.maxLines,
     this.fontWeight,
+    this.wordSpacing,
   }) : super(key: key);
   final String text;
   final String? fontFamily;
@@ -22,6 +23,7 @@ class TextWidget extends StatelessWidget {
   final double? fontSize;
   final Locale? locale;
   final double? spacing;
+  final double? wordSpacing;
   final Color? color;
   final TextOverflow? overFlow;
   final double? height;
@@ -35,8 +37,9 @@ class TextWidget extends StatelessWidget {
       overflow: overFlow,
       maxLines: maxLines,
       textAlign: textAlign,
-      locale:locale ,
+      locale: locale,
       style: TextStyle(
+        wordSpacing: wordSpacing,
         fontSize: getProportionateScreenWidth(fontSize ?? 16),
         letterSpacing: spacing,
         color: color ?? AppColors.black,

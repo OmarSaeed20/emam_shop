@@ -2,25 +2,25 @@ import '/index.dart';
 
 class Static {
   static final List<OnBoardingModel> onBoardingList = [
-    const OnBoardingModel(
-      title: AppStrings.onBoaTi1,
+     OnBoardingModel(
+      title: AppStrings.onBoaTi1.tr,
       image: AppImages.onBoa1,
-      supTitle: AppStrings.onBoaSupTi1,
+      supTitle: AppStrings.onBoaSupTi1.tr,
     ),
-    const OnBoardingModel(
-      title: AppStrings.onBoaTi2,
+      OnBoardingModel(
+      title: AppStrings.onBoaTi2.tr,
       image: AppImages.onBoa2,
-      supTitle: AppStrings.onBoaSupTi2,
+      supTitle: AppStrings.onBoaSupTi2.tr,
     ),
-    const OnBoardingModel(
-      title: AppStrings.onBoaTi3,
+      OnBoardingModel(
+      title: AppStrings.onBoaTi3.tr,
       image: AppImages.onBoa3,
-      supTitle: AppStrings.onBoaSupTi3,
+      supTitle: AppStrings.onBoaSupTi3.tr,
     ),
-    const OnBoardingModel(
-      title: AppStrings.onBoaTi4,
+      OnBoardingModel(
+      title: AppStrings.onBoaTi4.tr,
       image: AppImages.onBoa4,
-      supTitle: AppStrings.onBoaSupTi4,
+      supTitle: AppStrings.onBoaSupTi4.tr,
     ),
   ];
 }

@@ -1,0 +1,93 @@
+import 'package:flutter/cupertino.dart';
+
+import '/index.dart';
+
+class TextFormSignUpBody extends StatefulWidget {
+  const TextFormSignUpBody({super.key, required this.controller});
+  final SignUpControllerImp controller;
+
+  @override
+  State<TextFormSignUpBody> createState() => _TextFormSignUpBodyState();
+}
+
+class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
+  @override
+  void dispose() {
+    widget.controller.name.clear();
+    widget.controller.phone.clear();
+    widget.controller.email.clear();
+    widget.controller.password.clear();
+    widget.controller.isPassword != false;
+    widget.controller.suffixIcon = CupertinoIcons.eye;
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: widget.controller.signupForm,
+      onChanged: () => widget.controller.onChangedSignUp(),
+      child: Column(
+        children: [
+          TextInputWidget(
+            AppStrings.name.tr,
+            prefixIcon: Icons.person_outline,
+            type: TextInputType.name,
+            controller: widget.controller.name,
+            suffixIconColor: GetUtils.isUsername(widget.controller.name.text) &&
+                    widget.controller.name.text.length > 4 &&
+                    widget.controller.name.text.length < 14
+                ? Colors.green.shade600
+                : AppColors.grey,
+            suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
+            validator: (val) =>
+                valiedInput(val: val!, max: 14, min: 5, InputType.userName),
+          ),
+          10.sH,
+          TextInputWidget(
+            AppStrings.phone.tr,
+            prefixIcon: Icons.phone_android_sharp,
+            type: const TextInputType.numberWithOptions(decimal: true),
+            controller: widget.controller.phone,
+            suffixIconColor:
+                GetUtils.isLengthEqualTo(widget.controller.phone.text, 11) ==
+                        true
+                    ? Colors.green.shade600
+                    : AppColors.grey,
+            suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
+            validator: (val) => valiedInput(val: val!, InputType.phone),
+          ),
+          10.sH,
+          TextInputWidget(
+            AppStrings.email.tr,
+            prefixIcon: Icons.alternate_email_rounded,
+            type: TextInputType.emailAddress,
+            controller: widget.controller.email,
+            suffixIconColor:
+                GetUtils.isEmail(widget.controller.email.text) == true
+                    ? Colors.green.shade600
+                    : AppColors.grey,
+            suffixIcon: CupertinoIcons.checkmark_alt_circle_fill,
+            validator: (val) => valiedInput(val: val!, InputType.email),
+          ),
+          10.sH,
+          TextInputWidget(
+            AppStrings.password.tr,
+            prefixIcon: Icons.password,
+            type: TextInputType.visiblePassword,
+            suffixIcon: widget.controller.suffixIcon,
+            controller: widget.controller.password,
+            suffixIconColor: !widget.controller.isPassword
+                ? AppColors.darkblu
+                : AppColors.primary.withOpacity(.5),
+            isPassword: widget.controller.isPassword,
+            onPressed: widget.controller.hiddenPassword,
+            validator: (val) =>
+                valiedInput(val: val!, max: 20, min: 7, InputType.password1),
+          ),
+        ],
+      ),
+    );
+  }
+}

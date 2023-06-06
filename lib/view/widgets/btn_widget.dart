@@ -14,6 +14,7 @@ class BtnWidget extends StatelessWidget {
     this.isAnimation = false,
     this.border,
     this.isLoading = false,
+    this.padding, this.fontWeight,
   }) : super(key: key);
   final String text;
   final VoidCallback onPressed;
@@ -26,15 +27,18 @@ class BtnWidget extends StatelessWidget {
   final double? radius;
   final bool isLoading;
   final bool? isAnimation;
+final  FontWeight? fontWeight;
+  final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: getProportionateScreenHeight(height ?? 44),
-      width: width ?? Dimensions.screenWidth,
+      width: width ?? double.infinity,
+      padding: padding,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 10.weight),
+            borderRadius: BorderRadius.circular(radius ?? 6.weight),
           ),
           elevation: 0.0,
           shadowColor: AppColors.trans,
@@ -49,28 +53,28 @@ class BtnWidget extends StatelessWidget {
                     text,
                     color: color ?? AppColors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: getProportionateScreenWidth(fontSize ?? 16),
+                    fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   )
-            /*   .animate()
-              .fadeIn(curve: Curves.easeInCirc)
-              .scaleY()
-              .shimmer(delay: 300.ms, colors: <Color>[
-              AppColors.white,
-              const Color(0xff5b0060),
-              const Color(0xff870160),
-              const Color(0xffac255e),
-              const Color(0xffca485c),
-              const Color(0xffe16b5c),
-              const Color(0xfff39060),
-              const Color(0xffffb56b),
-            ]) */
+                    .animate()
+                    .fadeIn(curve: Curves.easeInCirc)
+                    .scaleY()
+                    .shimmer(delay: 300.ms, colors: <Color>[
+                    AppColors.white,
+                    const Color(0xff5b0060),
+                    const Color(0xff870160),
+                    const Color(0xffac255e),
+                    const Color(0xffca485c),
+                    const Color(0xffe16b5c),
+                    const Color(0xfff39060),
+                    const Color(0xffffb56b),
+                  ])
             : isLoading
                 ? const Center(child: LoadingWidget())
                 : TextWidget(
                     text,
                     color: color ?? AppColors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: fontSize ?? getProportionateScreenWidth(16),
+                    fontWeight:fontWeight?? FontWeight.w600,
+                    fontSize: getProportionateScreenWidth(fontSize ?? 14),
                   ),
       ),
     );
