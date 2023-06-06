@@ -16,8 +16,11 @@ bottomSheetWidget(
   String totalPreic =
       "${int.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax) + double.parse(delivery)}";
   controller.totalPrice = totalPreic;
-  String savingPrice =
-      "${double.parse(controller.countpriceModel!.savingPrice!) + (double.parse(supTotle) > double.parse(totalPreic) ? (double.parse(supTotle) - double.parse(totalPreic)) : 0)}";
+  double savingPrice0 = double.parse(controller.countpriceModel!.savingPrice!) +
+      (double.parse(supTotle) > double.parse(totalPreic)
+          ? (double.parse(supTotle) - double.parse(totalPreic))
+          : 0);
+  int savingPrice = savingPrice0.toInt();
 
   controller.ordersPrice =
       "${int.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax)}";

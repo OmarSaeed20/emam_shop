@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ecommerce/index.dart';
 
 class CouponScreen extends StatelessWidget {
@@ -16,7 +14,7 @@ class CouponScreen extends StatelessWidget {
           children: [
             couponAppBar(
               onChanged: (val) {
-                log("$val--- ${controller.search!.text}");
+                debugPrint("$val--- ${controller.search!.text}");
               },
               applyTap: () => controller.getCoupon(),
               searchController: controller.search!,

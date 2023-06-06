@@ -88,63 +88,68 @@ class CartAndFavoCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  TextWidget(
-                                    '$dicountPrice \$',
-                                    fontFamily: AppStrings.montserrat,
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  TextWidget(
-                                    discont != "0" ? price : "", 
-                                    color: AppColors.greyDeep,
-                                    fontFamily: AppStrings.montserrat,
-                                    fontSize: 12.weight,
-                                    fontWeight: FontWeight.w400,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
-                                ],
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      '$dicountPrice \$',
+                                      fontFamily: AppStrings.montserrat,
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    TextWidget(
+                                      discont != "0" ? price : "",
+                                      color: AppColors.greyDeep,
+                                      fontFamily: AppStrings.montserrat,
+                                      fontSize: 12.weight,
+                                      fontWeight: FontWeight.w400,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ],
+                                ),
                               ),
                               if (isCartPage)
-                                Container(
-                                  height: 25.height,
-                                  width: 90.weight,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.grey200,
-                                    borderRadius:
-                                        BorderRadius.circular(6.height),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: minus,
-                                        child: Icon(
-                                          Icons.remove,
-                                          color: AppColors.primary,
-                                          size: 22.weight,
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 25.height,
+                                    width: 90.weight,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.grey200,
+                                      borderRadius:
+                                          BorderRadius.circular(6.height),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: minus,
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: AppColors.primary,
+                                            size: 22.weight,
+                                          ),
                                         ),
-                                      ),
-                                      TextWidget(
-                                        count!,
-                                        fontFamily: AppStrings.montserrat,
-                                      ),
-                                      GestureDetector(
-                                        onTap: plus,
-                                        child: Icon(
-                                          Icons.add,
-                                          color: AppColors.primary,
-                                          size: 22.weight,
+                                        TextWidget(
+                                          count!,
+                                          fontFamily: AppStrings.montserrat,
                                         ),
-                                      ),
-                                    ],
+                                        GestureDetector(
+                                          onTap: plus,
+                                          child: Icon(
+                                            Icons.add,
+                                            color: AppColors.primary,
+                                            size: 22.weight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               if (!isCartPage)

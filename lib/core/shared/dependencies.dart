@@ -1,4 +1,3 @@
- 
 import "/index.dart";
 
 /* class AppBinding implements Bindings {
@@ -43,6 +42,7 @@ Future<void> init() async {
   Get.lazyPut(() => GetAddressDataControllerImp(), fenix: true);
   Get.lazyPut(() => CouponControllerImp(), fenix: true);
   Get.lazyPut(() => PaymentControllerImp(), fenix: true);
+  Get.lazyPut(() => MyOrderControllerImp(), fenix: true);
 
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
@@ -55,6 +55,5 @@ Future<void> init() async {
   Get.lazyPut(() => CartRepo(), fenix: true);
   Get.lazyPut(() => CouponRepo(), fenix: true);
   Get.lazyPut(() => AddressRepo(), fenix: true);
+  Get.lazyPut(() => MyOrderRepo(), fenix: true);
 }
-
-

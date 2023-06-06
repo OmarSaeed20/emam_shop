@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import '/index.dart';
 
 class ProductGridViewCard extends StatelessWidget {
@@ -42,7 +41,7 @@ class ProductGridViewCard extends StatelessWidget {
                       name: translateDatabase(
                           itemsModel.nameAr!, itemsModel.name!),
                       favTap: () {
-                        log(itemsModel.id!);
+                        debugPrint(itemsModel.id!);
                         if (favController.isFavor[itemsModel.id] == "1") {
                           favController.onTapSetFavorite(itemsModel.id!, '0');
                           favController.onTapRemovefavo(itemsModel.id!);

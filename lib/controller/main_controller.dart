@@ -72,29 +72,7 @@ class MainControllerImp extends MainController {
   }
   // ResponseModel? _response;
 
-  Future<bool> onTapLogOut() async {
-    /* try {
-      _isLoading = true;
-      update();
-      Response response = await MainRepo.to.logOut();
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        snackBarSuccess(msg: 'Loged Out Successfully ...');
-        DatabaseHelper.to.setBool(EndPoint.login, false);
-        Get.offNamedUntil(RouteHelper.getLogin(), (route) => false);
-      } else {
-        snackBarMessage(title: 'Log Out', msg: 'Loged Out failed ??? ...');
-      }
-      _isLoading = false;
-      update();
-    } catch (error) {
-      snackBarMessage(title: 'Log Out', msg: 'Loged Out failed $error...');
-      log('error in Log Out ---> $error');
-    }  */
-    return false;
-  }
-
-  void deleteAcount() {}
+  
 
   // theme
   void lightTheme() {

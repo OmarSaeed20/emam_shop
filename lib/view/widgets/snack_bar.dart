@@ -70,7 +70,7 @@ snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
             onTap: onTap ??
                 () async {
                   bool isConnected = await retryCheckInternetConnection();
-                  log("Is connected to internet: $isConnected");
+                  debugPrint("Is connected to internet: $isConnected");
                 },
             child: TextWidget(
               "Retry",

@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
+import 'dart:convert'; 
 
 import '/index.dart';
 import 'package:dartz/dartz.dart';
@@ -44,11 +43,11 @@ class ApiClient {
           return const Left(RequestStatus.serverFailure);
         }
       } else {
-        log("<get Data--> offLineFailure >");
+        debugPrint("<get Data--> offLineFailure >");
         return const Left(RequestStatus.offLineFailure);
       }
     } catch (e) {
-      log("catch<get Data-->serverException> $e");
+      debugPrint("catch<get Data-->serverException> $e");
       return left(RequestStatus.serverException);
     }
   }

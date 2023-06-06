@@ -1,4 +1,4 @@
-import 'dart:developer';
+ 
 
 import 'package:flutter/cupertino.dart';
 
@@ -58,7 +58,7 @@ class FavoriteControllerImp extends FavoriteController {
       }
       update();
     } catch (error) {
-      log('error in insert favourite ----> $error');
+      debugPrint('error in insert favourite ----> $error');
     } finally {
       if (_requestStatus != RequestStatus.none) {
         _requestStatus = RequestStatus.none;
@@ -72,9 +72,9 @@ class FavoriteControllerImp extends FavoriteController {
   Future<void> onTapAddFavo(itemsId) async {
     ResponseModel response = await _addFavo(itemsId);
     if (response.isSuccess) {
-      log('message (success) ---> ${response.message}');
+      debugPrint('message (success) ---> ${response.message}');
     } else {
-      log('message (failure) ---> ${response.message}');
+      debugPrint('message (failure) ---> ${response.message}');
     }
   }
 
@@ -95,7 +95,7 @@ class FavoriteControllerImp extends FavoriteController {
       }
       update();
     } catch (error) {
-      log('error in remove favourite ----> $error');
+      debugPrint('error in remove favourite ----> $error');
     } finally {
       if (_requestStatus != RequestStatus.none) {
         _requestStatus = RequestStatus.none;
@@ -110,9 +110,9 @@ class FavoriteControllerImp extends FavoriteController {
     ResponseModel response = await _removeFavo(itemsId);
     if (response.isSuccess) {
       _favoList.remove(itemsId);
-      log('message (success) ---> ${response.message}');
+      debugPrint('message (success) ---> ${response.message}');
     } else {
-      log('message (failure) ---> ${response.message}');
+      debugPrint('message (failure) ---> ${response.message}');
     }
   }
 
@@ -146,7 +146,7 @@ class FavoriteControllerImp extends FavoriteController {
       }
       update();
     } catch (error) {
-      log('error in get my favourite ----> $error');
+      debugPrint('error in get my favourite ----> $error');
     }
   }
 

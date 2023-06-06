@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import '/index.dart';
 
 abstract class CouponController extends GetxController {
@@ -69,7 +68,7 @@ class CouponControllerImp extends CouponController {
   CouponModel? get couponModel => _couponModel;
   @override
   Future<void> getCoupon({String? couponName}) async {
-    log(search!.text);
+    debugPrint(search!.text);
     if (!search.isBlank!) {
       _requestStatus = RequestStatus.loading;
       update();

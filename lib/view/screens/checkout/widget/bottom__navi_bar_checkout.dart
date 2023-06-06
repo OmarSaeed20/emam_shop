@@ -39,7 +39,7 @@ botNavigationBarCheckout() {
                         ? true
                         : false,
                     onPressed: () {
-                      log('>>>>>>>>>>>>>>>>>');
+                      debugPrint('>>>>>>>>>>>>>>>>>');
                       controller.onTapCheckout();
                     },
                   )

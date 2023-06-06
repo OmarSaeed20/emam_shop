@@ -1,5 +1,4 @@
-import 'dart:developer';
- 
+  
 
 import '/index.dart';
 
@@ -9,12 +8,12 @@ class OnBoardingContoller extends GetxController {
   void onInit() {
     pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _diallogChoseLang();
+      _dialdebugPrintChoseLang();
     });
     super.onInit();
   }
 
-  _diallogChoseLang() {
+  _dialdebugPrintChoseLang() {
     Get.defaultDialog(
         backgroundColor: AppColors.white,
         title: AppStrings.lang.tr,
@@ -31,9 +30,9 @@ class OnBoardingContoller extends GetxController {
 
   next() {
     _currentPage++;
-    log("$_currentPage");
+    debugPrint("$_currentPage");
     if (_currentPage > Static.onBoardingList.length - 1) {
-      log(AutofillHints.birthday);
+      debugPrint(AutofillHints.birthday);
       skip();
     } else {
       pageController!

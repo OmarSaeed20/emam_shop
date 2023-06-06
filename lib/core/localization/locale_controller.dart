@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import '/index.dart';
 
 abstract class LocaleController extends GetxController {
@@ -58,7 +57,7 @@ class MyLocaleControllerImp extends LocaleController {
   @override
   void onInit() {
     // NotificationHelper.initialize();
-    log(database.getString(EndPoint.lang));
+    debugPrint(database.getString(EndPoint.lang));
     initLang();
     super.onInit();
   }

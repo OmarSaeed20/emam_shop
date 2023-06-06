@@ -41,13 +41,14 @@ class CartScreen extends GetView<CartControllerImp> {
                           var listCa = controller.listCart[index];
                           var price =
                               "${(double.parse(listCa.itemsPrice!) * double.parse(listCa.countitems!)).toInt()}";
-                          var dicountPrice = listCa.descountPrice!;
+                          // var dicountPrice = listCa.descountPrice!;
                           return CartAndFavoCard(
                             count: listCa.countitems!,
                             image: listCa.itemsImage!,
                             discont: listCa.itemsDiscount!,
                             price: price,
-                            dicountPrice: dicountPrice,
+                            dicountPrice:
+                                '${calculatingPrice(listCa.itemsPrice!, listCa.itemsDiscount!)}',
                             plus: () => controller.increse(
                               isCartScrren: true,
                               add: true,
@@ -79,6 +80,9 @@ class CartScreen extends GetView<CartControllerImp> {
   }
 
   botNavigationBar(context, CartControllerImp controller) {
+    double _tax =
+        double.parse(controller.countpriceModel!.totalprice!) * (2.5 / 100);
+    int tax = _tax.toInt();
     return Container(
       height: 350.height,
       width: double.infinity,
@@ -87,16 +91,16 @@ class CartScreen extends GetView<CartControllerImp> {
         context,
         controller: controller,
         count: controller.countpriceModel!.totalcount!,
-        supTotle: controller.countpriceModel!.totalprice!,
-        tax:
-            '${double.parse(controller.countpriceModel!.totalprice!).toInt() * (2.5 / 100)}',
+        supTotle:
+            "${double.parse(controller.countpriceModel!.totalprice!).toInt()}",
+        tax: '$tax',
         delivery:
             "${double.parse(controller.countpriceModel!.totalprice!).toInt() * .5 ~/ 100}",
         coupon: controller.couponControl.couponModel == null
             ? "0"
             : "${controller.couponControl.couponModel!.couponDiscount}",
         totaldiscount: controller.countpriceModel!.totaldiscount!,
-        continueTap: () =>controller.goToCheckoutScreen(),
+        continueTap: () => controller.goToCheckoutScreen(),
         couponTap: () => controller.goToCouponScreen(),
         couponTitle: controller.couponControl.couponModel != null
             ? "${controller.couponControl.couponModel!.couponName}"

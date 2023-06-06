@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import '/index.dart';
 
 abstract class HomeController extends GetxController {
@@ -51,7 +50,7 @@ class HomeControllerImp extends HomeController {
         }
         update();
       } else {
-        log('error in =>> get home [RequestStatus.noData]');
+        debugPrint('error in =>> get home [RequestStatus.noData]');
         _requestStatus = RequestStatus.noData;
       }
     }
@@ -71,10 +70,10 @@ class HomeControllerImp extends HomeController {
         List result = response["data"];
         _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
         update();
-        log("$categories");
+        debugPrint("$categories");
       } else {
         _requestStatus = RequestStatus.noData;
-        log('  get_categoriesearch =>>RequestStatus.noData');
+        debugPrint('  get_categoriesearch =>>RequestStatus.noData');
         update();
       }
       update();
@@ -98,10 +97,10 @@ class HomeControllerImp extends HomeController {
         List result = response["data"];
         _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
         update();
-        log("$categories");
+        debugPrint("$categories");
       } else {
         _requestStatus = RequestStatus.noData;
-        log('  get_categorie  =>>RequestStatus.noData');
+        debugPrint('  get_categorie  =>>RequestStatus.noData');
         update();
       }
       update();
@@ -152,19 +151,19 @@ class HomeControllerImp extends HomeController {
 
   CategoriesModel? getCategoryByNameBinary(String name) {
     // Use binary search to find a category by its name
-    log('start');
+    debugPrint('start');
     var left = 0;
     var right = categories!.length - 1;
     while (left <= right) {
       var mid = (left + right) ~/ 2;
       if (categories![mid].name == name) {
-        log('categories![mid]');
+        debugPrint('categories![mid]');
         return categories![mid];
       } else if (categories![mid].name!.compareTo(name) < 0) {
-        log('left');
+        debugPrint('left');
         left = mid + 1;
       } else {
-        log('right');
+        debugPrint('right');
         right = mid - 1;
       }
     }

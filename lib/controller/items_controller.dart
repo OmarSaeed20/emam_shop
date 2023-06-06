@@ -1,4 +1,4 @@
-import 'dart:developer';
+ 
 
 import 'package:flutter/cupertino.dart';
 
@@ -64,11 +64,11 @@ class ItemsControllerImp extends ItemsController {
         for (var element in response["data"]) {
           _itemsScreenList.add(ItemsModel.fromJson(element));
           update();
-          log("$_itemsScreenList");
+          debugPrint("$_itemsScreenList");
         }
       } else {
         _requestStatu = RequestStatus.noData;
-        log('message getItemsData =>>RequestStatus.noData');
+        debugPrint('message getItemsData =>>RequestStatus.noData');
         update();
       }
       update();
@@ -93,11 +93,11 @@ class ItemsControllerImp extends ItemsController {
         for (var element in response["data"]) {
           _itemsScreenList.add(ItemsModel.fromJson(element));
           update();
-          log("$_itemsScreenList");
+          debugPrint("$_itemsScreenList");
         }
       } else {
         _requestStatu = RequestStatus.noData;
-        log('  getItemssearch =>>RequestStatus.noData');
+        debugPrint('  getItemssearch =>>RequestStatus.noData');
         update();
       }
       update();
@@ -118,13 +118,13 @@ class ItemsControllerImp extends ItemsController {
     while (left <= right) {
       var mid = (left + right) ~/ 2;
       if (itemsScreenList[mid].name == name) {
-        log('itemsScreenList[mid]');
+        debugPrint('itemsScreenList[mid]');
         return itemsScreenList[mid];
       } else if (itemsScreenList[mid].name!.compareTo(name) < 0) {
-        log('left');
+        debugPrint('left');
         left = mid + 1;
       } else {
-        log('right');
+        debugPrint('right');
         right = mid - 1;
       }
     }
@@ -141,22 +141,22 @@ class ItemsControllerImp extends ItemsController {
       int cmp = itemsScreenList[mid].name!.compareTo(name);
 
       if (cmp == 0) {
-        log('cmp == 0  $resultListItems');
+        debugPrint('cmp == 0  $resultListItems');
         resultListItems.add(itemsScreenList[mid]);
         // Search for other matching categories to the left of mid.
         for (int i = mid - 1; i >= 0 && itemsScreenList[i].name == name; i--) {
           resultListItems.add(itemsScreenList[i]);
-          log('left  $resultListItems');
+          debugPrint('left  $resultListItems');
         }
         // Search for other matching categories to the right of mid.
         for (int i = mid + 1;
             i < itemsScreenList.length && itemsScreenList[i].name == name ||
                 itemsScreenList[i].nameAr == name;
             i++) {
-          log('right  $resultListItems');
+          debugPrint('right  $resultListItems');
           resultListItems.add(itemsScreenList[i]);
         }
-        log('cmp   $resultListItems');
+        debugPrint('cmp   $resultListItems');
         return resultListItems;
       } else if (cmp < 0) {
         low = mid + 1;

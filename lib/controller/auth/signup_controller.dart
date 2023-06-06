@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
+import 'dart:async'; 
 
 import 'package:flutter/cupertino.dart';
 
@@ -145,7 +144,7 @@ class SignUpControllerImp extends SignUpController {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_countdown > 0) {
         _countdown--;
-        log("$_countdown");
+        debugPrint("$_countdown");
         update();
       } else {
         _countdown = 00;

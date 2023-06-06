@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+ 
 import '/index.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -8,7 +7,7 @@ class SelectNewAddress extends GetView<GetAddressDataControllerImp> {
 
   @override
   Widget build(BuildContext context) {
-    log(controller.selectedIndexEnum.toString());
+    debugPrint(controller.selectedIndexEnum.toString());
     return Scaffold(
       key: controller.scaffoldkey,
       bottomNavigationBar: controller.selectedIndexEnum == AdresEnm.addAddres

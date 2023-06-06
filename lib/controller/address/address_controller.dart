@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
+import 'dart:async'; 
 
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/octicons_icons.dart';
@@ -60,7 +59,7 @@ class AddressControllerImp extends AddressController {
 
   // @override
   goToSelectNewAddress({AdresEnm? addrEnum, AddressModel? model}) {
-    log('goToSelectNewAddress >>>>  ?>>>? $addrEnum');
+    debugPrint('goToSelectNewAddress >>>>  ?>>>? $addrEnum');
 
     getAddrContro.selectedIndexEnum = addrEnum;
     _requestStatus = RequestStatus.loading;
@@ -78,7 +77,7 @@ class AddressControllerImp extends AddressController {
       } else {
         getAddrContro.selectedIndexEnum = AdresEnm.edit;
         editModel = model;
-        log("editModel??????????>>>>> $editModel");
+        debugPrint("editModel??????????>>>>> $editModel");
         editInit().then((value) {
           debugPrint(
               'editInit getAddrContro.addrsEdit>>>>>>>>>${getAddrContro.addrsEdit}');
@@ -89,7 +88,7 @@ class AddressControllerImp extends AddressController {
           editTitle = TextEditingController(text: "${editModel!.title}");
           getAddrContro.lat = double.parse(editModel!.lat!);
           getAddrContro.long = double.parse(editModel!.long!);
-          log('editInit  ?>>>? $addrEnum');
+          debugPrint('editInit  ?>>>? $addrEnum');
 
           Get.toNamed(RouteHelper.getSelectNewAddress());
         });
@@ -109,7 +108,7 @@ class AddressControllerImp extends AddressController {
   AddressModel? selectedAdressmodel;
   continueToCheckOut({required AddressModel addrModel}) {
     selectedAdressmodel = addrModel;
-    log(selectedAdressmodel.toString());
+    debugPrint(selectedAdressmodel.toString());
     Get.back();
     update();
   }
@@ -136,7 +135,7 @@ class AddressControllerImp extends AddressController {
       }
       update();
     } catch (error) {
-      log('error in get my cart ----> $error');
+      debugPrint('error in get my cart ----> $error');
     } finally {
       _requestStatus = RequestStatus.none;
       update();
@@ -160,19 +159,19 @@ class AddressControllerImp extends AddressController {
           ? "${getAddrContro.position!.longitude}"
           : "${getAddrContro.long}",
     );
-    log(model.toString());
-    log("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
+    debugPrint(model.toString());
+    debugPrint("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
 
     final response = await repo.addAddress(body: model.toJson());
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
         getAddressView();
         update();
       } else {
         _requestStatus = RequestStatus.noData;
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
         update();
       }
     }
@@ -198,19 +197,19 @@ class AddressControllerImp extends AddressController {
           : "${getAddrContro.long}",
     );
     modelVl = model;
-    log(model.toString());
-    log("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
+    debugPrint(model.toString());
+    debugPrint("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
 
     final response = await repo.editAddress(body: model.toJson());
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
         await getAddressView();
         update();
       } else {
         _requestStatus = RequestStatus.noData;
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
         update();
       }
     }

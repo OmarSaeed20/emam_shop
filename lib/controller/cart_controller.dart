@@ -1,4 +1,4 @@
-import 'dart:developer';
+ 
 
 import '../index.dart';
 
@@ -49,11 +49,11 @@ class CartControllerImp extends CartController {
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
         getCountItem(itemsId);
       } else {
         _requestStatus = RequestStatus.noData;
-        log(' (success) ---> ${response["message"]}');
+        debugPrint(' (success) ---> ${response["message"]}');
       }
     }
     update();
@@ -71,7 +71,7 @@ class CartControllerImp extends CartController {
         getCountItem(itemsId);
       } else {
         _requestStatus = RequestStatus.noData;
-        log(' (failure) ---> ${response["message"]}');
+        debugPrint(' (failure) ---> ${response["message"]}');
       }
     }
     update();
@@ -108,7 +108,7 @@ class CartControllerImp extends CartController {
       }
       update();
     } catch (error) {
-      log('error in get my cart ----> $error');
+      debugPrint('error in get my cart ----> $error');
     }
   }
 
@@ -139,7 +139,7 @@ class CartControllerImp extends CartController {
     required String itemsId,
     bool? isCartScrren = false,
   }) async {
-    log(">>>>$count");
+    debugPrint(">>>>$count");
     if (add == true) {
       await onTapAddCart(itemsId).then((value) {
         count++;
@@ -276,7 +276,7 @@ class CartControllerImp extends CartController {
       }
       update();
     } catch (error) {
-      log('error in get my cart ----> $error');
+      debugPrint('error in get my cart ----> $error');
     }
   }
 }

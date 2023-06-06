@@ -90,7 +90,7 @@ class OrderProductWidget extends StatelessWidget {
                                 TextWidget(
                                     'Count : ${controller.listCart[i].countitems}'),
                                 TextWidget(
-                                  '\$ ${int.parse(controller.listCart[i].descountPrice!)}',
+                                  '\$ ${double.parse(controller.listCart[i].descountPrice!).toInt()}',
                                   color: AppColors.primary2,
                                 ),
                               ],

@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
+import 'dart:async'; 
 
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -30,7 +29,7 @@ class GetAddressDataControllerImp extends GetAddressDataController {
   TextEditingController? adrressTitle;
 
   _inittControllers() {
-    log("inittControllers selectedIndexEnum  $selectedIndexEnum");
+    debugPrint("inittControllers selectedIndexEnum  $selectedIndexEnum");
     landMark = TextEditingController();
     userName =
         TextEditingController(text: database.getString(EndPoint.userName));
@@ -48,24 +47,24 @@ class GetAddressDataControllerImp extends GetAddressDataController {
   Future<void> init(AdresEnm enm) async {
     selectedIndexEnum = enm;
     completer = Completer<GoogleMapController>();
-    log("init >>>>>>>> $enm  ");
+    debugPrint("init >>>>>>>> $enm  ");
 
     if (enm == AdresEnm.addAddres) {
       _requestStatus = RequestStatus.loading;
       update();
       _inittControllers();
       await getCurrentPostion();
-      log("$_requestStatus 11");
+      debugPrint("$_requestStatus 11");
       await getCurrentAddress();
-      log("$_requestStatus 22");
+      debugPrint("$_requestStatus 22");
       update();
     }
     if (enm == AdresEnm.edit) {
       _requestStatus = RequestStatus.loading;
       update();
-      log("$_requestStatus 1e");
+      debugPrint("$_requestStatus 1e");
       await getCurrentAddress();
-      log("$_requestStatus 2e");
+      debugPrint("$_requestStatus 2e");
       _requestStatus = RequestStatus.none;
       update();
     }
@@ -113,7 +112,7 @@ class GetAddressDataControllerImp extends GetAddressDataController {
       debugPrint("latLng ????  >>>>>>>>>>>> $latLng");
       debugPrint(" getCurrentAddress Enum ????  > >>>>>>>> $selectedIndexEnum");
       if (selectedIndexEnum != AdresEnm.edit) {
-        log("_position ${_position!.latitude} || ${_position!.longitude}");
+        debugPrint("_position ${_position!.latitude} || ${_position!.longitude}");
         cameraPosition = LatLng(latLng.latitude, latLng.longitude);
         await getLocationFromLatLong(latLng.latitude, latLng.longitude);
         _requestStatus = RequestStatus.success;
@@ -128,7 +127,7 @@ class GetAddressDataControllerImp extends GetAddressDataController {
       debugPrint('error in get current address ---> $error');
       update();
     }
-    log(" cameraPosition >>>>>  $cameraPosition");
+    debugPrint(" cameraPosition >>>>>  $cameraPosition");
     _requestStatus = RequestStatus.success;
     update();
   }
@@ -147,7 +146,7 @@ class GetAddressDataControllerImp extends GetAddressDataController {
       update();
     }
     _requestStatus = RequestStatus.none;
-    log(" cameraPosition >>>>>  $cameraPosition");
+    debugPrint(" cameraPosition >>>>>  $cameraPosition");
     update();
   }
 
@@ -172,7 +171,7 @@ class GetAddressDataControllerImp extends GetAddressDataController {
             '${place.administrativeArea}/ ${place.subAdministrativeArea}/ ${place.locality}/ ${place.name}';
         AddressControllerImp.to.editAddress =
             TextEditingController(text: "$addrsEdit ");
-        log(" addrsEdit   >>>>> $addrsEdit");
+        debugPrint(" addrsEdit   >>>>> $addrsEdit");
 
         _requestStatus = RequestStatus.success;
         update();
@@ -196,16 +195,16 @@ class GetAddressDataControllerImp extends GetAddressDataController {
 
   AdresEnm? selectedIndexEnum;
   changeSelectedIndex({String? addressId}) async {
-    log(">>>>>>>>>>>> $selectedIndexEnum");
+    debugPrint(">>>>>>>>>>>> $selectedIndexEnum");
     AddressControllerImp addrController = AddressControllerImp.to;
     if (selectedIndexEnum == AdresEnm.addAddres) {
       if (formKey.currentState!.validate()) {
-        log("contuie");
+        debugPrint("contuie");
         selectedIndexEnum = AdresEnm.addres;
         update();
       }
     } else if (selectedIndexEnum == AdresEnm.addres) {
-      log("add");
+      debugPrint("add");
       addrController.onTapAddAddress().then((value) {
         snackBarSuccess();
         Get.delete<GetAddressDataControllerImp>();
