@@ -8,6 +8,7 @@ class EndPoint {
   static const String enCode = "en";
 
   static const String login = "login";
+  static const String logout = "logout";
 
   static const String userId = "user_id";
   static const String userName = "user_name";

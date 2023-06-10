@@ -39,10 +39,5 @@ class CartRepo {
         await api.postData(ApiLinks.checkout, map);
     return requset.fold((l) => l, (r) => r);
   }
-
-  Future<dynamic> getOrdersView({required String userId}) async {
-    Either<RequestStatus, Map> requset =
-        await api.postData(ApiLinks.ordersPending, {"user_id": userId});
-    return requset.fold((l) => l, (r) => r);
-  }
+ 
 }

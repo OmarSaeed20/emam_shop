@@ -1,4 +1,3 @@
- 
 import '/index.dart';
 
 abstract class LocaleController extends GetxController {
@@ -41,6 +40,8 @@ class MyLocaleControllerImp extends LocaleController {
 
   @override
   void initLang() {
+    requestSendNorificationPermission();
+    fcmConfing();
     String? langCode = database.getString(EndPoint.lang);
     if (langCode == EndPoint.arCode) {
       _locale = const Locale(EndPoint.arCode);

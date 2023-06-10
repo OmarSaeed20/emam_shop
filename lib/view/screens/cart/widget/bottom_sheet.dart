@@ -14,7 +14,7 @@ bottomSheetWidget(
   required VoidCallback couponTap,
 }) {
   String totalPreic =
-      "${int.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax) + double.parse(delivery)}";
+      "${double.parse("${double.parse(calculatingPrice(supTotle, coupon)) + double.parse(tax) + double.parse(delivery)}").toInt()}";
   controller.totalPrice = totalPreic;
   double savingPrice0 = double.parse(controller.countpriceModel!.savingPrice!) +
       (double.parse(supTotle) > double.parse(totalPreic)

@@ -246,7 +246,7 @@ class CartControllerImp extends CartController {
         debugPrint('check (success) ---> ${response["message"]}');
         snackBarSuccess();
         Get.toNamed(RouteHelper.getMain());
-        getOrders();
+       MyOrderControllerImp.to.getPendingOrder1();
       } else {
         _requestStatus = RequestStatus.noData;
         debugPrint(' (success) ---> ${response["message"]}');
@@ -255,30 +255,7 @@ class CartControllerImp extends CartController {
     update();
   }
 
-  List<CheckoutModel> listOrders = [];
-  Future<void> getOrders() async {
-    try {
-      _requestStatus = RequestStatus.loading;
-      update();
-      final response = await cartRepo.getOrdersView(userId: userId);
-      _requestStatus = handlingRespose(response);
-      if (_requestStatus == RequestStatus.success) {
-        if (response['status'] == 'success') {
-          listOrders.clear();
-          List result = response["data"];
-          listOrders.addAll(result.map((e) => CheckoutModel.fromJson(e)));
-
-          update();
-        } else {
-          _requestStatus = RequestStatus.noData;
-          update();
-        }
-      }
-      update();
-    } catch (error) {
-      debugPrint('error in get my cart ----> $error');
-    }
-  }
+   
 }
 
 enum CheckOutEnum { check1, check2 }

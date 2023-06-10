@@ -47,8 +47,8 @@ class CartScreen extends GetView<CartControllerImp> {
                             image: listCa.itemsImage!,
                             discont: listCa.itemsDiscount!,
                             price: price,
-                            dicountPrice:
-                                '${calculatingPrice(listCa.itemsPrice!, listCa.itemsDiscount!)}',
+                            dicountPrice: listCa.descountPrice!,
+                            // '${double.parse(calculatingPrice(listCa.itemsPrice!, listCa.itemsDiscount!)).toInt() * double.parse(listCa.countitems!).toInt()}',
                             plus: () => controller.increse(
                               isCartScrren: true,
                               add: true,
@@ -80,9 +80,9 @@ class CartScreen extends GetView<CartControllerImp> {
   }
 
   botNavigationBar(context, CartControllerImp controller) {
-    double _tax =
+    double tax0 =
         double.parse(controller.countpriceModel!.totalprice!) * (2.5 / 100);
-    int tax = _tax.toInt();
+    int tax = tax0.toInt();
     return Container(
       height: 350.height,
       width: double.infinity,

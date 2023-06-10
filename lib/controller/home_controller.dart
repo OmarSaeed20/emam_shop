@@ -1,10 +1,9 @@
- 
 import '/index.dart';
 
 abstract class HomeController extends GetxController {
   Future<dynamic> getHomeData();
   Future<dynamic> getCategoriesSearch(String search);
-  
+
   void goToAllCategories();
   void goToItemScreen(int index, String cateId);
 }
@@ -13,7 +12,7 @@ class HomeControllerImp extends HomeController {
   static HomeControllerImp get to => Get.find();
   HomeRepo repo = Get.find();
   DatabaseHelper database = Get.find();
-  String? lang; 
+  String? lang;
 
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
@@ -21,6 +20,7 @@ class HomeControllerImp extends HomeController {
   @override
   void onInit() {
     lang = database.getString(EndPoint.lang);
+    // FirebaseMessaging.instance.subscribeToTopic("users");
     getHomeData();
     super.onInit();
   }

@@ -82,10 +82,10 @@ class SignInControllerImp extends SignInController {
           _requestStatus = RequestStatus.success;
           if (response['data']['user_approve'] == "1") {
             _saveUserData(
-              response["data"]["user_id"],
-              response["data"]["user_name"],
-              response["data"]["user_email"],
-              response["data"]["user_phone"],
+              id: response["data"]["user_id"],
+              username: response["data"]["user_name"],
+              email: response["data"]["user_email"],
+              phone: response["data"]["user_phone"],
             );
             _onSuccessLogin();
           } else {
@@ -111,12 +111,15 @@ class SignInControllerImp extends SignInController {
   }
 
   _onSuccessLogin() {
+    FirebaseMessaging.instance.subscribeToTopic("users");
+    FirebaseMessaging.instance
+        .subscribeToTopic("users${database.getString(EndPoint.userId)}");
     Get.delete<SignInControllerImp>();
     Get.delete<SignUpControllerImp>();
     Get.offAllNamed(RouteHelper.getMain());
   }
 
-  _saveUserData(id, username, email, phone) {
+  _saveUserData({id, username, email, phone}) {
     database.setString(EndPoint.userId, id);
     database.setString(EndPoint.userName, username);
     database.setString(EndPoint.userEmail, email);

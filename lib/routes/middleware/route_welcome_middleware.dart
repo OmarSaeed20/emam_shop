@@ -12,6 +12,9 @@ class RouteWelcomeMiddleware extends GetMiddleware {
     if (step == EndPoint.login) {
       return RouteSettings(name: RouteHelper.getMain());
     }
+    if (step == EndPoint.logout) {
+      return RouteSettings(name: RouteHelper.getLogin());
+    }
     if (step == EndPoint.onboard) {
       return RouteSettings(name: RouteHelper.getWellcom());
     }

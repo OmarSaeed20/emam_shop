@@ -55,7 +55,14 @@ class SettingControllerImp extends SettingController {
   MyServices myServices = Get.find();
   @override
   goToLogout() {
-    myServices.sharedPreferences.clear();
+    FirebaseMessaging.instance.unsubscribeFromTopic("users");
+    FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
+    // myServices.sharedPreferences.clear();
+    database.setString(EndPoint.step, EndPoint.logout);
+    database.remove(EndPoint.userId);
+    database.remove(EndPoint.userName);
+    database.remove(EndPoint.userEmail);
+    database.remove(EndPoint.userPhone);
     Get.offAllNamed(RouteHelper.getLogin());
   }
 

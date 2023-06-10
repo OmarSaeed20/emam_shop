@@ -43,6 +43,7 @@ Future<void> init() async {
   Get.lazyPut(() => CouponControllerImp(), fenix: true);
   Get.lazyPut(() => PaymentControllerImp(), fenix: true);
   Get.lazyPut(() => MyOrderControllerImp(), fenix: true);
+  Get.lazyPut(() => NotificationControllerImp(), fenix: true);
 
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
@@ -56,4 +57,5 @@ Future<void> init() async {
   Get.lazyPut(() => CouponRepo(), fenix: true);
   Get.lazyPut(() => AddressRepo(), fenix: true);
   Get.lazyPut(() => MyOrderRepo(), fenix: true);
+  Get.lazyPut(() => NotificationRepo(), fenix: true);
 }

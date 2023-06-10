@@ -1,5 +1,6 @@
 class ApiLinks {
-  static const String baseUri = "http://192.168.131.229:80/emam";
+  static const String baseUri = "http://192.168.22.229:80/emam";
+  // static const String baseUri = "http://192.168.1.5:80/emam";
   static const String imagLink = "$baseUri/uplode/items/";
   // static const String baseUri = "http://192.168.1.7:80/emam";
 
@@ -51,4 +52,7 @@ class ApiLinks {
 
   static const String checkout = "$baseUri/orders/checkout.php";
   static const String ordersPending = "$baseUri/orders/pending.php";
+  static const String ordersdetails = "$baseUri/orders/details.php";
+
+  static const String notification = "$baseUri/notification/view.php";
 }
