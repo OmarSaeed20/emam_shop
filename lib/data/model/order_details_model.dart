@@ -15,7 +15,7 @@ class OrderDetailsModel {
   final String? itemsActive;
   final String? price;
   final String? itemsDiscount;
-  final String? itemsData;
+  final String? itemsDate;
   final String? itemsCate;
   const OrderDetailsModel({
     this.discountPrice,
@@ -34,7 +34,7 @@ class OrderDetailsModel {
     this.itemsActive,
     this.price,
     this.itemsDiscount,
-    this.itemsData,
+    this.itemsDate,
     this.itemsCate,
   });
   OrderDetailsModel copyWith(
@@ -73,7 +73,7 @@ class OrderDetailsModel {
         itemsActive: itemsActive ?? this.itemsActive,
         price: price ?? this.price,
         itemsDiscount: itemsDiscount ?? this.itemsDiscount,
-        itemsData: itemsData ?? this.itemsData,
+        itemsDate: itemsData ?? this.itemsDate,
         itemsCate: itemsCate ?? this.itemsCate);
   }
 
@@ -95,14 +95,15 @@ class OrderDetailsModel {
       'items_active': itemsActive,
       'items_price': price,
       'items_discount': itemsDiscount,
-      'items_data': itemsData,
+      'items_data': itemsDate,
       'items_cate': itemsCate
     };
   }
 
   static OrderDetailsModel fromJson(Map<String, Object?> json) {
     return OrderDetailsModel(
-        discountPrice: json['itemsprice'] == null ? null : json['itemsprice'] as String,
+        discountPrice:
+            json['itemsprice'] == null ? null : json['itemsprice'] as String,
         countitems:
             json['countitems'] == null ? null : json['countitems'] as String,
         cartId: json['cart_id'] == null ? null : json['cart_id'] as String,
@@ -137,7 +138,7 @@ class OrderDetailsModel {
         itemsDiscount: json['items_discount'] == null
             ? null
             : json['items_discount'] as String,
-        itemsData:
+        itemsDate:
             json['items_data'] == null ? null : json['items_data'] as String,
         itemsCate:
             json['items_cate'] == null ? null : json['items_cate'] as String);
@@ -162,7 +163,7 @@ itemsCount:$itemsCount,
 itemsActive:$itemsActive,
 itemsPrice:$price,
 itemsDiscount:$itemsDiscount,
-itemsData:$itemsData,
+itemsData:$itemsDate,
 itemsCate:$itemsCate
     ) ''';
   }
@@ -187,7 +188,7 @@ itemsCate:$itemsCate
         other.itemsActive == itemsActive &&
         other.price == price &&
         other.itemsDiscount == itemsDiscount &&
-        other.itemsData == itemsData &&
+        other.itemsDate == itemsDate &&
         other.itemsCate == itemsCate;
   }
 
@@ -211,7 +212,7 @@ itemsCate:$itemsCate
         itemsActive,
         price,
         itemsDiscount,
-        itemsData,
+        itemsDate,
         itemsCate);
   }
 }

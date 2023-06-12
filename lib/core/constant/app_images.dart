@@ -64,6 +64,13 @@ class AppImages {
   static const String visa = "${_img}visa.png";
   static const String safePayment = "${_img}safe_payment.png";
 
+  // order status
+  static const String status0 = "${_img}0.png";
+  static const String status1 = "${_img}1.png";
+  static const String status2 = "${_img}2.png";
+  static const String status3 = "${_img}3.png";
+  static const String status4 = "${_img}4.png";
+  
   //loading
   static const String loading2 = "${_lot}loading2.json";
   static const String loadingWait = "${_lot}loading-wait.json";

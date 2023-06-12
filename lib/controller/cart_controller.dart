@@ -1,5 +1,3 @@
- 
-
 import '../index.dart';
 
 abstract class CartController extends GetxController {
@@ -218,14 +216,14 @@ class CartControllerImp extends CartController {
   Future<void> onTapCheckout() async {
     debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> onTapCheckout");
     debugPrint(
-        "${addressControl.selectedAdressmodel!.addressId ?? '0'}\\//${couponControl.couponModel!.couponId ?? '0'} \\//${couponControl.couponModel!.couponDiscount ?? '0'}\\//${deliveryPrice ?? '0'}");
+        "${addressControl.selectedAdressmodel ?? '0'}\\//${couponControl.couponModel ?? '0'} \\ \\//${deliveryPrice ?? '0'}");
 
     _requestStatus = RequestStatus.loading;
     update();
     var model = {
       "users_id": userId,
       "address_id":
-          selectDilvery ? addressControl.selectedAdressmodel!.addressId : "",
+          selectDilvery ? addressControl.selectedAdressmodel!.addressId : "0",
       "coupon_id": couponControl.couponModel != null
           ? couponControl.couponModel!.couponId
           : "0",
@@ -246,7 +244,7 @@ class CartControllerImp extends CartController {
         debugPrint('check (success) ---> ${response["message"]}');
         snackBarSuccess();
         Get.toNamed(RouteHelper.getMain());
-       MyOrderControllerImp.to.getPendingOrder1();
+        MyOrderControllerImp.to.getPendingOrder1();
       } else {
         _requestStatus = RequestStatus.noData;
         debugPrint(' (success) ---> ${response["message"]}');
@@ -254,8 +252,6 @@ class CartControllerImp extends CartController {
     }
     update();
   }
-
-   
 }
 
 enum CheckOutEnum { check1, check2 }

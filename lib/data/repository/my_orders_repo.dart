@@ -16,4 +16,16 @@ class MyOrderRepo {
         await api.postData(ApiLinks.ordersdetails, {"orders_id": orderId});
     return requset.fold((l) => l, (r) => r);
   }
+
+  Future<dynamic> removeOrder(String orderId) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.ordersdelete, {"orders_id": orderId});
+    return requset.fold((l) => l, (r) => r);
+  }
+
+  Future<dynamic> getArchiveOrders(String userId) async {
+    Either<RequestStatus, Map> requset =
+        await api.postData(ApiLinks.ordersarchive, {"user_id": userId});
+    return requset.fold((l) => l, (r) => r);
+  }
 }

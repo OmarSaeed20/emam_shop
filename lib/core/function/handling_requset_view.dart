@@ -1,8 +1,8 @@
-import '../../view/widgets/handling_view_widgets/loading_state_widget.dart';
-import '../../view/widgets/handling_view_widgets/no_data_state_widget.dart';
-import '../../view/widgets/handling_view_widgets/offline_internet_state_widget.dart';
-import '../../view/widgets/handling_view_widgets/server_exception_state_widegt.dart';
-import '../../view/widgets/handling_view_widgets/server_failure_state_widget.dart';
+import '../../presentation/view/widgets/handling_view_widgets/loading_state_widget.dart';
+import '../../presentation/view/widgets/handling_view_widgets/no_data_state_widget.dart';
+import '../../presentation/view/widgets/handling_view_widgets/offline_internet_state_widget.dart';
+import '../../presentation/view/widgets/handling_view_widgets/server_exception_state_widegt.dart';
+import '../../presentation/view/widgets/handling_view_widgets/server_failure_state_widget.dart';
 import '/index.dart';
 
 class HandlingRequstView extends StatelessWidget {

@@ -7,7 +7,9 @@ import '../index.dart';
 
 abstract class MyOrderController extends GetxController {
   Future<Either<RequestStatus, void>> getPendingOrder1();
+  Future<void> onTapRemoveOrder(ordersId);
   Future<Either<RequestStatus, void>> getOrderDetails(String orderId);
+  Future<Either<RequestStatus, void>> getArchiveOrders();
 }
 
 class MyOrderControllerImp extends MyOrderController {
@@ -69,6 +71,23 @@ class MyOrderControllerImp extends MyOrderController {
     }
   }
 
+  @override
+  onTapRemoveOrder(ordersId) async {
+    _requestStatus = RequestStatus.loading;
+    update();
+    final response = await repo.removeOrder(ordersId);
+    _requestStatus = handlingRespose(response);
+    if (_requestStatus == RequestStatus.success) {
+      if (response['status'] == 'success') {
+        getPendingOrder1();
+      } else {
+        _requestStatus = RequestStatus.noData;
+        debugPrint(' (failure) ---> ${response["message"]}');
+      }
+    }
+    update();
+  }
+
   String printOrderType(String val) {
     if (val == "0") {
       return "delivery";
@@ -93,16 +112,25 @@ class MyOrderControllerImp extends MyOrderController {
     if (val == "0") {
       return "waiting for approval";
     } else if (val == "1") {
-      return "prepare";
+      return "order processing";
     } else if (val == "2") {
-      return "delivery";
+      return "ready to picked up by delivery man";
     } else if (val == "3") {
-      return "recived";
+      return "on the way";
+    } else if (val == "4") {
+      return "receved"; // archive
     } else {
       return "none";
     }
   }
 
+  List<OrderStatus> orderStatus = [
+    OrderStatus("waiting for approval", AppImages.status0),      
+    OrderStatus("order processing", AppImages.status1),      
+    OrderStatus("ready to picked up by delivery man", AppImages.status2),      
+    OrderStatus("on the way", AppImages.status3),      
+    OrderStatus("receved", AppImages.status4),      
+  ];
   OrdersModel? orderData;
   double? lat;
   double? long;
@@ -110,9 +138,11 @@ class MyOrderControllerImp extends MyOrderController {
     debugPrint(">>>>>>>>>>>>> $model");
     orderData = model;
     getOrderDetails(model.id!).then((value) {
-      completer = Completer<GoogleMapController>();
-      lat = double.parse(model.addressLat!);
-      long = double.parse(model.addressLong!);
+      if (model.ordersAddressid != "0") {
+        completer = Completer<GoogleMapController>();
+        lat = double.parse(model.addressLat!);
+        long = double.parse(model.addressLong!);
+      }
       Get.toNamed(RouteHelper.getOrdersDetailes());
     });
   }
@@ -148,10 +178,47 @@ class MyOrderControllerImp extends MyOrderController {
 
   List<Marker> marker = <Marker>[];
   allMarker() {
+    marker.clear();
     marker.add(
       Marker(markerId: const MarkerId("1"), position: LatLng(lat!, long!)),
     );
 
     update();
   }
+
+  final List<OrderDetailsModel> _archiveOrders = [];
+  List<OrderDetailsModel> get archiveOrders => _archiveOrders;
+  @override
+  getArchiveOrders() async {
+    _requestStatus = RequestStatus.loading;
+    update();
+    var response = await repo.getArchiveOrders(userId);
+    _requestStatus = handlingRespose(response);
+    if (_requestStatus == RequestStatus.success) {
+      if (response["status"] == "success") {
+        _archiveOrders.clear();
+        List result = response["data"];
+        debugPrint('_orderDetails?>>>>>>>>>> : $result');
+        update();
+        return right(_archiveOrders
+            .addAll(result.map((e) => OrderDetailsModel.fromJson(e))));
+      } else {
+        debugPrint('no : $_requestStatus');
+        snackBarMessage(title: "warning", msg: response["data"]);
+        update();
+        return const Left(RequestStatus.noData);
+      }
+    } else {
+      debugPrint("<Left  -->serverException>");
+      update();
+      return const Left(RequestStatus.serverException);
+    }
+  }
+}
+
+class OrderStatus {
+  final String title;
+  final String img;
+
+  OrderStatus(this.title, this.img);
 }

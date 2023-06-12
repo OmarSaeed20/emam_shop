@@ -22,9 +22,10 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  runApp(const MyApp()
-   /*  DevicePreview(
-      enabled: true,
+  runApp(
+    const MyApp(),
+    /* DevicePreview(
+     enabled: true,
       builder: (context) => const MyApp(), // Wrap your app
     ), */
   );
@@ -38,11 +39,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // DevicePreview
-      /* useInheritedMediaQuery: true,
+      /* // DevicePreview
+      useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder, */
-      //
+      builder: DevicePreview.appBuilder,
+      // */
       translations: MyLocale(),
       theme: MyLocaleControllerImp.to.themeData,
       locale: MyLocaleControllerImp.to.locale,

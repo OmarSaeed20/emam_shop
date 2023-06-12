@@ -53,6 +53,8 @@ class ApiLinks {
   static const String checkout = "$baseUri/orders/checkout.php";
   static const String ordersPending = "$baseUri/orders/pending.php";
   static const String ordersdetails = "$baseUri/orders/details.php";
+  static const String ordersdelete = "$baseUri/orders/delete.php";
+  static const String ordersarchive = "$baseUri/orders/archive.php";
 
   static const String notification = "$baseUri/notification/view.php";
 }
