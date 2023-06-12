@@ -38,6 +38,7 @@ class AppColors {
   static const Color grey150 = Color(0xFFF2F3F2);
   static const Color grey200 = Color(0xFFEEEEEE);
 
+  static const Color couponColor =   Color(0xFFF0BC68);
   static const Color yello = Color(0xFFBE8D23);
   static const Color yelloOra = Color(0xFFF1916D);
   static const Color yelloOra2 = Color(0xFFF39F5A);

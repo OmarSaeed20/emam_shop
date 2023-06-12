@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../../index.dart';
 
 class MyAddressPage extends GetView<AddressControllerImp> {
@@ -8,7 +10,7 @@ class MyAddressPage extends GetView<AddressControllerImp> {
     return Scaffold(
       // key: controller.scaffoldkey,
       appBar: AppBar(title: const Text('Delivery address')),
-      bottomNavigationBar: botNavigationBar(),
+      // bottomNavigationBar: botNavigationBar(),
       body: GetBuilder<AddressControllerImp>(
         builder: (controller) => HandlingRequstView(
           controller.requestStatus,
@@ -44,7 +46,8 @@ class MyAddressPage extends GetView<AddressControllerImp> {
                   controller.listaddress.length,
                   (index) => ListTileWidget(
                     title: '${controller.listaddress[index].title}',
-                    leadingIc: Icons.location_city,
+                    leadingIc: CupertinoIcons.house_fill,
+                    leadcolor: AppColors.yello,
                     subtitle: '${controller.listaddress[index].fullAddress}',
                     onTap: () {
                       controller.continueToCheckOut(
@@ -73,7 +76,7 @@ class MyAddressPage extends GetView<AddressControllerImp> {
                             ),
                             child: Icon(
                               Icons.edit_location_alt,
-                              color: AppColors.secondaryPro,
+                              color: AppColors.success,
                               size: 20.weight,
                             ),
                           ),

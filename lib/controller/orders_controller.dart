@@ -5,7 +5,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../index.dart';
 
-abstract class MyOrderController extends GetxController {
+abstract class MyOrderController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   Future<Either<RequestStatus, void>> getPendingOrder1();
   Future<void> onTapRemoveOrder(ordersId);
   Future<Either<RequestStatus, void>> getOrderDetails(String orderId);
@@ -31,13 +32,31 @@ class MyOrderControllerImp extends MyOrderController {
     userName = database.getString(EndPoint.userName);
     userEmail = database.getString(EndPoint.userEmail);
     userPhone = database.getString(EndPoint.userPhone);
+
+    _tabController = TabController(length: 2, vsync: this);
+
+    getPendingOrder1()
+        .then((value) => debugPrint('then requestStatus : $requestStatus'));
+    update();
+    getArchiveOrders().then(
+        (value) => debugPrint('then archiRequestStatus : $archiRequestStatus'));
+    update();
+
+    super.onInit();
+  }
+
+  TabController? _tabController;
+  TabController? get tabController => _tabController;
+  @override
+  void onClose() {
+    tabController!.dispose();
+    super.onClose();
   }
 
   @override
   void onInit() {
     init();
-    getPendingOrder1()
-        .then((value) => debugPrint('then requestStatus : $requestStatus'));
+
     super.onInit();
   }
 
@@ -125,11 +144,11 @@ class MyOrderControllerImp extends MyOrderController {
   }
 
   List<OrderStatus> orderStatus = [
-    OrderStatus("waiting for approval", AppImages.status0),      
-    OrderStatus("order processing", AppImages.status1),      
-    OrderStatus("ready to picked up by delivery man", AppImages.status2),      
-    OrderStatus("on the way", AppImages.status3),      
-    OrderStatus("receved", AppImages.status4),      
+    OrderStatus("waiting for approval", AppImages.status0),
+    OrderStatus("order processing", AppImages.status1),
+    OrderStatus("ready to picked up by delivery man", AppImages.status4),
+    OrderStatus("on the way", AppImages.status3),
+    OrderStatus("receved", AppImages.status44),
   ];
   OrdersModel? orderData;
   double? lat;
@@ -164,13 +183,12 @@ class MyOrderControllerImp extends MyOrderController {
         return right(_orderDetails
             .addAll(result.map((e) => OrderDetailsModel.fromJson(e))));
       } else {
-        debugPrint('no : $_requestStatus');
-        snackBarMessage(title: "warning", msg: response["data"]);
+        _requestStatus = RequestStatus.noData;
         update();
         return const Left(RequestStatus.noData);
       }
     } else {
-      debugPrint("<Left  -->serverException>");
+      debugPrint("<Left  --> serverException>");
       update();
       return const Left(RequestStatus.serverException);
     }
@@ -182,34 +200,33 @@ class MyOrderControllerImp extends MyOrderController {
     marker.add(
       Marker(markerId: const MarkerId("1"), position: LatLng(lat!, long!)),
     );
-
     update();
   }
 
-  final List<OrderDetailsModel> _archiveOrders = [];
-  List<OrderDetailsModel> get archiveOrders => _archiveOrders;
+  final List<OrdersModel> _archiveOrders = [];
+  List<OrdersModel> get archiveOrders => _archiveOrders;
+  RequestStatus archiRequestStatus = RequestStatus.loading;
   @override
   getArchiveOrders() async {
-    _requestStatus = RequestStatus.loading;
+    archiRequestStatus = RequestStatus.loading;
     update();
     var response = await repo.getArchiveOrders(userId);
-    _requestStatus = handlingRespose(response);
-    if (_requestStatus == RequestStatus.success) {
+    archiRequestStatus = handlingRespose(response);
+    if (archiRequestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
         _archiveOrders.clear();
         List result = response["data"];
-        debugPrint('_orderDetails?>>>>>>>>>> : $result');
+        debugPrint('Archive?>>>>>>>>>> : $result');
         update();
-        return right(_archiveOrders
-            .addAll(result.map((e) => OrderDetailsModel.fromJson(e))));
+        return right(
+            _archiveOrders.addAll(result.map((e) => OrdersModel.fromJson(e))));
       } else {
-        debugPrint('no : $_requestStatus');
-        snackBarMessage(title: "warning", msg: response["data"]);
+        archiRequestStatus = RequestStatus.noData;
         update();
         return const Left(RequestStatus.noData);
       }
     } else {
-      debugPrint("<Left  -->serverException>");
+      debugPrint("Archive<Left  -->serverException>");
       update();
       return const Left(RequestStatus.serverException);
     }

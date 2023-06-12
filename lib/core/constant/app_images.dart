@@ -69,6 +69,7 @@ class AppImages {
   static const String status1 = "${_img}1.png";
   static const String status2 = "${_img}2.png";
   static const String status3 = "${_img}3.png";
+  static const String status44 = "${_img}44.png";
   static const String status4 = "${_img}4.png";
   
   //loading

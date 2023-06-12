@@ -24,7 +24,7 @@ class RouteHelper {
   static const String _selectNewAddress = '/select_new_address';
   static const String _myOrders = '/my_orders';
   static const String _ordersDetailes = '/orders_detailes';
-  static const String _ordersArchive = '/orders_archive';
+  // static const String _ordersArchive = '/orders_archive';
   static const String _helpSupport = '/help_support';
   static const String _report = '/report_problem';
   static const String _cart = '/cart';
@@ -55,7 +55,7 @@ class RouteHelper {
   static String getSelectNewAddress() => _selectNewAddress;
   static String getMyOrders() => _myOrders;
   static String getOrdersDetailes() => _ordersDetailes;
-  static String getOrdersArchive() => _ordersArchive;
+  // static String getOrdersArchive() => _ordersArchive;
   static String getReport() => _report;
   static String getCart() => _cart;
   static String getCoupon() => _coupon;
@@ -158,10 +158,10 @@ class RouteHelper {
         name: _ordersDetailes,
         page: () => const OrdersDetailesScreen(),
         transition: Transition.native),
-    GetPage(
+   /*  GetPage(
         name: _ordersArchive,
-        page: () => const OrdersArchiveScreen(),
-        transition: Transition.native),
+        page: () => const OrdersArchiveSection(),
+        transition: Transition.native), */
     GetPage(
         name: _report,
         page: () => const RreportPage(),

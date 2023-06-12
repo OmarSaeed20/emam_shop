@@ -54,7 +54,7 @@ class OrderDetailsModel {
       String? itemsActive,
       String? price,
       String? itemsDiscount,
-      String? itemsData,
+      String? itemsDate,
       String? itemsCate}) {
     return OrderDetailsModel(
         discountPrice: discountPrice ?? this.discountPrice,
@@ -73,8 +73,8 @@ class OrderDetailsModel {
         itemsActive: itemsActive ?? this.itemsActive,
         price: price ?? this.price,
         itemsDiscount: itemsDiscount ?? this.itemsDiscount,
-        itemsDate: itemsData ?? this.itemsDate,
-        itemsCate: itemsCate ?? this.itemsCate);
+        itemsDate: itemsDate ?? this.itemsDate,
+        itemsCate: itemsCate ?? this.itemsCate,);
   }
 
   Map<String, Object?> toJson() {

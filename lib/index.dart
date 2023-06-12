@@ -93,8 +93,8 @@ export 'presentation/view/screens/cart/cart_screen.dart';
 export 'presentation/view/screens/notification/notification_screen.dart';
 export 'presentation/view/screens/coupon/coupon_screen.dart';
 export 'presentation/view/screens/checkout/checkout_screen.dart';
-export 'presentation/view/screens/orders/my_orders_screen.dart';
-export 'presentation/view/screens/orders/order_detailes_screen.dart';
+export 'presentation/view/screens/orders/orders_screen.dart';
+export 'presentation/view/screens/order_details/order_detailes_screen.dart';
 
 // widget
 
@@ -161,6 +161,8 @@ export 'presentation/view/screens/checkout/widget/chose_dilvery_type.dart';
 export 'presentation/view/screens/checkout/widget/select_user_data.dart';
 export 'presentation/view/screens/checkout/widget/bottom__navi_bar_checkout.dart';
 export 'presentation/view/screens/notification/widget/notification_item.dart';
+export 'presentation/view/screens/orders/widget/order_archive_section.dart';
+export 'presentation/view/screens/orders/widget/pending_orders.dart';
 
 // core
 
