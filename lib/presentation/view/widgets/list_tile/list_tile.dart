@@ -12,6 +12,8 @@ class ListTileWidget extends StatelessWidget {
     this.trailing,
     this.leadcolor,
     this.isSubtitle = true,
+    this.leadingImg,
+    this.dense, this.horizontalTitleGap,
   });
   final String title;
   final EdgeInsetsGeometry? contentPadding;
@@ -21,21 +23,26 @@ class ListTileWidget extends StatelessWidget {
   final IconData? leadingIc;
   final Color? leadcolor;
   final Widget? trailing;
+  final String? leadingImg;
   final bool isSubtitle;
+  final bool? dense;
+  final double? horizontalTitleGap;
   @override
   Widget build(BuildContext context) {
     return Container(
       color: color,
       padding: paddingOnly(left: 5),
       child: ListTile(
-        dense: true,
+        dense: dense ?? true,
         contentPadding: contentPadding ?? paddingOnly(left: 15, right: 20),
         onTap: onTap,
-        leading: Icon(
-          leadingIc,
-          color: leadcolor ?? AppColors.greyDeep,
-          size: 25.weight,
-        ),
+        leading: leadingImg != null
+            ? Image.asset(leadingImg!, height: 25.height, fit: BoxFit.contain)
+            : Icon(
+                leadingIc,
+                color: leadcolor ?? AppColors.greyDeep,
+                size: 25.weight,
+              ),
         title: Padding(
           padding: paddingSymme(horizontal: 6),
           child: TextWidget(title, fontSize: 12.weight),
@@ -50,7 +57,7 @@ class ListTileWidget extends StatelessWidget {
                 ),
               )
             : null,
-        horizontalTitleGap: 0,
+        horizontalTitleGap:horizontalTitleGap??0 ,
         trailing: trailing,
       ),
     );

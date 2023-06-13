@@ -115,7 +115,7 @@ Column supportAnDAboutBody(SettingControllerImp controller) => Column(
                 settingListTile(
                   Icons.quick_contacts_dialer_rounded,
                   "Contact us",
-                  onTap: () => controller.goToHelpSupport(),
+                  onTap: () => controller.goToContactus(),
                 ),
                 settingListTile(
                   Icons.gpp_maybe,

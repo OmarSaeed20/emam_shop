@@ -26,6 +26,7 @@ class RouteHelper {
   static const String _ordersDetailes = '/orders_detailes';
   // static const String _ordersArchive = '/orders_archive';
   static const String _helpSupport = '/help_support';
+  static const String _contactus = '/contact_us';
   static const String _report = '/report_problem';
   static const String _cart = '/cart';
   static const String _coupon = '/coupon';
@@ -49,6 +50,7 @@ class RouteHelper {
   static String getNotifications() => _notification;
   static String getProfile() => _editProfile;
   static String getHelpSupport() => _helpSupport;
+  static String getContactus() => _contactus;
   static String getTermsPolicies() => _termsPolicies;
   static String getPaymentMethods() => _paymentMethods;
   static String getDeliveryAddress() => _deliveryAddress;
@@ -133,6 +135,10 @@ class RouteHelper {
     GetPage(
         name: _helpSupport,
         page: () => const HelpSupportPage(),
+        transition: Transition.native),
+    GetPage(
+        name: _contactus,
+        page: () => const ContactusPage(),
         transition: Transition.native),
     GetPage(
         name: _termsPolicies,

@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 import '../index.dart';
 
 abstract class SettingController extends GetxController {
@@ -7,9 +9,11 @@ abstract class SettingController extends GetxController {
   goToMyOrders();
   goToNotfications();
   goToHelpSupport();
+  goToContactus();
   goToTermsAndPolicies();
   goToReoprtProblems();
   goToDeleteAccount();
+  deleteUserDatabase();
   goToLogout();
 }
 
@@ -52,6 +56,38 @@ class SettingControllerImp extends SettingController {
     Get.toNamed(RouteHelper.getHelpSupport());
   }
 
+  List<ContactusData> contactusListData = [
+    ContactusData(
+        img: AppImages.dilvery,
+        title: "phone",
+        supTitle: "+20 106 452 536 8",
+        url: "+201064525368"),
+    ContactusData(
+        img: AppImages.dilvery,
+        title: "TikTok",
+        supTitle: "omar@gmail.com",
+        url: 'omar@gmail.com'),
+    ContactusData(
+        img: AppImages.dilvery,
+        title: "mail",
+        supTitle: "supportuser@gmail.com",
+        url: 'supportuser@gmail.com'),
+  ];
+  Future<void> launchUrll(urll) async {
+    Uri url = Uri.parse(urll);
+    if (!await launchUrl(url)) {
+      snackBarMessage(msg: "Could not launch $url");
+      throw Exception('Could not launch $url');
+    } else {
+      await launchUrl(url);
+    }
+  }
+
+  @override
+  goToContactus() {
+    Get.toNamed(RouteHelper.getContactus());
+  }
+
   MyServices myServices = Get.find();
   @override
   goToLogout() {
@@ -59,11 +95,16 @@ class SettingControllerImp extends SettingController {
     FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
     // myServices.sharedPreferences.clear();
     database.setString(EndPoint.step, EndPoint.logout);
+    deleteUserDatabase();
+    Get.offAllNamed(RouteHelper.getLogin());
+  }
+
+  @override
+  deleteUserDatabase() {
     database.remove(EndPoint.userId);
     database.remove(EndPoint.userName);
     database.remove(EndPoint.userEmail);
     database.remove(EndPoint.userPhone);
-    Get.offAllNamed(RouteHelper.getLogin());
   }
 
   @override
@@ -95,4 +136,18 @@ class SettingControllerImp extends SettingController {
   goToTermsAndPolicies() {
     Get.toNamed(RouteHelper.getTermsPolicies());
   }
+}
+
+class ContactusData {
+  final String url;
+  final String img;
+  final String title;
+  final String? supTitle;
+
+  ContactusData({
+    required this.url,
+    required this.img,
+    required this.title,
+    this.supTitle,
+  });
 }

@@ -45,6 +45,7 @@ class NotificationControllerImp extends NotificationController {
         List result = response["data"];
         _notificationList
             .addAll(result.map((e) => NotificationModel.fromJson(e)));
+            _notificationList.sort((a, b) => b.datatime!.compareTo(a.datatime!));
         update();
         debugPrint("Notification >> $_notificationList");
       } else {

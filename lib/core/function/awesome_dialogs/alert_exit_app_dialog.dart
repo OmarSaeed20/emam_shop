@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import '/index.dart';
@@ -18,14 +17,15 @@ Future<bool> alertExitAppDialog() {
 }
 
 _askExitBtn() => dialogBody(
-    icon: Icons.info,
-    icSize: 80.weight,
-    sH: 20.sH,
-    btn1: dialogBtn(
-      "Ok",
-      onTap: () => exit(0),
-    ),
-    btn2: dialogBtn(
-      "Cancel",
-      onTap: () => Get.back(),
-    ));
+      icon: Icons.info,
+      icSize: 80.weight,
+      sH: 20.sH,
+      btn1: dialogBtn(
+        "Ok",
+        onTap: () => exit(0),
+      ),
+      btn2: dialogBtn(
+        "Cancel",
+        onTap: () => Get.back(),
+      ),
+    );

@@ -1,6 +1,5 @@
 import '/index.dart';
 
-
 dialogBtn(String title, {required void Function() onTap}) => BtnWidget(
       title,
       width: 120.weight,
@@ -21,11 +20,11 @@ dialogBody({
       width: double.infinity,
       child: Column(
         children: [
-           Icon(
-              icon,
-              size:icSize?? 120.weight,
-              color: AppColors.primary,
-            ),
+          Icon(
+            icon,
+            size: icSize ?? 120.weight,
+            color: AppColors.primary,
+          ),
           sH ?? 40.sH,
           Padding(
             padding: paddingSymme(horizontal: 2),

@@ -7,8 +7,8 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: getProportionateScreenHeight(20),
-        width: getProportionateScreenHeight(20),
+        height: 20.height,
+        width: 20.weight,
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(color ?? AppColors.white),
         ),
