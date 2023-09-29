@@ -1,6 +1,6 @@
 import '../../../../index.dart';
 
-class CartScreen extends GetView<CartControllerImp> {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
@@ -43,20 +43,18 @@ class CartScreen extends GetView<CartControllerImp> {
                               "${(double.parse(listCa.itemsPrice!) * double.parse(listCa.countitems!)).toInt()}";
                           // var dicountPrice = listCa.descountPrice!;
                           return CartAndFavoCard(
-                            count: listCa.countitems!,
+                            count: listCa.countitems,
                             image: listCa.itemsImage!,
-                            discont: listCa.itemsDiscount!,
+                            discont: listCa.itemsDiscount,
                             price: price,
                             dicountPrice: listCa.descountPrice!,
                             // '${double.parse(calculatingPrice(listCa.itemsPrice!, listCa.itemsDiscount!)).toInt() * double.parse(listCa.countitems!).toInt()}',
                             plus: () => controller.increse(
-                              isCartScrren: true,
                               add: true,
                               itemsId: listCa.itemsId!,
                               count: int.parse(listCa.countitems!),
                             ),
                             minus: () => controller.increse(
-                              isCartScrren: true,
                               add: false,
                               itemsId: listCa.itemsId!,
                               count: int.parse(listCa.countitems!),
@@ -108,19 +106,4 @@ class CartScreen extends GetView<CartControllerImp> {
       ),
     );
   }
-
-  /* checkOut1(CartControllerImp controller) {
-    return BtnWidget(
-      'Check Out',
-      padding: paddingOnly(top: 16, bottom: 20, right: 20, left: 20),
-      height: 40.height,
-      onPressed: () {
-        if (controller.listCart.isEmpty != true) {
-          controller.changeSelectedIndex();
-        } else {
-          snackBarMessage(msg: "No items in cart", title: "waring");
-        }
-      },
-    );
-  } */
 }

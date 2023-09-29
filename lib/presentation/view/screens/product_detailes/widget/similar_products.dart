@@ -7,7 +7,7 @@ Container similarProducts() {
       builder: (controller) => Column(
         children: [
           24.sH,
-          titleRow("Similar products", seeAll: false),
+          const TitleRow("Similar products", seeAll: false),
           15.sH,
           SizedBox(
             height: 225.height,
@@ -15,7 +15,7 @@ Container similarProducts() {
               scrollDirection: Axis.horizontal,
               itemCount: controller.itemsScreenList.length,
               itemBuilder: (context, i) => ForYouCard(
-                 favTap: () => controller.onfavoriteUpdat(), 
+                favTap: () => controller.onfavoriteUpdat(),
                 model: controller.itemsScreenList[i],
                 onTap: () {
                   snackBarSuccess();

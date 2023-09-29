@@ -80,39 +80,40 @@ Container productDetailes(ItemsControllerImp controller) {
         ),
         10.sH,
         Container(
-            alignment: Alignment.centerLeft,
-            height: 22.height,
-            child: Row(
-              children: [
-                Container(
-                  margin: paddingSymme(vertical: 0),
-                  child: RatingBar.builder(
-                    initialRating: controller.ratingVal,
-                    itemSize: 22.height,
-                    minRating: .5,
-                    maxRating: 5,
-                    itemCount: 5,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    unratedColor: Colors.amber[100],
-                    itemBuilder: (context, index) {
-                      return Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                        size: 1.height,
-                      );
-                    },
-                    onRatingUpdate: (value) => controller.onRatingUpdat(value),
-                  ),
+          alignment: Alignment.centerLeft,
+          height: 22.height,
+          child: Row(
+            children: [
+              Container(
+                margin: paddingSymme(vertical: 0),
+                child: RatingBar.builder(
+                  initialRating: controller.ratingVal,
+                  itemSize: 22.height,
+                  minRating: .5,
+                  maxRating: 5,
+                  itemCount: 5,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  unratedColor: Colors.amber[100],
+                  itemBuilder: (context, index) {
+                    return Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 1.height,
+                    );
+                  },
+                  onRatingUpdate: (value) => controller.onRatingUpdat(value),
                 ),
-                6.sW,
-                TextWidget(
-                  "${controller.ratingVal}",
-                  fontSize: 12.weight,
-                  fontWeight: FontWeight.w400,
-                ),
-              ],
-            )),
+              ),
+              6.sW,
+              TextWidget(
+                "${controller.ratingVal}",
+                fontSize: 12.weight,
+                fontWeight: FontWeight.w400,
+              ),
+            ],
+          ),
+        ),
         20.sH,
         listAnimatedContaierWidget(controller),
         20.sH,

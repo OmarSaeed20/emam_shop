@@ -11,7 +11,8 @@ class RouteHelper {
   static const String _resetPassword = '/set_new_password';
   static const String _register = '/register';
   static const String _verifySignup = '/verify_signup';
-  static const String _forgetVerfiyCode = '/forget_verfiy_code';
+  static const String _verifyPhone = '/verify_phone';
+  static const String _verfiyforget = '/verfiy_forget';
   static const String _main = '/main';
   static const String _notification = '/notification';
   static const String _itemsScreen = '/items_screen';
@@ -24,7 +25,7 @@ class RouteHelper {
   static const String _selectNewAddress = '/select_new_address';
   static const String _myOrders = '/my_orders';
   static const String _ordersDetailes = '/orders_detailes';
-  // static const String _ordersArchive = '/orders_archive';
+  static const String _productOffers = '/product_offers';
   static const String _helpSupport = '/help_support';
   static const String _contactus = '/contact_us';
   static const String _report = '/report_problem';
@@ -41,8 +42,9 @@ class RouteHelper {
   static String getSetOTPScre() => _setOtp;
   static String getResetPassword() => _resetPassword;
   static String getRegister() => _register;
-  static String getForgetVerfiyCode() => _forgetVerfiyCode;
+  static String getForgetVerfiyCode() => _verfiyforget;
   static String getVerifySignup() => _verifySignup;
+  static String getVerifyPhone() => _verifyPhone;
   static String getMain() => _main;
   static String getAllCategories() => _allCategorie;
   static String getItemsScreen() => _itemsScreen;
@@ -57,7 +59,7 @@ class RouteHelper {
   static String getSelectNewAddress() => _selectNewAddress;
   static String getMyOrders() => _myOrders;
   static String getOrdersDetailes() => _ordersDetailes;
-  // static String getOrdersArchive() => _ordersArchive;
+  static String getProductOffers() => _productOffers;
   static String getReport() => _report;
   static String getCart() => _cart;
   static String getCoupon() => _coupon;
@@ -95,12 +97,16 @@ class RouteHelper {
         page: () => const VerifyCodeSignupScreen(),
         transition: Transition.native),
     GetPage(
+        name: _verifyPhone,
+        page: () => const VerifyCodeSignPhoneScreen(),
+        transition: Transition.native),
+    GetPage(
         name: _forgetPass,
         page: () => const ForgetPasswordScreen(),
         transition: Transition.native),
     GetPage(
-        name: _forgetVerfiyCode,
-        page: () => const ForgetVerifyCodeScreen(),
+        name: _verfiyforget,
+        page: () => const VerifyForgetScreen(),
         transition: Transition.native),
     GetPage(
         name: _resetPassword,
@@ -130,7 +136,7 @@ class RouteHelper {
     ),
     GetPage(
         name: _editProfile,
-        page: () => const EditProfilePage(),
+        page: () => const EditProfileScreen(),
         transition: Transition.native),
     GetPage(
         name: _helpSupport,
@@ -164,10 +170,10 @@ class RouteHelper {
         name: _ordersDetailes,
         page: () => const OrdersDetailesScreen(),
         transition: Transition.native),
-   /*  GetPage(
-        name: _ordersArchive,
-        page: () => const OrdersArchiveSection(),
-        transition: Transition.native), */
+    GetPage(
+        name: _productOffers,
+        page: () => const OffersScreen(),
+        transition: Transition.native),
     GetPage(
         name: _report,
         page: () => const RreportPage(),

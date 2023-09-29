@@ -24,7 +24,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                       _body(controller)
                     ],
-                  ));
+                  ),);
             },
           ),
         ),

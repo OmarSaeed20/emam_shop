@@ -31,26 +31,26 @@ class FavoriteScreen extends StatelessWidget {
       child: ListView.builder(
         itemCount: controller.getFavList.length,
         itemBuilder: (context, i) {
-          List<FavoriteModel> list = controller.getFavList;
-          controller.isFavor[list[i].itemsId] = list[i].favoriteId;
+          FavoriteModel list = controller.getFavList[i];
+          controller.isFavor[list.itemsId] = list.favoriteId;
           return Padding(
             padding: paddingSymme(horizontal: 10),
             child: CartAndFavoCard(
               title: translateDatabase(
-                list[i].itemsNameAr!,
-                list[i].itemsName!,
+                list.itemsNameAr!,
+                list.itemsName!,
               ),
               isCartPage: false,
-              price: list[i].itemsPrice!,
-              image: list[i].itemsImage!,
-              favTap: () => controller.deleteFavourite(list[i].favoriteId!),
+              price: list.itemsPrice!,
+              image: list.itemsImage!,
+              favTap: () => controller.deleteFavourite(list.favoriteId!),
               active: true,
-              discont: list[i].itemsDiscount,
+              discont: list.itemsDiscount,
               active2: controller.pain,
               icon2: controller.painIcon,
               cartTap: () => controller.onAddPinUpdat(),
               dicountPrice:
-                  '${calculatingPrice(list[i].itemsPrice!, list[i].itemsDiscount!)}',
+                  '${calculatingPrice(list.itemsPrice!, list.itemsDiscount!)}',
             ),
           );
         },

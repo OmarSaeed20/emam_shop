@@ -1,12 +1,11 @@
- 
-
 import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
 
 abstract class ItemsController extends GetxController {
   void intialData();
-  Future<dynamic> getItemsData(String categoryid);
+  Future<dynamic> getItemsData(String categoryId);
+  Future<dynamic> getProductData(String itemsId);
   Future<dynamic> getItemsSearch(String search);
   void goToProductDetaile(ItemsModel itemsModel);
   /* void updateOrientation(Orientation newOrientation); */
@@ -15,13 +14,13 @@ abstract class ItemsController extends GetxController {
 class ItemsControllerImp extends ItemsController {
   static ItemsControllerImp get to => Get.find();
 
-  ItemsRepo repo = Get.find(); 
+  RepositoryImp repo = Get.find<RepositoryImp>();
   DatabaseHelper database = Get.find();
   String? lang;
 
   RequestStatus _requestStatu = RequestStatus.none;
   RequestStatus get requestStatu => _requestStatu;
- 
+
   // final String? _categoryId = Get.arguments['cateId'];
   /* // Store the current screen orientation
   var orientation = Orientation.portrait;
@@ -50,22 +49,52 @@ class ItemsControllerImp extends ItemsController {
   List<ItemsModel> _itemsScreenList = [];
   List<ItemsModel> get itemsScreenList => _itemsScreenList;
   @override
-  Future<dynamic> getItemsData(categoryid) async {
+  Future<dynamic> getItemsData(categoryId) async {
     _requestStatu = RequestStatus.loading;
     _itemsScreenList = [];
     update();
     var response = await repo.getItems(
-      categoryid: categoryid,
+      categoryid: categoryId,
       usersid: database.getString(EndPoint.userId),
     );
     _requestStatu = handlingRespose(response);
     if (_requestStatu == RequestStatus.success) {
       if (response["status"] == "success") {
-        for (var element in response["data"]) {
-          _itemsScreenList.add(ItemsModel.fromJson(element));
-          update();
-          debugPrint("$_itemsScreenList");
-        }
+        List result = response["data"];
+        _itemsScreenList.addAll(result.map((e) => ItemsModel.fromJson(e)));
+        // debugPrint("$_itemsScreenList");
+        update();
+      } else {
+        _requestStatu = RequestStatus.noData;
+        debugPrint('message getItemsData =>>RequestStatus.noData');
+        update();
+      }
+      update();
+    } else {
+      _requestStatu = RequestStatus.serverException;
+      snackBarMessage(title: "warning", msg: "Please try again");
+      update();
+    }
+  }
+
+  late ItemsModel _productData;
+  ItemsModel get productData => _productData;
+  @override
+  Future<dynamic> getProductData(itemsId) async {
+    _requestStatu = RequestStatus.loading;
+    update();
+    var response = await repo.getProductData(
+      itemsId: itemsId,
+      userId: database.getString(EndPoint.userId),
+    );
+    _requestStatu = handlingRespose(response);
+    if (_requestStatu == RequestStatus.success) {
+      if (response["status"] == "success") {
+        var result = response["data"];
+        _productData = ItemsModel.fromJson(result);
+        _itemsModePro = _productData;
+        debugPrint("_productData >>>>>>>>$_productData");
+        update();
       } else {
         _requestStatu = RequestStatus.noData;
         debugPrint('message getItemsData =>>RequestStatus.noData');
@@ -80,7 +109,7 @@ class ItemsControllerImp extends ItemsController {
       _requestStatu == RequestStatus.offLineFailure;
     } else {}
   }
- 
+
   @override
   Future<dynamic> getItemsSearch(search) async {
     _requestStatu = RequestStatus.loading;
@@ -172,9 +201,11 @@ class ItemsControllerImp extends ItemsController {
   ItemsModel? get itemsModePro => _itemsModePro;
   @override
   void goToProductDetaile(itemsModel) {
-    _itemsModePro = itemsModel;
-    CartControllerImp.to.getCountItem(_itemsModePro!.id!);
-    Get.toNamed(RouteHelper.getProductDetaile());
+    // _itemsModePro = itemsModel;
+    debugPrint("itemsModel.id>>  ${itemsModel.id!}");
+    CartControllerImp.to.getCountItem(itemsModel.id!);
+    getProductData(itemsModel.id!)
+        .then((value) => Get.toNamed(RouteHelper.getProductDetaile()));
     update();
   }
 

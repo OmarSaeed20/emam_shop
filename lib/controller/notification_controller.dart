@@ -8,7 +8,7 @@ class NotificationControllerImp extends NotificationController {
   static NotificationControllerImp get to =>
       Get.find<NotificationControllerImp>();
 
-  NotificationRepo repo = Get.find<NotificationRepo>();
+  final RepositoryImp _repo = Get.find<RepositoryImp>();
 
   final DatabaseHelper database = Get.find();
   late String userId;
@@ -37,7 +37,7 @@ class NotificationControllerImp extends NotificationController {
   Future<dynamic> getNotificationData() async {
     _requestStatu = RequestStatus.loading;
     update();
-    var response = await repo.getNotification(usersid: userId);
+    var response = await _repo.getNotification(usersid: userId);
     _requestStatu = handlingRespose(response);
     if (_requestStatu == RequestStatus.success) {
       if (response["status"] == "success") {
@@ -45,7 +45,7 @@ class NotificationControllerImp extends NotificationController {
         List result = response["data"];
         _notificationList
             .addAll(result.map((e) => NotificationModel.fromJson(e)));
-            _notificationList.sort((a, b) => b.datatime!.compareTo(a.datatime!));
+        _notificationList.sort((a, b) => b.datatime!.compareTo(a.datatime!));
         update();
         debugPrint("Notification >> $_notificationList");
       } else {

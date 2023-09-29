@@ -16,7 +16,7 @@ requestSendNorificationPermission() async {
   );
 
   debugPrint(
-      'User granted permission: >>>>>>>>>>?  ${settings.authorizationStatus}');
+      'User granted permission: ${settings.authorizationStatus}');
 }
 
 fcmConfing() {

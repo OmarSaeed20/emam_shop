@@ -13,7 +13,7 @@ Stack userProfileImage({bool? isEdit = false, void Function()? onTap}) {
             color: AppColors.white,
           ),
           child:
-              Image.asset(AppImages.user, width: 90.weight, height: 90.height),
+              Image.asset(AppImages.boy, width: 90.weight, height: 90.height),
         ),
       ),
       if (isEdit!)

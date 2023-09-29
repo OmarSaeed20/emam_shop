@@ -1,4 +1,4 @@
-import 'dart:async'; 
+import 'dart:async';
 
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/octicons_icons.dart';
@@ -13,7 +13,7 @@ abstract class AddressController extends GetxController {
 class AddressControllerImp extends AddressController {
   static AddressControllerImp get to => Get.find();
 
-  AddressRepo repo = Get.find();
+  RepositoryImp repo = Get.find();
   DatabaseHelper database = Get.find();
   GetAddressDataControllerImp getAddrContro = Get.find();
 
@@ -54,11 +54,11 @@ class AddressControllerImp extends AddressController {
   IconData icon = FontAwesome.github;
   IconData icon2 = Octicons.bold;
 
-  AddressModel? editModel;
+  AddressResponse? editModel;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   // @override
-  goToSelectNewAddress({AdresEnm? addrEnum, AddressModel? model}) {
+  goToSelectNewAddress({AdresEnm? addrEnum, AddressResponse? model}) {
     debugPrint('goToSelectNewAddress >>>>  ?>>>? $addrEnum');
 
     getAddrContro.selectedIndexEnum = addrEnum;
@@ -66,11 +66,13 @@ class AddressControllerImp extends AddressController {
     update();
     try {
       if (addrEnum == AdresEnm.addAddres) {
-        getAddrContro.init(AdresEnm.addAddres).then((value) {
-          if (getAddrContro.cameraPosition != null) {
-            Get.toNamed(RouteHelper.getSelectNewAddress());
-          }
-        });
+        getAddrContro.init(AdresEnm.addAddres).then(
+          (value) {
+            if (getAddrContro.cameraPosition != null) {
+              Get.toNamed(RouteHelper.getSelectNewAddress());
+            }
+          },
+        );
         _requestStatus = RequestStatus.success;
 
         update();
@@ -78,20 +80,22 @@ class AddressControllerImp extends AddressController {
         getAddrContro.selectedIndexEnum = AdresEnm.edit;
         editModel = model;
         debugPrint("editModel??????????>>>>> $editModel");
-        editInit().then((value) {
-          debugPrint(
-              'editInit getAddrContro.addrsEdit>>>>>>>>>${getAddrContro.addrsEdit}');
-          editAddress =
-              TextEditingController(text: "${getAddrContro.addrsEdit} ");
-          editlandMark = TextEditingController(text: "${editModel!.landmark}");
-          edituserName = TextEditingController(text: "${editModel!.fullName}");
-          editTitle = TextEditingController(text: "${editModel!.title}");
-          getAddrContro.lat = double.parse(editModel!.lat!);
-          getAddrContro.long = double.parse(editModel!.long!);
-          debugPrint('editInit  ?>>>? $addrEnum');
+        editInit().then(
+          (value) {
+            debugPrint(
+                'editInit getAddrContro.addrsEdit>>>>>>>>>${getAddrContro.addrsEdit}');
+            editAddress =
+                TextEditingController(text: "${getAddrContro.addrsEdit} ");
+            editlandMark = TextEditingController(text: editModel!.landmark);
+            edituserName = TextEditingController(text: editModel!.fullName);
+            editTitle = TextEditingController(text: editModel!.title);
+            getAddrContro.lat = double.parse(editModel!.lat!);
+            getAddrContro.long = double.parse(editModel!.long!);
+            debugPrint('editInit  ?>>>? $addrEnum');
 
-          Get.toNamed(RouteHelper.getSelectNewAddress());
-        });
+            Get.toNamed(RouteHelper.getSelectNewAddress());
+          },
+        );
 
         _requestStatus = RequestStatus.success;
 
@@ -105,16 +109,16 @@ class AddressControllerImp extends AddressController {
     // Get.toNamed(RouteHelper.getSelectNewAddress());
   }
 
-  AddressModel? selectedAdressmodel;
-  continueToCheckOut({required AddressModel addrModel}) {
+  AddressResponse? selectedAdressmodel;
+  continueToCheckOut({required AddressResponse addrModel}) {
     selectedAdressmodel = addrModel;
     debugPrint(selectedAdressmodel.toString());
     Get.back();
     update();
   }
 
-  final List<AddressModel> _listaddress = [];
-  List<AddressModel> get listaddress => _listaddress;
+  final List<AddressResponse> _listaddress = [];
+  List<AddressResponse> get listaddress => _listaddress;
 
   Future<void> getAddressView() async {
     try {
@@ -126,7 +130,7 @@ class AddressControllerImp extends AddressController {
         if (response['status'] == 'success') {
           _listaddress.clear();
           List result = response["data"];
-          _listaddress.addAll(result.map((e) => AddressModel.fromJson(e)));
+          _listaddress.addAll(result.map((e) => AddressResponse.fromJson(e)));
           update();
         } else {
           _requestStatus = RequestStatus.noData;
@@ -145,8 +149,7 @@ class AddressControllerImp extends AddressController {
   Future<void> onTapAddAddress() async {
     _requestStatus = RequestStatus.loading;
     update();
-    AddressModel model = AddressModel(
-      addressId: '',
+    AddressRequest model = AddressRequest(
       usersid: userId,
       fullAddress: getAddrContro.getAddress!.text,
       fullName: getAddrContro.userName!.text,
@@ -159,7 +162,7 @@ class AddressControllerImp extends AddressController {
           ? "${getAddrContro.position!.longitude}"
           : "${getAddrContro.long}",
     );
-    debugPrint(model.toString());
+    debugPrint("request add >>>> $model");
     debugPrint("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
 
     final response = await repo.addAddress(body: model.toJson());
@@ -178,26 +181,24 @@ class AddressControllerImp extends AddressController {
     update();
   }
 
-  AddressModel? modelVl;
+  AddressResponse? modelVl;
   Future<void> onTapEditAddress(String addressId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    AddressModel model = AddressModel(
-      addressId: addressId,
-      usersid: userId,
-      fullAddress: "${editAddress!.text} ",
-      fullName: "${edituserName!.text} ",
-      landmark: "${editlandMark!.text} ",
-      title: "${editTitle!.text} ",
-      lat: getAddrContro.lat == null
-          ? "${editModel!.lat}"
-          : "${getAddrContro.lat}",
-      long: getAddrContro.long == null
+    AddressResponse model = AddressResponse(
+      addressId,
+      userId,
+      "${editAddress!.text} ",
+      "${edituserName!.text} ",
+      "${editlandMark!.text} ",
+      "${editTitle!.text} ",
+      getAddrContro.lat == null ? editModel!.lat : "${getAddrContro.lat}",
+      getAddrContro.long == null
           ? "${editModel!..long}"
           : "${getAddrContro.long}",
     );
     modelVl = model;
-    debugPrint(model.toString());
+    debugPrint("request edit >>.>$model");
     debugPrint("${getAddrContro.lat} -- -- -- ${getAddrContro.long}");
 
     final response = await repo.editAddress(body: model.toJson());

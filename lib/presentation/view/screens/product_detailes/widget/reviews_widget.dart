@@ -19,7 +19,7 @@ SingleChildScrollView reviews() {
               itemBuilder: (context, index) => _comment(),
             ),
           ),
-          titleRow(""),
+          const TitleRow(""),
           Container(
             decoration: BoxDecoration(
               color: AppColors.grey150,
@@ -28,7 +28,7 @@ SingleChildScrollView reviews() {
             ),
             child: ListTile(
               leading: CircleAvatar(
-                child: Image.asset(AppImages.user),
+                child: Image.asset(AppImages.boy),
               ),
               // horizontalTitleGap: 0,
               title: TextWidget(
@@ -49,7 +49,7 @@ Row _comment() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       CircleAvatar(
-        child: Image.asset(AppImages.user),
+        child: Image.asset(AppImages.boy),
       ),
       8.sW,
       Expanded(

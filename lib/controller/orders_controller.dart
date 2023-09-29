@@ -15,9 +15,9 @@ abstract class MyOrderController extends GetxController
 
 class MyOrderControllerImp extends MyOrderController {
   static MyOrderControllerImp get to => Get.find();
-  MyOrderRepo repo = Get.find<MyOrderRepo>();
+  final RepositoryImp _repo = Get.find<RepositoryImp>();
 
-  final DatabaseHelper database = Get.find();
+  final DatabaseHelper _database = Get.find<DatabaseHelper>();
   Completer<GoogleMapController>? completer;
   late String userId;
   late String userName;
@@ -28,10 +28,10 @@ class MyOrderControllerImp extends MyOrderController {
   RequestStatus get requestStatus => _requestStatus;
 
   init() {
-    userId = database.getString(EndPoint.userId);
-    userName = database.getString(EndPoint.userName);
-    userEmail = database.getString(EndPoint.userEmail);
-    userPhone = database.getString(EndPoint.userPhone);
+    userId = _database.getString(EndPoint.userId);
+    userName = _database.getString(EndPoint.userName);
+    userEmail = _database.getString(EndPoint.userEmail);
+    userPhone = _database.getString(EndPoint.userPhone);
 
     _tabController = TabController(length: 2, vsync: this);
 
@@ -67,7 +67,7 @@ class MyOrderControllerImp extends MyOrderController {
     _requestStatus = RequestStatus.loading;
 
     update();
-    var response = await repo.getOrderPending(userId);
+    var response = await _repo.getOrderPending(userId);
     _requestStatus = handlingRespose(response);
 
     if (_requestStatus == RequestStatus.success) {
@@ -94,7 +94,7 @@ class MyOrderControllerImp extends MyOrderController {
   onTapRemoveOrder(ordersId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    final response = await repo.removeOrder(ordersId);
+    final response = await _repo.removeOrder(ordersId);
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
@@ -172,7 +172,7 @@ class MyOrderControllerImp extends MyOrderController {
   getOrderDetails(orderId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    var response = await repo.getOrderDetails(orderId);
+    var response = await _repo.getOrderDetails(orderId);
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
@@ -210,7 +210,7 @@ class MyOrderControllerImp extends MyOrderController {
   getArchiveOrders() async {
     archiRequestStatus = RequestStatus.loading;
     update();
-    var response = await repo.getArchiveOrders(userId);
+    var response = await _repo.getArchiveOrders(userId);
     archiRequestStatus = handlingRespose(response);
     if (archiRequestStatus == RequestStatus.success) {
       if (response["status"] == "success") {

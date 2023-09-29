@@ -5,7 +5,7 @@ class AnimatedBtn extends StatelessWidget {
   const AnimatedBtn(
     this.text, {
     Key? key,
-    required this.onPressed,
+    required this.onTap,
     this.textColo,
     this.color,
     this.fontSize,
@@ -16,10 +16,10 @@ class AnimatedBtn extends StatelessWidget {
     this.isLoading = false,
     this.padding,
     this.fontWeight,
-    this.icon,
+    this.icon, this.margin,
   }) : super(key: key);
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback onTap;
   final Color? textColo;
   final BorderSide? border;
   final Color? color;
@@ -31,21 +31,25 @@ class AnimatedBtn extends StatelessWidget {
   final IconData? icon;
   final FontWeight? fontWeight;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   @override
   Widget build(BuildContext context) {
-    return AnimatedButton(
-      text: text,
-      buttonTextStyle: TextStyle(
-        fontSize: (fontSize ?? 14).weight,
-        fontWeight: fontWeight ?? FontWeight.w400,
-        color: textColo ?? AppColors.black,
+    return Padding(
+      padding: margin ?? paddingOnly(),
+      child: AnimatedButton(
+        text: text,
+        buttonTextStyle: TextStyle(
+          fontSize: (fontSize ?? 14).weight,
+          fontWeight: fontWeight ?? FontWeight.w400,
+          color: textColo ?? AppColors.white,
+        ),
+        borderRadius: BorderRadius.circular((radius ?? 6.0).weight),
+        color: color ?? AppColors.primary,
+        height: (height ?? 40).height,
+        width: width ?? double.infinity,
+        icon: icon,
+        pressEvent: onTap,
       ),
-      borderRadius: BorderRadius.circular((radius ?? 6.0).weight),
-      color: color ?? AppColors.primary,
-      height: (height ?? 40).height,
-      width: width ?? double.infinity,
-      icon: icon,
-      pressEvent: onPressed,
     );
   }
 }

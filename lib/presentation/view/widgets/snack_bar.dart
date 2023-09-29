@@ -2,63 +2,65 @@ import 'package:flutter/cupertino.dart';
 
 import '/index.dart';
 
-snackBarMessage({String? title, required String msg}) =>
-    Get.showSnackbar(GetSnackBar(
-      snackPosition: SnackPosition.TOP,
-      duration: const Duration(milliseconds: 4000),
-      backgroundColor: AppColors.offWhite3,
-      leftBarIndicatorColor: AppColors.red,
-      icon: Padding(
-        padding: paddingSymme(horizontal: 12),
-        child: Icon(
-          CupertinoIcons.exclamationmark_bubble,
-          color: AppColors.red,
-          size: 35.height,
+snackBarMessage({String? title, required String msg}) => Get.showSnackbar(
+      GetSnackBar(
+        snackPosition: SnackPosition.TOP,
+        duration: const Duration(milliseconds: 4000),
+        backgroundColor: AppColors.offWhite3,
+        leftBarIndicatorColor: AppColors.red,
+        icon: Padding(
+          padding: paddingSymme(horizontal: 12),
+          child: Icon(
+            CupertinoIcons.exclamationmark_bubble,
+            color: AppColors.red,
+            size: 35.height,
+          ),
+        ),
+        titleText: Padding(
+          padding: paddingSymme(horizontal: 10),
+          child: TextWidget(title ?? "", fontWeight: FontWeight.w700),
+        ),
+        messageText: Padding(
+          padding: paddingSymme(horizontal: 10),
+          child: TextWidget(msg, fontSize: 14),
         ),
       ),
-      titleText: Padding(
-        padding: paddingSymme(horizontal: 10),
-        child: TextWidget(title ?? "", fontWeight: FontWeight.w700),
-      ),
-      messageText: Padding(
-        padding: paddingSymme(horizontal: 10),
-        child: TextWidget(msg, fontSize: 14),
-      ),
-    ));
+    );
 
 snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
-    Get.showSnackbar(GetSnackBar(
-      duration: const Duration(milliseconds: 4000),
-      icon: Padding(
-        padding: paddingSymme(horizontal: 12),
-        child: Icon(
-          // CupertinoIcons.wifi_exclamationmark,
-          Icons.network_check_outlined,
-          color: isSuccess == true ? AppColors.success : AppColors.red,
-          size: 35.height,
+    Get.showSnackbar(
+      GetSnackBar(
+        duration: const Duration(milliseconds: 4000),
+        icon: Padding(
+          padding: paddingSymme(horizontal: 12),
+          child: Icon(
+            // CupertinoIcons.wifi_exclamationmark,
+            Icons.network_check_outlined,
+            color: isSuccess == true ? AppColors.success : AppColors.red,
+            size: 35.height,
+          ),
         ),
-      ),
-      leftBarIndicatorColor:
-          isSuccess == true ? AppColors.success : AppColors.red,
-      titleText: Padding(
-        padding: paddingSymme(horizontal: 10),
-        child: const TextWidget(
-          "internet connection",
-          fontWeight: FontWeight.w600,
+        leftBarIndicatorColor:
+            isSuccess == true ? AppColors.success : AppColors.red,
+        titleText: Padding(
+          padding: paddingSymme(horizontal: 10),
+          child: const TextWidget(
+            "internet connection",
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-      messageText: Padding(
-        padding: paddingSymme(horizontal: 10),
-        child: TextWidget(
-          isSuccess == true
-              ? "connected internet successflly"
-              : "Please check your internet connection",
-          fontSize: 14,
+        messageText: Padding(
+          padding: paddingSymme(horizontal: 10),
+          child: TextWidget(
+            isSuccess == true
+                ? "connected internet successflly"
+                : "Please check your internet connection",
+            fontSize: 14,
+          ),
         ),
-      ),
-      backgroundColor: AppColors.offWhite3,
-      snackPosition: SnackPosition.BOTTOM,
-      /*  mainButton:isSuccess==false? Container(
+        backgroundColor: AppColors.offWhite3,
+        snackPosition: SnackPosition.BOTTOM,
+        /*  mainButton:isSuccess==false? Container(
         height: 30.height,
         width: 50.weight,
         decoration: BoxDecoration(
@@ -80,30 +82,28 @@ snackBarChickInternetConnection(bool isSuccess, {void Function()? onTap}) =>
           ),
         ),
       ):Container(), */
-    ));
+      ),
+    );
 
-snackBarSuccess({IconData? icon, String? msg,bool isSuc=true}) => Get.showSnackbar(
+snackBarSuccess({IconData? icon, String? msg, bool isSuc = true}) =>
+    Get.showSnackbar(
       GetSnackBar(
         duration: const Duration(milliseconds: 4000),
-        leftBarIndicatorColor:isSuc? Colors.green[600]: AppColors.red,
+        leftBarIndicatorColor: isSuc ? Colors.green[600] : AppColors.red,
         backgroundColor: AppColors.offWhite3,
         snackPosition: SnackPosition.TOP,
         icon: Padding(
-          padding: paddingSymme(horizontal: 12),
+          padding: paddingOnly(left: 20),
           child: Icon(
-            isSuc?
-            icon ?? Icons.check_circle_rounded:
-            icon ?? Icons.error,
-            color:isSuc? Colors.green[600]: AppColors.red,
+            isSuc ? icon ?? Icons.check_circle_rounded : icon ?? Icons.error,
+            color: isSuc ? Colors.green[600] : AppColors.red,
             size: 35.height,
           ),
         ),
         messageText: Padding(
-          padding: paddingSymme(horizontal: 10),
+          padding: paddingOnly(left: 30),
           child: TextWidget(
-            isSuc?
-            msg ?? "Success":
-            msg ?? "failure",
+            isSuc ? msg ?? "Success" : msg ?? "failure",
             textAlign: TextAlign.justify,
           ),
         ),

@@ -20,6 +20,18 @@ class ContactusPage extends StatelessWidget {
                   horizontalTitleGap: 4,
                   onTap: () {
                     controller.launchUrll(data.url);
+                    /*  <!-- <!-- Place inside the <queries> element. -->
+    <queries>
+    <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="sms" />
+    </intent>
+    <!-- Lets the app load an icon corresponding to the custom MIME type. -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="tel" />
+    </intent>
+    <queries> --> */
                   },
                   leadingImg: data.img,
                   title: data.title,

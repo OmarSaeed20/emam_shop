@@ -1,13 +1,23 @@
 import '/index.dart';
 
-Row titleRow(
-  String title, {
-  VoidCallback? onTap,
-  double? foSiz,
-  bool seeAll = true,
-  String? all,
-}) =>
-    Row(
+class TitleRow extends StatelessWidget {
+  final String title;
+  final VoidCallback? onTap;
+  final double? foSiz;
+  final bool seeAll;
+  final String? all;
+
+  const TitleRow(
+    this.title, {
+    super.key,
+    this.onTap,
+    this.seeAll = true,
+    this.foSiz,
+    this.all,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
@@ -22,7 +32,7 @@ Row titleRow(
             onPressed: onTap ?? () {},
             child: Row(
               children: [
-                TextWidget(all??"See all", fontSize: 14.weight),
+                TextWidget(all ?? "See all", fontSize: 14.weight),
                 3.sW,
                 Icon(
                   MyLocaleControllerImp.to.themeData == themeEN
@@ -37,3 +47,5 @@ Row titleRow(
           ),
       ],
     );
+  }
+}

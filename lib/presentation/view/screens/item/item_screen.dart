@@ -77,7 +77,7 @@ class _ItemScreenState extends State<ItemScreen> {
             return ProductGridViewCard(
               active:
                   favController.isFavor[itemsList[i].id] == "1" ? true : false,
-              itemsModel: itemsList[i],
+              model: itemsList[i],
               onTap: () => controller.goToProductDetaile(itemsList[i]),
             );
           },

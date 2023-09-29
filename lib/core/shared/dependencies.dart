@@ -26,7 +26,7 @@ Future<void> init() async {
 
   Get.lazyPut(() => ApiClient(), fenix: true);
 
-  Get.lazyPut(() => OnBoardingContoller());
+  Get.lazyPut(() => OnBoardingContoller(Get.find<DatabaseHelper>()));
   Get.lazyPut(() => SignUpControllerImp(), fenix: true);
   Get.lazyPut(() => SignInControllerImp(), fenix: true);
   Get.lazyPut(() => ForgetPasswordControllerImp(), fenix: true);
@@ -44,18 +44,13 @@ Future<void> init() async {
   Get.lazyPut(() => PaymentControllerImp(), fenix: true);
   Get.lazyPut(() => MyOrderControllerImp(), fenix: true);
   Get.lazyPut(() => NotificationControllerImp(), fenix: true);
+  Get.lazyPut(() => UserControllerImp(), fenix: true);
+  Get.lazyPut(() => OffersControllerImp(), fenix: true);
 
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
   Get.lazyPut(() => TestController(), fenix: true);
   // repo
-  Get.lazyPut(() => AuthRepo(), fenix: true);
-  Get.lazyPut(() => HomeRepo(), fenix: true);
-  Get.lazyPut(() => ItemsRepo(), fenix: true);
-  Get.lazyPut(() => FavoriteRepo(), fenix: true);
-  Get.lazyPut(() => CartRepo(), fenix: true);
-  Get.lazyPut(() => CouponRepo(), fenix: true);
-  Get.lazyPut(() => AddressRepo(), fenix: true);
-  Get.lazyPut(() => MyOrderRepo(), fenix: true);
-  Get.lazyPut(() => NotificationRepo(), fenix: true);
+
+  Get.lazyPut(() => RepositoryImp(Get.find<ApiClient>()), fenix: true);
 }

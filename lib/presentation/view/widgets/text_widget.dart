@@ -40,7 +40,7 @@ class TextWidget extends StatelessWidget {
       locale: locale,
       style: TextStyle(
         wordSpacing: wordSpacing,
-        fontSize: getProportionateScreenWidth(fontSize ?? 16),
+        fontSize: getProportionateScreenWidth(fontSize ?? 14),
         letterSpacing: spacing,
         color: color ?? AppColors.black,
         height: height,

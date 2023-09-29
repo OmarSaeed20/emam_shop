@@ -8,13 +8,27 @@ import 'package:fluttericon/octicons_icons.dart';
 import '/index.dart';
 
 class TestController extends GetxController {
-  AuthRepo repo = Get.find();
+  RepositoryImp repo = Get.find();
 
   RequestStatus requestStatus = RequestStatus.none;
+  final DatabaseHelper database = Get.find();
+  late String userId;
+  late String userName;
+  late String userEmail;
+  late String userPhone;
+
+  init() {
+    requestStatus = RequestStatus.loading;
+    userId = database.getString(EndPoint.userId);
+    userName = database.getString(EndPoint.userName);
+    userEmail = database.getString(EndPoint.userEmail);
+    userPhone = database.getString(EndPoint.userPhone);
+    getData();
+  }
 
   @override
   void onInit() {
-    getData();
+    init();
     super.onInit();
   }
 
@@ -22,13 +36,14 @@ class TestController extends GetxController {
   UserModel? get userData => _userdata;
   Future<dynamic> getData() async {
     requestStatus = RequestStatus.loading;
-
-    var response = await repo.getData();
+    update(); 
+    var response = await repo.getUserData(userid: userId);
     requestStatus = handlingRespose(response);
+    debugPrint("++++++++++++++>>>>>>>$requestStatus");
 
     if (requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        _userdata = UserModel.fromJson(response["data"][0]);
+        _userdata = UserModel.fromJson(response["data"]);
         log(_userdata.toString());
         // _userdata.addAll(requst);
       } else {
@@ -39,7 +54,7 @@ class TestController extends GetxController {
   }
 
 //////////////////////////////  Binary   ///////////////////////////
-  List<CategoriesModel>? categories = HomeControllerImp.to.categories!;
+  /* // List<CategoriesModel>? categories = HomeControllerImp.to.categories;
 
   CategoriesModel? getCategoryByIdLinear2(int id) {
     // Use linear search to find a category by its ID
@@ -97,7 +112,7 @@ class TestController extends GetxController {
     }
     return null;
   }
-
+ */
   ///////////////////////// Sort
 
   List<int> listint = [4, 5, 8, 0, 1, 7, 9, 7, 12, 3, 2];
@@ -116,6 +131,6 @@ class TestController extends GetxController {
     }
   }
 
-  IconData icon =FontAwesome.github;
-  IconData icon2 =Octicons.bold;
+  IconData icon = FontAwesome.github;
+  IconData icon2 = Octicons.bold;
 }

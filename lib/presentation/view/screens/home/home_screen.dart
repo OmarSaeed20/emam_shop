@@ -33,26 +33,26 @@ class HomePage extends StatelessWidget {
                   5.sH,
                   HomeBanner(controller),
                   15.sH,
-                  titleRow(
+                  TitleRow(
                     "Categories",
                     onTap: () => controller.goToAllCategories(),
                   ),
                   SizedBox(
                     height: 45.height,
                     child: ListView.builder(
-                      itemCount: cate!.length,
+                      itemCount: cate.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, i) => categoriesCard(
-                        model: controller.categories![i],
+                        model: controller.categories[i],
                         onTap: () => controller.goToItemScreen(
                           i,
-                          controller.categories![i].id!,
+                          controller.categories[i].id!,
                         ),
                       ),
                     ),
                   ),
                   15.sH,
-                  titleRow("Product For you", onTap: () {}),
+                  TitleRow("Product For you", onTap: () {}),
                   SizedBox(
                     height: 225.height,
                     child: ListView.builder(
@@ -61,30 +61,34 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, i) => ForYouCard(
                         model: controller.allItems[i],
                         onTap: () {
-                          controller.goToProductDeScreen(
-                            controller.allItems[i],
-                            controller.allItems[i].categoriesId,
-                          );
+                          ItemsControllerImp.to
+                              .goToProductDetaile(controller.allItems[i]);
                         },
                       ),
                     ),
                   ),
                   15.sH,
-                  titleRow("Popular", seeAll: false),
-                  15.sH,
-                  SizedBox(
-                    height: 225.height,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.allItems.length,
-                      itemBuilder: (context, i) => ForYouCard(
-                        model: controller.allItems[i],
-                        onTap: () {
-                          /*  controller
-                            .goToProductDetaile(controller.allItems[i]) */
-                        },
-                      ),
-                    ),
+                  TitleRow(
+                    "Offers",
+                    onTap: () => Get.toNamed(RouteHelper.getProductOffers()),
+                  ),
+                  GetBuilder<OffersControllerImp>(
+                    builder: (offContro) {
+                      return SizedBox(
+                        height: 225.height,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: offContro.offersList.length,
+                          itemBuilder: (context, i) => ForYouCard(
+                            model: offContro.offersList[i],
+                            onTap: () {
+                              ItemsControllerImp.to
+                                  .goToProductDetaile(offContro.offersList[i]);
+                            },
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   124.sH,
                 ],

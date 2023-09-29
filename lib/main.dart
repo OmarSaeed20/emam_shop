@@ -1,5 +1,6 @@
 import '/index.dart';
 import 'core/shared/dependencies.dart' as dependencies;
+ 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

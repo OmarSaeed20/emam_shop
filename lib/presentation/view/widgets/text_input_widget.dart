@@ -14,7 +14,8 @@ class TextInputWidget extends StatelessWidget {
     this.suffixIcon,
     this.onPressed,
     this.val,
-    this.suffixIconColor, this.fontSize,
+    this.suffixIconColor,
+    this.fontSize,
   }) : super(key: key);
   final TextEditingController? controller;
   final TextInputType? type;
@@ -57,7 +58,8 @@ class TextInputWidget extends StatelessWidget {
             onChanged: onChanged,
             validator: validator,
             cursorColor: AppColors.black,
-            style: TextStyle(color: AppColors.black, fontSize: fontSize?? 16.weight),
+            style: TextStyle(
+                color: AppColors.black, fontSize: fontSize ?? 16.weight),
             decoration: InputDecoration(
               contentPadding: EdgeInsetsDirectional.fromSTEB(
                   10.weight, 15.height, 0.0, 15.weight),
@@ -80,19 +82,10 @@ class TextInputWidget extends StatelessWidget {
               filled: true,
               fillColor: AppColors.white,
               prefixIcon: prefixIcon != null
-                  // ignore: avoid_unnecessary_containers
-                  ? Container(
-                      // height: 5.height,
-                      // width: 15.weight,
-                      // decoration: BoxDecoration(
-                      //   borderRadius: BorderRadius.circular(10.weight),
-                      //   color: AppColors.primary.withOpacity(.2),
-                      // ),
-                      child: Icon(
-                        prefixIcon,
-                        size: 20.height,
-                        color: AppColors.primary,
-                      ),
+                  ? Icon(
+                      prefixIcon,
+                      size: 20.height,
+                      color: AppColors.primary,
                     )
                   : null,
               suffixIcon: suffixIcon != null

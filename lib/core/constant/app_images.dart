@@ -20,7 +20,7 @@ class AppImages {
 
   static const String filter2 = "${_img}filter.png";
 
-  static const String user = "${_img}boy.png";
+  static const String boy = "${_img}boy.png";
 
   static const String creditCard = "${_img}credit-card.png";
   static const String cashOnDelivery = "${_img}cash-on-delivery.png";
@@ -71,7 +71,7 @@ class AppImages {
   static const String status3 = "${_img}3.png";
   static const String status44 = "${_img}44.png";
   static const String status4 = "${_img}4.png";
-  
+
   //loading
   static const String loading2 = "${_lot}loading2.json";
   static const String loadingWait = "${_lot}loading-wait.json";

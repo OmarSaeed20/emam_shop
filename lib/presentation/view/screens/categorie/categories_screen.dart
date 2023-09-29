@@ -36,7 +36,7 @@ class CategorigsScreen extends StatelessWidget {
   SafeArea _body(HomeControllerImp controller) {
     return SafeArea(
       child: ListView.builder(
-        itemCount: controller.categories!.length,
+        itemCount: controller.categories.length,
         itemBuilder: (context, index) {
           return listTileItems(controller, index);
         },

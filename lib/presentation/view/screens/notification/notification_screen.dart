@@ -6,7 +6,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notifications')),
+      appBar: AppBar(title: const TextWidget('Notifications')),
       body: GetBuilder<NotificationControllerImp>(
         builder: (controller) => ListView.builder(
           itemCount: controller.notificationList.length,

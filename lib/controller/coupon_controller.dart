@@ -1,4 +1,3 @@
- 
 import '/index.dart';
 
 abstract class CouponController extends GetxController {
@@ -8,9 +7,10 @@ abstract class CouponController extends GetxController {
 }
 
 class CouponControllerImp extends CouponController {
-  CouponControllerImp get to => Get.find();
+  static CouponControllerImp get to => Get.find();
 
-  CouponRepo repo = Get.find();
+  final RepositoryImp _repo = Get.find<RepositoryImp>();
+
   DatabaseHelper database = Get.find();
   // loading
   RequestStatus _requestStatus = RequestStatus.none;
@@ -18,6 +18,7 @@ class CouponControllerImp extends CouponController {
   DateTime? now;
   @override
   void onInit() {
+    _couponModel = null;
     getCouponsView();
     now = DateTime.now();
     super.onInit();
@@ -44,7 +45,7 @@ class CouponControllerImp extends CouponController {
   Future<void> getCouponsView() async {
     _requestStatus = RequestStatus.loading;
     update();
-    var response = await repo.getCoupons();
+    var response = await _repo.getCoupons();
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
@@ -72,28 +73,22 @@ class CouponControllerImp extends CouponController {
     if (!search.isBlank!) {
       _requestStatus = RequestStatus.loading;
       update();
-      var response = await repo.getCouponName(couponName ?? search!.text);
+      var response = await _repo.getCouponName(couponName ?? search!.text);
       _requestStatus = handlingRespose(response);
-
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
-          _requestStatus = RequestStatus.success;
-          _couponModel = CouponModel.fromJson(response["data"]);
+          var result = response["data"];
+          _couponModel = CouponModel.fromJson(result);
+          update();
+          Get.toNamed(RouteHelper.getCart());
           snackBarSuccess(
               msg: "you got ${response["data"]['coupon_discount']}");
-          Get.offNamed(RouteHelper.getCart());
-          update();
         } else {
           _requestStatus = RequestStatus.success;
           snackBarMessage(title: "warning", msg: response["data"]);
           update();
         }
-      } else if (_requestStatus == RequestStatus.offLineFailure ||
-          _requestStatus == RequestStatus.serverFailure ||
-          _requestStatus == RequestStatus.serverException) {
-        snackBarMessage(title: "warning", msg: "can't get data");
-        update();
-      } else {}
+      }
     }
     update();
   }

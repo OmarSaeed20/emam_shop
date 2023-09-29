@@ -13,7 +13,7 @@ abstract class SignInController extends GetxController {
 class SignInControllerImp extends SignInController {
   SignInControllerImp get to => Get.find();
 
-  AuthRepo repo = Get.find();
+  final RepositoryImp _repo = Get.find();
   DatabaseHelper database = Get.find();
   // loading
   RequestStatus _requestStatus = RequestStatus.none;
@@ -74,8 +74,9 @@ class SignInControllerImp extends SignInController {
       _requestStatus = RequestStatus.loading;
       // popLoading();
       update();
-      var response =
-          await repo.signin(email: email.text, password: password.text);
+      SignInRequest request =
+          SignInRequest(email: email.text, password: password.text);
+      var response = await _repo.signin(body: request);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -89,11 +90,11 @@ class SignInControllerImp extends SignInController {
             );
             _onSuccessLogin();
           } else {
+            SignUpControllerImp.to.startCountdown();
             Get.toNamed(
               RouteHelper.getVerifySignup(),
               arguments: {"email": email.text},
             );
-            SignUpControllerImp.to.startCountdown();
           }
           update();
         } else {
@@ -101,12 +102,7 @@ class SignInControllerImp extends SignInController {
           snackBarMessage(title: "warning", msg: response["data"]);
         }
         update();
-      } else if (_requestStatus == RequestStatus.offLineFailure ||
-          _requestStatus == RequestStatus.serverFailure ||
-          _requestStatus == RequestStatus.serverException) {
-        snackBarMessage(title: "warning", msg: "Please try again");
-        update();
-      } else {}
+      }
     }
   }
 

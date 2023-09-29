@@ -12,11 +12,14 @@ class ProductDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               GetBuilder<ItemsControllerImp>(
-                builder: (controller) => Column(
-                  children: [
-                    productDetailseImage(controller),
-                    productDetailes(controller),
-                  ],
+                builder: (controller) => HandlingRequstView(
+                  controller.requestStatu,
+                  widget: Column(
+                    children: [
+                      productDetailseImage(controller),
+                      productDetailes(controller),
+                    ],
+                  ),
                 ),
               ),
               Container(height: 4.height, color: AppColors.grey200),

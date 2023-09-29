@@ -1,5 +1,3 @@
- 
-
 import 'package:flutter/cupertino.dart';
 
 import '../index.dart';
@@ -14,7 +12,7 @@ abstract class FavoriteController extends GetxController {
 
 class FavoriteControllerImp extends FavoriteController {
   static FavoriteControllerImp get to => Get.find();
-  FavoriteRepo favRepo = Get.find(); 
+  final RepositoryImp _repo = Get.find<RepositoryImp>();
 
   final DatabaseHelper database = Get.find();
   String userId = DatabaseHelper.to.getString(EndPoint.userId);
@@ -24,36 +22,53 @@ class FavoriteControllerImp extends FavoriteController {
     super.onInit();
   }
 
-  final List<String> _favoList = [];
-  List<String> get favoList => _favoList;
+
 
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
+  
+  final List<String> _favoList = [];
+  List<String> get favoList => _favoList;
 
+
+  
   Map isFavor = {};
-  void onTapSetFavorite(id, String val) {
-    debugPrint(val);
+  void onTapSetFavorite(String id, String val) {
+    debugPrint("isFavor>>>val>>>  $val");
     isFavor[id] = val;
     update();
   }
 
+  onTapfavorit(String? itmId) {
+    debugPrint(itmId.toString());
+    if (isFavor[itmId] == "1") {
+      onTapSetFavorite(itmId!, '0');
+      onTapRemovefavo(itmId);
+      update();
+    } else {
+      onTapSetFavorite(itmId!, '1');
+      onTapAddFavo(itmId);
+      update();
+    }
+  }
+
   late ResponseModel _response;
-  // final List<ItemsModel> _products = [];
-  // List<ItemsModel> get products => _products;
 
   Future<ResponseModel> _addFavo(itemsId) async {
     try {
       _requestStatus = RequestStatus.loading;
       update();
-      final response = await favRepo.addFavo(itemsId: itemsId, usersId: userId);
+      final response = await _repo.addFavo(itemsId: itemsId, usersId: userId);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response['status'] == 'success') {
-          // _favoList.add(response['data']['itemsId']);
+          _favoList.add(response['data']['itemsId']);
           _response = ResponseModel(true, response['message']);
+          update();
         } else {
           _requestStatus = RequestStatus.noData;
           _response = ResponseModel(false, response['message']);
+          update();
         }
       }
       update();
@@ -83,7 +98,7 @@ class FavoriteControllerImp extends FavoriteController {
       _requestStatus = RequestStatus.loading;
       update();
       final response =
-          await favRepo.removeFavo(itemsId: itemsId, usersId: userId);
+          await _repo.removeFavo(itemsId: itemsId, usersId: userId);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response['status'] == 'success') {
@@ -110,7 +125,6 @@ class FavoriteControllerImp extends FavoriteController {
     ResponseModel response = await _removeFavo(itemsId);
     if (response.isSuccess) {
       _favoList.remove(itemsId);
-      debugPrint('message (success) ---> ${response.message}');
     } else {
       debugPrint('message (failure) ---> ${response.message}');
     }
@@ -124,7 +138,7 @@ class FavoriteControllerImp extends FavoriteController {
       _getFavList.clear();
       _requestStatus = RequestStatus.loading;
       update();
-      final response = await favRepo.getFavo(userId: userId);
+      final response = await _repo.getFavo(userId: userId);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response['status'] == 'success') {
@@ -151,7 +165,7 @@ class FavoriteControllerImp extends FavoriteController {
   }
 
   deleteFavourite(String favId) {
-    favRepo.deleteFromFavo(favId: favId);
+    _repo.deleteFromFavo(favId: favId);
     getFavList.removeWhere((element) => element.favoriteId == favId);
     update();
   }

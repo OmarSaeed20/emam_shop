@@ -10,7 +10,8 @@ abstract class HomeController extends GetxController {
 
 class HomeControllerImp extends HomeController {
   static HomeControllerImp get to => Get.find();
-  HomeRepo repo = Get.find();
+   final RepositoryImp _repo = Get.find<RepositoryImp>();
+
   DatabaseHelper database = Get.find();
   String? lang;
 
@@ -25,23 +26,23 @@ class HomeControllerImp extends HomeController {
     super.onInit();
   }
 
-  List<ItemsModel> _items = [];
+  final List<ItemsModel> _items = [];
   List<ItemsModel> get allItems => _items;
-  List<CategoriesModel>? _categories = [];
-  List<CategoriesModel>? get categories => _categories;
+  final List<CategoriesModel> _categories = [];
+  List<CategoriesModel> get categories => _categories;
   @override
   Future<dynamic> getHomeData() async {
     _requestStatus = RequestStatus.loading;
-    _categories = [];
-    _items = [];
     update();
-    var response = await repo.getHome();
+    var response = await _repo.getHome();
     _requestStatus = handlingRespose(response);
 
     if (requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
+        _categories.clear();
+        _items.clear();
         for (var i in response["categories"]["data"]) {
-          _categories!.add(CategoriesModel.fromJson(i));
+          _categories.add(CategoriesModel.fromJson(i));
           // setCategoriesMap();
         }
         for (var i in response["items"]["data"]) {
@@ -62,13 +63,13 @@ class HomeControllerImp extends HomeController {
     _requestStatus = RequestStatus.loading;
 
     update();
-    var response = await repo.getCategoriesSearch(search: search.trim());
+    var response = await _repo.getCategoriesSearch(search: search.trim());
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
-        _categories!.clear();
+        _categories.clear();
         List result = response["data"];
-        _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
+        _categories.addAll(result.map((e) => CategoriesModel.fromJson(e)));
         update();
         debugPrint("$categories");
       } else {
@@ -88,19 +89,19 @@ class HomeControllerImp extends HomeController {
 
   Future<dynamic> getCategories() async {
     _requestStatus = RequestStatus.loading;
-    _categories!.clear();
+    _categories.clear();
     update();
-    var response = await repo.getCategoriesView();
+    var response = await _repo.getCategoriesView();
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response["status"] == "success") {
         List result = response["data"];
-        _categories!.addAll(result.map((e) => CategoriesModel.fromJson(e)));
+        _categories.addAll(result.map((e) => CategoriesModel.fromJson(e)));
         update();
         debugPrint("$categories");
       } else {
         _requestStatus = RequestStatus.noData;
-        debugPrint('  get_categorie  =>>RequestStatus.noData');
+        debugPrint(' get_categorie  =>>RequestStatus.noData');
         update();
       }
       update();
@@ -115,10 +116,9 @@ class HomeControllerImp extends HomeController {
 
   CategoriesModel? getCategoryByIdLinear2(int id) {
     // Use linear search to find a category by its ID
-    for (var i = 0; i < categories!.length; i++) {
-      categories!.sort();
-      if (int.parse(categories![i].id!) == id) {
-        return categories![i];
+    for (var i = 0; i < categories.length; i++) {
+      if (int.parse(categories[i].id!) == id) {
+        return categories[i];
       }
     }
     return null;
@@ -126,7 +126,7 @@ class HomeControllerImp extends HomeController {
 
   CategoriesModel? getCategoryByIdLinear(int id) {
     // Use linear search to find a category by its ID
-    return categories!.firstWhere(
+    return categories.firstWhere(
       (category) => int.parse(category.id!) == id,
       orElse: () => const CategoriesModel(),
     );
@@ -135,12 +135,12 @@ class HomeControllerImp extends HomeController {
   CategoriesModel? getCategoryByIdBinary(int id) {
     // Use binary search to find a category by its ID
     var start = 0;
-    var end = categories!.length - 1;
+    var end = categories.length - 1;
     while (start <= end) {
       var mid = (start + end) ~/ 2;
-      if (int.parse(categories![mid].id!) == id) {
-        return categories![mid];
-      } else if (int.parse(categories![mid].id!) < id) {
+      if (int.parse(categories[mid].id!) == id) {
+        return categories[mid];
+      } else if (int.parse(categories[mid].id!) < id) {
         start = mid + 1;
       } else {
         end = mid - 1;
@@ -153,13 +153,13 @@ class HomeControllerImp extends HomeController {
     // Use binary search to find a category by its name
     debugPrint('start');
     var left = 0;
-    var right = categories!.length - 1;
+    var right = categories.length - 1;
     while (left <= right) {
       var mid = (left + right) ~/ 2;
-      if (categories![mid].name == name) {
-        debugPrint('categories![mid]');
-        return categories![mid];
-      } else if (categories![mid].name!.compareTo(name) < 0) {
+      if (categories[mid].name == name) {
+        debugPrint('categories[mid]');
+        return categories[mid];
+      } else if (categories[mid].name!.compareTo(name) < 0) {
         debugPrint('left');
         left = mid + 1;
       } else {
@@ -178,18 +178,7 @@ class HomeControllerImp extends HomeController {
     );
   }
 
-  /* bool favoriteHome = false;
-  IconData favoriteHomeIcon = CupertinoIcons.heart;
-  void onfavoritHomeeUpdat() {
-    debugPrint("$favoriteHome");
-    favoriteHome = !favoriteHome;
-    favoriteHomeIcon =
-        favoriteHome ? CupertinoIcons.heart_fill : CupertinoIcons.heart;
-    update();
-  } */
-
 /* 
-
 <!-- SELECT itmes1view.* ,1 as favorite FROM itmes1view
 INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favorite.favorite_usersid = 40
 UNION ALL
@@ -201,7 +190,7 @@ INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favor
   ItemsControllerImp itemsControl = Get.find();
   @override
   void goToItemScreen(index, cateId) {
-    var cateModel = _categories![index];
+    var cateModel = _categories[index];
     itemsControl.getItemsData(cateId);
     Get.toNamed(
       RouteHelper.getItemsScreen(),
@@ -209,19 +198,15 @@ INNER JOIN favorite ON favorite.favorite_itemsid = itmes1view.items_id AND favor
     );
   }
 
-  void goToProductDeScreen(ItemsModel model, catId) {
-    itemsControl
-        .getItemsData(catId)
-        .then((value) => itemsControl.goToProductDetaile(model
-            /* model.id == itemsControl.itemsModePro!.id
+  void goToProductDeScreen(ItemsModel model) {
+    itemsControl.goToProductDetaile(model
+        /* model.id == itemsControl.itemsModePro!.id
                   ? itemsControl.itemsModePro!
                   : model, */
-            ));
+        );
   }
 
   void goToCart() {
-    CartControllerImp.to.getCart();
-
     Get.toNamed(RouteHelper.getCart());
   }
 }

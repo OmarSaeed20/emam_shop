@@ -3,7 +3,7 @@ import '../../../../../index.dart';
 Column settingHeadder(double fem) => Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
+        /* SizedBox(
           width: double.infinity,
           height: 165.height,
           child: Stack(
@@ -45,9 +45,12 @@ Column settingHeadder(double fem) => Column(
             ],
           ),
         ),
+         */
+        buildHeader(isSettingScreen: true),
+        10.sH,
         TextWidget(
           DatabaseHelper.to.getString(EndPoint.userName),
-          fontSize: 20.weight,
+          fontSize: 20,
           fontWeight: FontWeight.w400,
         ),
       ],

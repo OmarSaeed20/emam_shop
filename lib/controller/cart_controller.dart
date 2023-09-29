@@ -1,3 +1,6 @@
+import 'package:ecommerce/data/response/cart/cart_response.dart';
+
+import '../data/network/request/checkout_request.dart';
 import '../index.dart';
 
 abstract class CartController extends GetxController {
@@ -6,11 +9,25 @@ abstract class CartController extends GetxController {
   Future<void> onTapRemoveCart(String itemsId);
   // rmoveCart(String itemsId);
   Future<void> getCart();
+
+  Future<void> getCountItem(String itemsId);
+  void increse(
+      {required int count, required bool add, required String itemsId});
+
+  deleteItem(String itemsId);
+  changeSelectedIndex();
+
+  goToCouponScreen();
+  goToCheckoutScreen();
+
+  changePaymentVal(value);
+  changeDilveryVal(value);
+  Future<void> onTapCheckout();
 }
 
 class CartControllerImp extends CartController {
   static CartControllerImp get to => Get.find();
-  CartRepo cartRepo = Get.find();
+  final RepositoryImp _repo = Get.find<RepositoryImp>();
   CouponControllerImp couponControl = Get.find<CouponControllerImp>();
 
   AddressControllerImp addressControl = Get.find();
@@ -32,7 +49,7 @@ class CartControllerImp extends CartController {
   @override
   void onInit() {
     selectedIndexEnum = CheckOutEnum.check1;
-
+    getCart();
     super.onInit();
   }
 
@@ -43,7 +60,7 @@ class CartControllerImp extends CartController {
   Future<void> onTapAddCart(itemsId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    final response = await cartRepo.addCart(itemsId: itemsId, usersId: userId);
+    final response = await _repo.addCart(itemsId: itemsId, usersId: userId);
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
@@ -61,8 +78,7 @@ class CartControllerImp extends CartController {
   Future<void> onTapRemoveCart(itemsId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    final response =
-        await cartRepo.removeCart(itemsId: itemsId, usersId: userId);
+    final response = await _repo.removeCart(itemsId: itemsId, usersId: userId);
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
@@ -75,8 +91,8 @@ class CartControllerImp extends CartController {
     update();
   }
 
-  final List<CartModel> _listCart = [];
-  List<CartModel> get listCart => _listCart;
+  final List<CartResponse> _listCart = [];
+  List<CartResponse> get listCart => _listCart;
   CountPriceModel? _countprice;
   CountPriceModel? get countpriceModel => _countprice;
   bool isEmpty = true;
@@ -85,7 +101,7 @@ class CartControllerImp extends CartController {
     try {
       _requestStatus = RequestStatus.loading;
       update();
-      final response = await cartRepo.getCartView(userId: userId);
+      final response = await _repo.getCartView(userId: userId);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response['status'] == 'success') {
@@ -93,7 +109,7 @@ class CartControllerImp extends CartController {
           if (response["datacart"]["status"] == 'success') {
             _listCart.clear();
             List result = response["datacart"]["data"];
-            _listCart.addAll(result.map((e) => CartModel.fromJson(e)));
+            _listCart.addAll(result.map((e) => CartResponse.fromJson(e)));
 
             _countprice = CountPriceModel.fromJson(response["countprice"]);
 
@@ -113,11 +129,11 @@ class CartControllerImp extends CartController {
   int _countItems = 0;
   int get countItems => _countItems;
 
+  @override
   Future<void> getCountItem(String itemsId) async {
     _requestStatus = RequestStatus.loading;
     update();
-    var response =
-        await cartRepo.getCountItems(userId: userId, itemsId: itemsId);
+    var response = await _repo.getCountItems(userId: userId, itemsId: itemsId);
     _requestStatus = handlingRespose(response);
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
@@ -131,17 +147,16 @@ class CartControllerImp extends CartController {
     }
   }
 
+  @override
   void increse({
     required int count,
     required bool add,
     required String itemsId,
-    bool? isCartScrren = false,
   }) async {
-    debugPrint(">>>>$count");
     if (add == true) {
       await onTapAddCart(itemsId).then((value) {
         count++;
-        if (isCartScrren == true) {
+        if (Get.currentRoute == RouteHelper.getCart()) {
           getCart();
         }
         update();
@@ -150,16 +165,18 @@ class CartControllerImp extends CartController {
       if (count > 0) {
         await onTapRemoveCart(itemsId).then((value) {
           count--;
-          if (isCartScrren == true) {
+          if (Get.currentRoute == RouteHelper.getCart()) {
             getCart();
           }
           update();
         });
       }
     }
+    debugPrint(">>>>$count");
     update();
   }
 
+  @override
   deleteItem(String itemsId) {
     // cartRepo.removeCart(usersId: userId, itemsId: itemsId);
     listCart.removeWhere((element) => element.cartItemsid == itemsId);
@@ -167,6 +184,7 @@ class CartControllerImp extends CartController {
   }
 
   CheckOutEnum? selectedIndexEnum;
+  @override
   changeSelectedIndex() {
     if (selectedIndexEnum == CheckOutEnum.check1) {
       selectedIndexEnum = CheckOutEnum.check2;
@@ -177,12 +195,14 @@ class CartControllerImp extends CartController {
     }
   }
 
+  @override
   goToCouponScreen() {
     couponControl.initData();
 
-    Get.toNamed(RouteHelper.getCoupon());
+    Get.offNamed(RouteHelper.getCoupon());
   }
 
+  @override
   goToCheckoutScreen() {
     {
       if (listCart.isEmpty != true) {
@@ -195,6 +215,7 @@ class CartControllerImp extends CartController {
 
   bool selectCredit = false;
 
+  @override
   changePaymentVal(value) {
     debugPrint(value.toString());
     selectCredit = value;
@@ -203,6 +224,7 @@ class CartControllerImp extends CartController {
 
   bool selectDilvery = false;
 
+  @override
   changeDilveryVal(value) {
     debugPrint(value.toString());
     selectDilvery = value;
@@ -213,6 +235,7 @@ class CartControllerImp extends CartController {
   String? totalPrice;
   String? deliveryPrice;
   String? totalOldPrice;
+  @override
   Future<void> onTapCheckout() async {
     debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> onTapCheckout");
     debugPrint(
@@ -220,31 +243,29 @@ class CartControllerImp extends CartController {
 
     _requestStatus = RequestStatus.loading;
     update();
-    var model = {
-      "users_id": userId,
-      "address_id":
-          selectDilvery ? addressControl.selectedAdressmodel!.addressId : "0",
-      "coupon_id": couponControl.couponModel != null
-          ? couponControl.couponModel!.couponId
+    CheckoutResquest model = CheckoutResquest(
+      usersId: userId,
+      addressId:
+          selectDilvery ? addressControl.selectedAdressmodel!.addressId! : "0",
+      couponId: couponControl.couponModel != null
+          ? couponControl.couponModel!.couponId!
           : "0",
-      "coupon_dicount": couponControl.couponModel != null
-          ? couponControl.couponModel!.couponDiscount
+      couponDicount: couponControl.couponModel != null
+          ? couponControl.couponModel!.couponDiscount!
           : '0',
-      "delivery_price": deliveryPrice ?? "0",
-      "orders_price": ordersPrice ?? "0",
-      "orders_type": selectDilvery ? "0" : "1",
-      "payment_method": selectCredit ? "0" : "1",
-    };
+      deliveryPrice: deliveryPrice ?? "0",
+      ordersPrice: ordersPrice ?? "0",
+      ordersType: selectDilvery ? "0" : "1",
+      paymentMethod: selectCredit ? "0" : "1",
+    );
     debugPrint(model.toString());
-    final response = await cartRepo.checkout(map: model);
+    final response = await _repo.checkout(map: model.toJson());
     _requestStatus = handlingRespose(response);
-    debugPrint(_requestStatus.toString());
     if (_requestStatus == RequestStatus.success) {
       if (response['status'] == 'success') {
         debugPrint('check (success) ---> ${response["message"]}');
         snackBarSuccess();
         Get.toNamed(RouteHelper.getMain());
-        MyOrderControllerImp.to.getPendingOrder1();
       } else {
         _requestStatus = RequestStatus.noData;
         debugPrint(' (success) ---> ${response["message"]}');

@@ -30,7 +30,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     super.onInit();
   }
 
-  final AuthRepo _authRepo = Get.find();
+  final RepositoryImp _repo = Get.find();
 
   RequestStatus? _requestStatus;
   RequestStatus? get requestStatus => _requestStatus;
@@ -108,16 +108,17 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     if (forgetForm.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
       update();
-      var response = await _authRepo.foSetEmail(email: _email.text);
+      var response = await _repo.foSetEmail(email: _email.text);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
           startCountdown();
-          _requestStatus = RequestStatus.success;
           snackBarSuccess(
               icon: CupertinoIcons.info_circle, msg: response["message"]);
-          Get.toNamed(RouteHelper.getForgetVerfiyCode(),
-              arguments: {"email": email.text});
+          Get.toNamed(
+            RouteHelper.getForgetVerfiyCode(),
+            arguments: {"email": email.text},
+          );
         } else {
           _requestStatus = RequestStatus.noData;
           snackBarMessage(title: "Warning", msg: response["message"]);
@@ -139,7 +140,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     if (form.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
       update();
-      var response = await _authRepo.foSetOtp(email: email, otp: val);
+      var response = await _repo.foSetOtp(email: email, otp: val);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -197,7 +198,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
       _requestStatus = RequestStatus.loading;
       popLoading(msg: "Sending OTP");
       update();
-      var response = await _authRepo.foSetEmail(email: email);
+      var response = await _repo.foSetEmail(email: email);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -225,9 +226,11 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     if (resetForm.currentState!.validate()) {
       _requestStatus = RequestStatus.loading;
       update();
-
-      var response = await _authRepo.foSetNewPass(
-          email: argEmail!, password: _rePassword.text);
+      debugPrint(email.text);
+      debugPrint(_rePassword.text);
+      SignInRequest request = SignInRequest(
+          email: email.text.trim(), password: password.text.trim());
+      var response = await _repo.foSetNewPass(body: request);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -240,16 +243,10 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
           Get.offNamed(RouteHelper.getLogin());
         } else {
           _requestStatus = RequestStatus.noData;
-          Get.back();
           snackBarMessage(title: "Warning", msg: response["message"]);
         }
         update();
-      } else if (_requestStatus == RequestStatus.offLineFailure ||
-          _requestStatus == RequestStatus.serverFailure ||
-          _requestStatus == RequestStatus.serverException) {
-        snackBarMessage(title: "warning", msg: "Please try again");
-        update();
-      } else {}
+      }
     }
   }
 

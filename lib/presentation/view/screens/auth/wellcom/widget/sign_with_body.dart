@@ -40,12 +40,13 @@ class SignWithBody extends StatelessWidget {
           isSocil: false,
         ),
         15.sH,
-        _socialContainer(
+        AnimatedBtn(
           AppStrings.conToSigin.tr,
-          cardColor: AppColors.primary,
+          color: AppColors.primary,
           textColo: AppColors.white,
           onTap: () => Get.toNamed(RouteHelper.getLogin()),
-          isSocil: false,
+          height: 55.height,
+          margin: paddingSymme(horizontal: 25),
         ),
       ],
     );

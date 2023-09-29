@@ -17,6 +17,15 @@ class MyLocaleControllerImp extends LocaleController {
   @override
   void onChangeLang(String languageCode) {
     _locale = Locale(languageCode);
+    if (languageCode == EndPoint.arCode) {
+      OnBoardingContoller.to.listData = OnBoardingContoller.to.onBoardingListAr;
+      update();
+    } else {
+      OnBoardingContoller.to.listData = OnBoardingContoller.to.onBoardingListEn;
+      update();
+    }
+    debugPrint(OnBoardingContoller.to.listData.toString());
+
     database.setString(EndPoint.lang, languageCode);
     _themeData = languageCode == EndPoint.arCode ? themeAR : themeEN;
     // DatabaseHelper.to.setBool(EndPoint.onboarding, true);
@@ -65,7 +74,7 @@ class MyLocaleControllerImp extends LocaleController {
 }
 
 
-/*class MyLocaleController extends GetxController {
+/* class MyLocaleController extends GetxController {
   static MyLocaleController get to => Get.find();
 
   late Locale _locale;

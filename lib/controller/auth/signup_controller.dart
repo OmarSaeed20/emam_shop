@@ -1,4 +1,4 @@
-import 'dart:async'; 
+import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
@@ -23,7 +23,7 @@ abstract class SignUpController extends GetxController {
 class SignUpControllerImp extends SignUpController {
   static SignUpControllerImp get to => Get.find();
 
-  final AuthRepo _authRepo = Get.find();
+  final RepositoryImp _repo = Get.find();
 
   RequestStatus _requestStatus = RequestStatus.none;
   RequestStatus get requestStatus => _requestStatus;
@@ -70,8 +70,8 @@ class SignUpControllerImp extends SignUpController {
     GetUtils.isUsername(name.text) &&
             name.text.length > 4 &&
             name.text.length < 14 &&
-            GetUtils.isLengthGreaterThan(password.text, 7) &&
             password.text.length < 20 &&
+            GetUtils.isLengthGreaterThan(password.text, 7) &&
             GetUtils.isEmail(email.text) &&
             GetUtils.isLengthEqualTo(phone.text, 11)
         ? isCheckFeilds(false)
@@ -88,14 +88,14 @@ class SignUpControllerImp extends SignUpController {
   Future<void> onTappedSignUp(controller) async {
     _requestStatus = RequestStatus.loading;
     update();
-    SignUpModel model = SignUpModel(
+    SignUpRequest model = SignUpRequest(
       userName: _name.text.trim(),
       userEmail: _email.text.trim(),
       userPassword: _password.text.trim(),
       userPhone: _phone.text.trim(),
     );
 
-    var response = await _authRepo.signUp(body: model);
+    var response = await _repo.signUp(body: model);
     _requestStatus = handlingRespose(response);
 
     if (requestStatus == RequestStatus.success) {
@@ -162,7 +162,7 @@ class SignUpControllerImp extends SignUpController {
       _requestStatus = RequestStatus.loading;
       popLoading(msg: "Sending OTP");
       update();
-      var response = await _authRepo.foSetEmail(email: email);
+      var response = await _repo.foSetEmail(email: email);
       _requestStatus = handlingRespose(response);
       if (_requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
@@ -187,13 +187,13 @@ class SignUpControllerImp extends SignUpController {
       popLoading();
       update();
       var response =
-          await _authRepo.verifyOtp(email: email, otp: otp.toString());
+          await _repo.verifyOtp(email: email, otp: otp.toString());
       _requestStatus = handlingRespose(response);
 
       if (requestStatus == RequestStatus.success) {
         if (response["status"] == "success") {
           Get.back();
-
+          timer!.cancel();
           Get.delete<SignUpControllerImp>();
           snackBarSuccess(msg: "Accunt Cereated Successfly");
           Get.offNamed(RouteHelper.getLogin());

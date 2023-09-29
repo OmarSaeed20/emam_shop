@@ -9,7 +9,7 @@ Container listTileItems(HomeControllerImp controller, int index) {
     child: InkWell(
       onTap: () => controller.goToItemScreen(
         index,
-        controller.categories![index].id!,
+        controller.categories[index].id!,
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6.height),
@@ -27,7 +27,7 @@ Container listTileItems(HomeControllerImp controller, int index) {
               ),
             ),
             child: Image.network(
-              "${ApiLinks.baseUri}/uplode/${controller.categories![index].image}",
+              "${ApiLinks.baseUri}/uplode/${controller.categories[index].image}",
               fit: BoxFit.contain,
               height: 30.height,
               color: AppColors.primary,
@@ -35,8 +35,8 @@ Container listTileItems(HomeControllerImp controller, int index) {
           ),
           title: TextWidget(
             translateDatabase(
-              controller.categories![index].nameAr!,
-              controller.categories![index].name!.toUpperCase(),
+              controller.categories[index].nameAr!,
+              controller.categories[index].name!.toUpperCase(),
             ),
           ),
           trailing: Icon(
