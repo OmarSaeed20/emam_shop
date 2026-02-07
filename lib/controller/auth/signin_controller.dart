@@ -7,6 +7,8 @@ abstract class SignInController extends GetxController {
   void hiddenPassword();
   void onChangedSignIn();
   void onTappedSignIn();
+  void onTappedVerifyCode(val);
+
 }
 
 class SignInControllerImp extends SignInController {
@@ -49,7 +51,7 @@ class SignInControllerImp extends SignInController {
   @override
   void onChangedSignIn() {
     GetUtils.isEmail(email.text) &&
-            GetUtils.isLengthGreaterThan(password.text, 8)
+            GetUtils.isLengthGreaterThan(password.text, 7)
         ? isCheckFeilds(false)
         : isCheckFeilds(true);
   }
@@ -60,6 +62,10 @@ class SignInControllerImp extends SignInController {
     update();
   }
 
+  
+  @override
+  void onTappedVerifyCode(val) {}
+  
   @override
   void dispose() {
     _email.clear();

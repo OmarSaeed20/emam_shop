@@ -35,7 +35,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       decoration: const BoxDecoration(
           image: DecorationImage(
           image: AssetImage(AppImages.background),
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.fill,
           opacity: 20,
         ),
           color: AppColors.primarylight
@@ -50,6 +50,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
           // SvgPicture.asset(AppImages.emamLogo, height: 100.height),
           Image.asset(
             AppImages.emamLogoWithout,
+            fit: BoxFit.fill,
             color: AppColors.red,
             height: 200.height,
           )
@@ -57,7 +58,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
               .fadeIn(curve: Curves.easeInCirc)
               .scaleY()
               .shimmer(delay: 1700.ms, colors: <Color>[
-            AppColors.red,
+            AppColors.primary,
             const Color(0xff5b0060),
             const Color(0xff870160),
             const Color(0xffac255e),
@@ -67,13 +68,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
             const Color(0xffffb56b),
             AppColors.primary2
           ]),
-          14.sH,
+          10.sH,
           const TextWidget(
             "EMAM",
-            fontSize: 45,
-            fontWeight: FontWeight.w700,
-            color: AppColors.primary,
-            fontFamily: "Montserrat",
+            fontSize: 55,
+            fontWeight: FontWeight.bold,
+            color: AppColors.awsmMedium,
+            fontFamily: AppStrings.montserrat,
           ),
         ],
       ),

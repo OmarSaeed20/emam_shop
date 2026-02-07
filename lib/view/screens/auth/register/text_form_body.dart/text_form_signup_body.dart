@@ -86,7 +86,7 @@ class _TextFormSignUpBodyState extends State<TextFormSignUpBody> {
                 : AppColors.primary.withOpacity(.5),
             isPassword: widget.controller.isPassword,
             onPressed: widget.controller.hiddenPassword,
-            validator: (val) => GetUtils.isLengthGreaterThan(val, 8)
+            validator: (val) => GetUtils.isLengthGreaterThan(val, 7)
                 ? null
                 : 'The password field is required.',
           ),

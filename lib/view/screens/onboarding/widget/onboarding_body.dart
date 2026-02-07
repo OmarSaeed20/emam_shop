@@ -18,10 +18,9 @@ class OnBoardingBody extends StatelessWidget {
             65.sH,
             Image.asset(list.image!, height: 300.height),
             80.sH,
-            TextWidget(
-              list.supTitle!,
-              textAlign: TextAlign.center,
-              fontWeight: FontWeight.w400,
+            Padding(
+              padding: paddingSymme(horizontal: 18),
+              child: TextWidget(list.supTitle!, textAlign: TextAlign.center),
             ),
             160.sH,
           ],

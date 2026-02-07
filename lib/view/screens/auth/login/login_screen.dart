@@ -6,6 +6,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: GetBuilder<SignInControllerImp>(
+        builder: (controller) => _bottomNavigationBar(controller),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -19,12 +22,11 @@ class LoginScreen extends StatelessWidget {
                 builder: (controller) {
                   return Container(
                       padding: paddingSymme(horizontal: 25),
-                      height: Dimensions.screenHeight - 40,
                       width: double.infinity,
                       child: Column(
                         children: [
-                          30.sH,
-                          const AuthLogoWidegt(),
+                          40.sH,
+                          const AuthLogoWidegt(title: "Sign in"),
                           40.sH,
                           authTitle(AppStrings.welcomeBack.tr),
                           20.sH,
@@ -38,33 +40,12 @@ class LoginScreen extends StatelessWidget {
                               child: TextWidget(
                                 AppStrings.forgetPass.tr,
                                 fontSize: 14,
-                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.awsmMedium,
                                 decoration: TextDecoration.underline,
                               ),
                             ),
                           ),
-                          const Spacer(),
-                          AbsorbPointer(
-                            absorbing: controller.isEmptyFeild,
-                            child: BtnWidget(
-                              AppStrings.signin.tr,
-                              fontSize: 18.weight,
-                              height: 50.height,
-                              backgroundColor: controller.isEmptyFeild
-                                  ? AppColors.grey.withOpacity(0.6)
-                                  : AppColors.primary,
-                              isLoading: controller.isLoading,
-                              onPressed: () => controller.onTappedSignIn(),
-                            ),
-                          ),
-                          30.sH,
-                          SignHere(
-                            AppStrings.dontHaACC.tr,
-                            text2: AppStrings.signUpHe.tr,
-                            onTap: () =>
-                                Get.offNamed(RouteHelper.getRegister()),
-                          ),
-                          20.sH,
                         ],
                       ));
                 },
@@ -76,3 +57,33 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+_bottomNavigationBar(SignInControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 30),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AbsorbPointer(
+            absorbing: controller.isEmptyFeild,
+            child: BtnWidget(
+              AppStrings.signin.tr,
+              fontSize: 18.weight,
+              width: double.infinity,
+              height: 50.height,
+              backgroundColor: controller.isEmptyFeild
+                  ? AppColors.grey.withOpacity(0.6)
+                  : AppColors.primary,
+              isLoading: controller.isLoading,
+              onPressed: () => controller.onTappedSignIn(),
+            ),
+          ),
+          15.sH,
+          SignHere(
+            AppStrings.dontHaACC.tr,
+            text2: AppStrings.signUpHe.tr,
+            onTap: () => Get.offNamed(RouteHelper.getRegister()),
+          ),
+          20.sH,
+        ],
+      ),
+    );

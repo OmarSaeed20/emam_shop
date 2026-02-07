@@ -34,7 +34,7 @@ class BtnWidget extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 10.weight),
+            borderRadius: BorderRadius.circular(radius ?? 6.weight),
           ),
           elevation: 0.0,
           shadowColor: AppColors.trans,

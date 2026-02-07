@@ -16,5 +16,5 @@ class AppImages {
   // icon
   static const String facebook = "${_link}facebook.png";
   static const String google = "${_link}google.png";
-  static const String password = "${_link}password.png";
+  // static const String password = "${_link}password.png";
 }

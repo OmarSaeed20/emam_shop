@@ -6,14 +6,12 @@ class RouteWelcomeMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    return null;
-  
-    // if (DatabaseHelper.to.getBool("Onboarding")) {
-    //   return RouteSettings(name: RouteHelper.getRegister());
-    // } else if (DatabaseHelper.to.getBool("Login")) {
-    //   return RouteSettings(name: RouteHelper.getMain());
-    // } else {
-    //   return null;
-    // }
+    if (DatabaseHelper.to.getBool(EndPoint.onboarding) == true) {
+      return RouteSettings(name: RouteHelper.getWellcom());
+    } else if (DatabaseHelper.to.getBool(EndPoint.login)) {
+      return RouteSettings(name: RouteHelper.getMain());
+    } else {
+      return null;
+    }
   }
 }

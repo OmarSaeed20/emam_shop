@@ -28,7 +28,7 @@ Future<void> init() async {
   Get.lazyPut(() => SignInControllerImp(), fenix: true);
   Get.lazyPut(() => ForgetPasswordControllerImp(), fenix: true);
   Get.lazyPut(() => PhoneControllerImp(), fenix: true);
-  
+
   Get.lazyPut(() => MyLocaleControllerImp(), fenix: true);
 
   // repo

@@ -4,12 +4,17 @@ class AppColors {
   // static const primaryColor = Color(0xFF291D89);
   // static const secondaryColor = Color(0xFF4E67EB);
   // awsm Color
-  static const primary = Color(0xFF023246);
+  // static const primary = Color(0xFFF1916D);
+  // static const primary = Color(0xFF023246);
+  // static const primary = Color(0xFFAE445A);
+  // static const primary = Color(0xFFF39F5A);
+  static const primary = Color(0xFFAE445A);
   static const primary2 = Color(0xFF002C3E);
   static const awsmMedium = Color(0xFF287094);
   static const awsmLight = Color(0xFF78BCC4);
   static const primarylight = Color(0xFFC5CAE9);
-  static const secondaryColor = Color(0xFFBE8D23);
+  // static const secondaryColor = Color(0xFFBE8D23);
+  static const secondaryColor = Color(0xFFE8BCB9);
 
   static const cardColor = Color(0xFFEAE8DC);
 

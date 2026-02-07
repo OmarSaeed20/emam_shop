@@ -1,53 +1,65 @@
 import 'dart:developer';
 
+import 'package:ecommerce/core/theme/app_theme.dart';
+
 import '/index.dart';
 
 abstract class LocaleController extends GetxController {
   void onChangeLang(String languageCode);
   void updateLocale(Locale locale);
+  void initLang();
 }
 
 class MyLocaleControllerImp extends LocaleController {
   static MyLocaleControllerImp get to => Get.find();
-  late Locale _locale;
-  Locale get locale => _locale;
+  Locale? _locale;
+  Locale? get locale => _locale;
 
-  // ThemeData _themeData = themeEn;
-  // ThemeData get themeData => _themeData;
+  ThemeData _themeData = themeEN;
+  ThemeData get themeData => _themeData;
 
   @override
   void onChangeLang(String languageCode) {
     _locale = Locale(languageCode);
-    DatabaseHelper.to.setString(languageCode, languageCode);
-    // _themeData = languageCode == 'ar' ? themeAr : themeEn;
-
+    DatabaseHelper.to.setString(EndPoint.lang, languageCode);
+    _themeData = languageCode == EndPoint.arCode ? themeAR : themeEN;
+    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    Get.back();
+    Get.changeTheme(_themeData);
+    Get.updateLocale(_locale!);
     update();
   }
 
   @override
   void updateLocale(Locale locale) {
     Get.updateLocale(locale);
-    // Get.changeTheme(_themeData);
-    // Get.offNamedUntil(RouteHelper.getOnboarding(), (route) => false);
-    DatabaseHelper.to.setBool("onboarding", true);
+    Get.changeTheme(_themeData);
+    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
     Get.back();
     update();
   }
 
   @override
-  void onInit() {
-    // NotificationHelper.initialize();
-    log(DatabaseHelper.to.getString("languageCode"));
-    String langCode = DatabaseHelper.to.getString("languageCode");
-    if (langCode == 'ar') {
-      _locale = const Locale('ar');
-      // _themeData = themeAr;
-    } else if (langCode == 'en') {
-      _locale = const Locale('en');
-      // _themeData = themeEn;
+  void initLang() {
+    String? langCode = DatabaseHelper.to.getString(EndPoint.lang);
+    if (langCode == EndPoint.arCode) {
+      _locale = const Locale(EndPoint.arCode);
+      _themeData = themeAR;
+    } else if (langCode == EndPoint.enCode) {
+      _locale = const Locale(EndPoint.enCode);
+      _themeData = themeEN;
     } else {
       _locale = Locale(Get.deviceLocale!.languageCode);
+      _themeData = themeEN;
+
     }
+  }
+
+  @override
+  void onInit() {
+    // NotificationHelper.initialize();
+    log(DatabaseHelper.to.getString(EndPoint.lang));
+    initLang();
     super.onInit();
   }
 }

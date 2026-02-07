@@ -12,6 +12,7 @@ abstract class SignUpController extends GetxController {
   void signWithApple();
 
   void onTappedSignUp();
+  void onTappedVerifyCode(val);
 }
 
 class SignUpControllerImp extends SignUpController {
@@ -46,7 +47,6 @@ class SignUpControllerImp extends SignUpController {
     update();
   }
 
-
   // hide password
   bool _isPassword = true;
   bool get isPassword => _isPassword;
@@ -61,8 +61,8 @@ class SignUpControllerImp extends SignUpController {
 
   @override
   void onChangedSignUp() {
-    GetUtils.isUsername(name.text) == false &&
-            GetUtils.isLengthGreaterThan(password.text, 8) &&
+    GetUtils.isUsername(name.text) &&
+            GetUtils.isLengthGreaterThan(password.text, 7) &&
             GetUtils.isEmail(email.text) &&
             GetUtils.isLengthEqualTo(phone.text, 11)
         ? isCheckFeilds(false)
@@ -83,6 +83,9 @@ class SignUpControllerImp extends SignUpController {
 
   @override
   void signWithApple() {}
+
+  @override
+  void onTappedVerifyCode(val) {}
 
   @override
   void dispose() {

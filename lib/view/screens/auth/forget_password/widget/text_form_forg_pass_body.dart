@@ -13,7 +13,7 @@ class TextFormForgetPassBody extends StatelessWidget {
       child: Column(
         children: [
           TextInputWidget(
-            AppStrings.forgetPass.tr,
+            AppStrings.email.tr,
             prefixIcon: Icons.email_outlined,
             type: TextInputType.emailAddress,
             suffixIconColor: controller.isEmptyFeild != true

@@ -1,26 +1,26 @@
 import '/index.dart';
 
 class IconAndTextBack extends StatelessWidget {
-  const IconAndTextBack({super.key});
-
+  const IconAndTextBack({super.key, this.onTap});
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         InkWell(
-          onTap: () => Get.offNamed(RouteHelper.getWellcom()),
+          onTap: onTap ?? () => Get.offNamed(RouteHelper.getWellcom()),
           child: CircleAvatar(
-            radius: 15,
+            radius: 15.height,
             backgroundColor: AppColors.secondaryColor.withOpacity(.2),
-            child: const Icon(
-              size: 20,
+            child: Icon(
               Icons.arrow_back_rounded,
+              size: 20.weight,
               color: AppColors.primary,
             ),
           ),
         ),
         5.sW,
-        const TextWidget(AppStrings.back)
+        TextWidget(AppStrings.back.tr)
       ],
     );
   }

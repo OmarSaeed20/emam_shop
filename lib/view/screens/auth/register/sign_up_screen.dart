@@ -6,6 +6,9 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: GetBuilder<SignUpControllerImp>(
+        builder: (controller) => _bottomNavigationBar(controller),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -19,42 +22,16 @@ class SignUpScreen extends StatelessWidget {
                 builder: (controller) {
                   return Container(
                     padding: paddingSymme(horizontal: 25),
-                    height: Dimensions.screenHeight - 40,
                     width: double.infinity,
                     child: Column(
                       children: [
-                        65.sH,
-                        const TextWidget(
-                          "EMAM",
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: AppStrings.montserrat,
-                        ),
-                        45.sH,
+                        // 65.sH,
+                        AuthLogoWidegt(title: AppStrings.signup.tr),
+                        10.sH,
                         authTitle(AppStrings.signupTit.tr),
                         20.sH,
                         TextFormSignUpBody(controller: controller),
-                        const Spacer(),
-                        AbsorbPointer(
-                          absorbing: controller.isEmptyFeild,
-                          child: BtnWidget(
-                            AppStrings.signup.tr,
-                            fontSize: 18.weight,
-                            height: 50.height,
-                            backgroundColor: controller.isEmptyFeild
-                                ? AppColors.grey.withOpacity(0.6)
-                                : AppColors.primary,
-                            isLoading: controller.isLoading,
-                            onPressed: () => controller.onTappedSignUp(),
-                          ),
-                        ),
-                        30.sH,
-                        SignHere(
-                          AppStrings.alreHaACC.tr,
-                          text2: AppStrings.signInHe.tr,
-                          onTap: () => Get.offNamed(RouteHelper.getLogin()),
-                        ),
-                        20.sH,
+                        20.sH
                       ],
                     ),
                   );
@@ -67,3 +44,33 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
+
+_bottomNavigationBar(SignUpControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 30),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AbsorbPointer(
+            absorbing: controller.isEmptyFeild,
+            child: BtnWidget(
+              AppStrings.signup.tr,
+              fontSize: 18.weight,
+              height: 50.height,
+              width: double.infinity,
+              backgroundColor: controller.isEmptyFeild
+                  ? AppColors.grey.withOpacity(0.6)
+                  : AppColors.primary,
+              isLoading: controller.isLoading,
+              onPressed: () => controller.onTappedSignUp(),
+            ),
+          ),
+          15.sH,
+          SignHere(
+            AppStrings.alreHaACC.tr,
+            text2: AppStrings.signInHe.tr,
+            onTap: () => Get.offNamed(RouteHelper.getLogin()),
+          ),
+          20.sH,
+        ],
+      ),
+    );
