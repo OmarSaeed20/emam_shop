@@ -1,5 +1,4 @@
-import "package:flutter_animate/flutter_animate.dart";
-
+ 
 import "/index.dart";
 
 class SplashViewBody extends StatefulWidget {
@@ -18,14 +17,9 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
     _initSlidingAnimation();
-    navigateToHome();
+    _navigateToHome();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _animationController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +28,10 @@ class _SplashViewBodyState extends State<SplashViewBody>
       width: double.infinity,
       decoration: const BoxDecoration(
           image: DecorationImage(
-          image: AssetImage(AppImages.background),
-          fit: BoxFit.fill,
-          opacity: 20,
-        ),
-          color: AppColors.primarylight
+            image: AssetImage(AppImages.background),
+            fit: BoxFit.fill,
+            opacity: 40,
+          ), 
           /*  ThemeController.to.getDarkTheme
             ? AppColors.darkScaffoldColor
             : AppColors.lightScaffoldColor, */
@@ -50,8 +43,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
           // SvgPicture.asset(AppImages.emamLogo, height: 100.height),
           Image.asset(
             AppImages.emamLogoWithout,
-            fit: BoxFit.fill,
-            color: AppColors.red,
+            fit: BoxFit.fill, 
             height: 200.height,
           )
               .animate()
@@ -66,14 +58,14 @@ class _SplashViewBodyState extends State<SplashViewBody>
             const Color(0xffe16b5c),
             const Color(0xfff39060),
             const Color(0xffffb56b),
-            AppColors.primary2
+            AppColors.darkblu
           ]),
           10.sH,
           const TextWidget(
             "EMAM",
             fontSize: 55,
             fontWeight: FontWeight.bold,
-            color: AppColors.awsmMedium,
+            color: Color.fromARGB(255, 7, 105, 144),
             fontFamily: AppStrings.montserrat,
           ),
         ],
@@ -81,6 +73,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+  
   void _initSlidingAnimation() {
     _animationController = AnimationController(
       vsync: this,
@@ -101,7 +99,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     } */
   }
 
-  void navigateToHome() {
+  void _navigateToHome() {
     Future.delayed(
       const Duration(seconds: 3),
       () => _checkLogIn(),

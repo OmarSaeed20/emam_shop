@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "636969056032",
+    "project_id": "emam-ecommerce",
+    "storage_bucket": "emam-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636969056032:android:d15dafc9cb96a71e55c945",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636969056032-pg9i675ghfb65mb5fp6jjbhsnb38u235.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecommerce",
+            "certificate_hash": "0d70f8a4c1fc97214247b6fd246cc52280182efc"
+          }
+        },
+        {
+          "client_id": "636969056032-7riesq6ldaidvfvb2favqpag3pdo2qgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZzl7lb_zNPzZ0528HyBBLmtTS9w2XNEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636969056032-7riesq6ldaidvfvb2favqpag3pdo2qgu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

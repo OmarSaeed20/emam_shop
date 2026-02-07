@@ -7,7 +7,6 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var listOnBoa = Static.onBoardingList;
     return Scaffold(
-      // backgroundColor: AppColors.offWhite,
       body: SafeArea(
         child: GetBuilder<OnBoardingContoller>(
             builder: (controller) => Stack(
@@ -32,7 +31,7 @@ class OnBoardingScreen extends StatelessWidget {
                             _animatContainer(controller),
                             35.sH,
                             BtnWidget(
-                              fontSize: 18.weight,
+                              fontSize: 15.weight,
                               height: 50.height,
                               controller.currentPage != listOnBoa.length - 1
                                   ? AppStrings.coontinue.tr
@@ -63,7 +62,7 @@ class OnBoardingScreen extends StatelessWidget {
               width: controller.currentPage == index ? 20.weight : 6.weight,
               height: 6.height,
               decoration: BoxDecoration(
-                color: AppColors.secondaryColor,
+                color: AppColors.secondary,
                 borderRadius: BorderRadius.all(Radius.circular(10.height)),
               ),
             ),

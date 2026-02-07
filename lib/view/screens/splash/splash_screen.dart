@@ -1,4 +1,3 @@
-
 import '/index.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,7 +6,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColors.offWhite,
+      backgroundColor: AppColors.white,
       body: SplashViewBody(),
     );
   }

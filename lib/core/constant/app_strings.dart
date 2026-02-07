@@ -56,4 +56,13 @@ class AppStrings {
   static const String verificationCode = "verificationCode";
   static const String otpsent = "otpsent";
   static const String confirm = "confirm";
+
+
+// main
+  static const String home = "home";
+  static const String map = "map";
+  static const String qrScaner = "qrScaner";
+  static const String qrChatScaner = "qrChatScaner";
+  static const String community = "community";
+  static const String wallet = "wallet";
 }

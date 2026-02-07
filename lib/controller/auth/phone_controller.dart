@@ -9,9 +9,10 @@ abstract class PhoneController extends GetxController {
 
 class PhoneControllerImp extends PhoneController {
   PhoneControllerImp get to => Get.find();
-  // loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+   
+
+  GlobalKey<FormState> phoneForm = GlobalKey<FormState>();
+  GlobalKey<FormState> form = GlobalKey<FormState>();
 
   final TextEditingController _phone = TextEditingController();
   TextEditingController get phone => _phone;
@@ -47,8 +48,9 @@ class PhoneControllerImp extends PhoneController {
 
   @override
   void onTappedVerifyCode(val) {
+    snackBarSuccess();
     // _isLoading = true;
-
+    Get.offAndToNamed(RouteHelper.getLogin());
     update();
   }
 

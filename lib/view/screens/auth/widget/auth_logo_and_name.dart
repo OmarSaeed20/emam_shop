@@ -19,7 +19,7 @@ class AuthLogoWidegt extends StatelessWidget {
           title ?? "EMAM",
           fontSize: fonSiz ?? 35,
           fontWeight: FontWeight.w600,
-          color: AppColors.awsmMedium,
+          color: AppColors.awsm,
           fontFamily: AppStrings.montserrat,
         )
       ],

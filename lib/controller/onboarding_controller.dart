@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:flutter_animate/flutter_animate.dart';
+  
 
 import '/index.dart';
 
@@ -10,18 +8,20 @@ class OnBoardingContoller extends GetxController {
   void onInit() {
     pageController = PageController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      diallog();
+      _dialdebugPrintChoseLang();
     });
     super.onInit();
   }
 
-  diallog() {
+  _dialdebugPrintChoseLang() {
     Get.defaultDialog(
+        backgroundColor: AppColors.white,
         title: AppStrings.lang.tr,
         titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.weight),
         middleText: AppStrings.choseLang.tr,
-        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 18.weight),
+        middleTextStyle: TextStyle(color: AppColors.grey, fontSize: 14.weight),
         barrierDismissible: false,
+        radius: 6.weight,
         actions: [const ChooseLang()]);
   }
 
@@ -30,9 +30,9 @@ class OnBoardingContoller extends GetxController {
 
   next() {
     _currentPage++;
-    log("$_currentPage");
+    debugPrint("$_currentPage");
     if (_currentPage > Static.onBoardingList.length - 1) {
-      log(AutofillHints.birthday);
+      debugPrint(AutofillHints.birthday);
       skip();
     } else {
       pageController!
@@ -47,8 +47,10 @@ class OnBoardingContoller extends GetxController {
     update();
   }
 
+  DatabaseHelper database = Get.find();
   skip() {
-    DatabaseHelper.to.setBool(EndPoint.onboarding, true);
+    // database.setBool(EndPoint.onboarding, true);
+    database.setString(EndPoint.step, EndPoint.onboard);
     Get.offAllNamed(RouteHelper.getWellcom());
   }
 }

@@ -13,37 +13,19 @@ class ResetPasswordScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10.height,
-                left: 15.weight,
-                child: IconAndTextBack(
-                  onTap: () => Get.toNamed(RouteHelper.getForgetPass()),
-                ),
-              ),
-              GetBuilder<ForgetPasswordControllerImp>(
-                builder: (controller) {
-                  return Container(
-                      padding: paddingSymme(horizontal: 25),
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          40.sH,
-                          screenPick(
-                            icon: CupertinoIcons.lock_shield,
-                            text: "Reset Password",
-                          ),
-                          40.sH,
-                          authTitle("set a new password!"),
-                          20.sH,
-                          TextFormResetBody(controller: controller),
-                          20.sH,
-                        ],
-                      ));
-                },
-              )
-            ],
+          child: GetBuilder<ForgetPasswordControllerImp>(
+            builder: (controller) {
+              return SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      IconAndTextBack(
+                        onTap: () => Get.offNamed(RouteHelper.getForgetPass()),
+                      ),
+                      _body(controller)
+                    ],
+                  ));
+            },
           ),
         ),
       ),
@@ -51,26 +33,42 @@ class ResetPasswordScreen extends StatelessWidget {
   }
 }
 
-_bottomNavigationBar(ForgetPasswordControllerImp controller) => Padding(
-      padding: paddingSymme(horizontal: 30),
+_body(ForgetPasswordControllerImp controller) => Padding(
+      padding: paddingSymme(horizontal: 25),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AbsorbPointer(
-            absorbing: controller.isEmptyFeild,
-            child: BtnWidget(
-              "Save".tr,
-              fontSize: 18.weight,
-              width: double.infinity,
-              height: 50.height,
-              backgroundColor: controller.isEmptyFeild
-                  ? AppColors.grey.withOpacity(0.6)
-                  : AppColors.primary,
-              isLoading: controller.isLoading,
-              onPressed: () => controller.onTappedResetPass(),
+          Center(
+            child: screenPick(
+              icon: CupertinoIcons.lock_shield,
+              text: "Reset Password",
             ),
           ),
-          50.sH,
+          30.sH,
+          authTitle("set a new password!"),
+          10.sH,
+          TextFormResetBody(controller: controller),
+          20.sH
         ],
       ),
     );
+
+_bottomNavigationBar(ForgetPasswordControllerImp controller) {
+  // final String email = Get.arguments['email'];
+  return Padding(
+    padding: paddingSymme(horizontal: 30),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BtnWidget(
+          "Save".tr,
+          isLoading:
+              controller.requestStatus == RequestStatus.loading ? true : false,
+          height: 50.height,
+          onPressed: () => controller.onTappedResetPass( ),
+        ),
+        50.sH,
+      ],
+    ),
+  );
+}
